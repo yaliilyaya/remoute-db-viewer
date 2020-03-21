@@ -45,6 +45,16 @@ class DataBase
      * @var string|null
      */
     private $db;
+    /**
+     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @var boolean
+     */
+    private $isActive = true;
+    /**
+     * @ORM\Column(type="boolean", options={"default": "FALSE"})
+     * @var boolean
+     */
+    private $isDeleted = false;
 
     /**
      * @return int|null
@@ -169,6 +179,42 @@ class DataBase
     public function setDb(?string $db): DataBase
     {
         $this->db = $db;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return DataBase
+     */
+    public function setIsActive(bool $isActive): DataBase
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     * @return DataBase
+     */
+    public function setIsDeleted(bool $isDeleted): DataBase
+    {
+        $this->isDeleted = $isDeleted;
         return $this;
     }
 }

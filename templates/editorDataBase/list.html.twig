@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                <tr role="row">
+                    <th>Alias</th>
+                    <th>Connect</th>
+                    <th>Active</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dataBase in dataBases %}
+                    <tr role="row" class="odd">
+                        <td>{{ dataBase.alias }}</td>
+                        <td>{{ dataBase.user }}:***@{{ dataBase.host }}:{{ dataBase.port }}/{{ dataBase.db }}</td>
+                        <td>
+                            <a href="">active {{ dataBase.isActive }}</a>
+                        </td>
+                        <td>
+                            <a href="">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Alias</th>
+                    <th>Connect</th>
+                    <th>Active</th>
+                    <th>Tools</th>
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

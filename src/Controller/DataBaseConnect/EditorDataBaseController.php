@@ -68,6 +68,5 @@ class EditorDataBaseController extends AbstractController
         return $this->render('editorDataBase/connect.html.twig', [
             'form' => $form->createView(),
         ]);
-
     }
 }
