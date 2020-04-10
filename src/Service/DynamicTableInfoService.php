@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\Table;
 use App\Factory\DynamicDataBaseConnectionFactory;
 use Doctrine\DBAL\DBALException;
@@ -14,10 +15,17 @@ class DynamicTableInfoService
      * @var DynamicDataBaseConnectionFactory
      */
     private $dynamicDataBaseConnectionFactory;
+    /**
+     * @var ColumnCollectionByTableBuilder
+     */
+    private $columnCollectionByTableBuilder;
 
-    public function __construct(DynamicDataBaseConnectionFactory $dynamicDataBaseConnectionFactory)
-    {
+    public function __construct(
+        DynamicDataBaseConnectionFactory $dynamicDataBaseConnectionFactory,
+        ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
+    ) {
         $this->dynamicDataBaseConnectionFactory = $dynamicDataBaseConnectionFactory;
+        $this->columnCollectionByTableBuilder = $columnCollectionByTableBuilder;
     }
 
     public function getTableInfo($db, $tableName)
@@ -33,6 +41,12 @@ class DynamicTableInfoService
 
         $table->setConnection($connection)
             ->setTableInfo($schemaManager->listTableDetails($tableName));
+
+        if (!$table->getColumns()->count())
+        {
+            $columns = $this->columnCollectionByTableBuilder->create($table);
+            $table->setColumns($columns);
+        }
 
         return $table;
     }

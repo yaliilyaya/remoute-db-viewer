@@ -7,7 +7,7 @@ namespace App\Service;
 use App\Entity\Column;
 use App\Entity\Row;
 use App\Entity\Table;
-use App\Iterator\RowsIterator;
+use App\Collection\RowsIterator;
 
 class DataListTableService
 {

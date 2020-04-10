@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                <tr role="row">
+                    {% for column in columns %}
+                        <th title="{{ column.description }}">{{ column.label }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in rows %}
+                    <tr role="row" class="odd">
+                        {% for column in columns %}
+                            <th>{{ row.data[column.name] }}</th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    {% for column in columns %}
+                        <th title="{{ column.description }}">{{ column.label }}</th>
+                    {% endfor %}
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

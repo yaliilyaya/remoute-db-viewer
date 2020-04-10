@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Iterator;
+namespace App\Collection;
 
 
 class RowsIterator extends \ArrayObject

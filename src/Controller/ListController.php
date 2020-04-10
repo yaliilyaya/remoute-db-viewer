@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Service\DataListTableService;
 use App\Service\DynamicTableInfoService;
+use App\Service\TableView\ViewColumnsTableListService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ListController
+class ListController extends AbstractController
 {
     /**
      * @var DynamicTableInfoService
@@ -17,13 +19,19 @@ class ListController
      * @var DataListTableService
      */
     private $dataListTableService;
+    /**
+     * @var ViewColumnsTableListService
+     */
+    private $viewColumnsTableListService;
 
     public function __construct(
         DynamicTableInfoService $dynamicTableInfoService,
-        DataListTableService $dataListTableService
+        DataListTableService $dataListTableService,
+        ViewColumnsTableListService $viewColumnsTableListService
     ) {
         $this->dynamicTableInfoService = $dynamicTableInfoService;
         $this->dataListTableService = $dataListTableService;
+        $this->viewColumnsTableListService = $viewColumnsTableListService;
     }
 
     /**
@@ -36,11 +44,13 @@ class ListController
     {
         $table = $this->dynamicTableInfoService->getTableInfo($db, $tableName);
         $rows = $this->dataListTableService->getRows($table);
-
+        $columns = $this->viewColumnsTableListService->getColumns($table);
+        dump($table);
         dump($rows);
 
-        return new Response(
-            '<html><body>Lucky number: '.$db .' '.$tableName.'</body></html>'
-        );
+        return $this->render('table/list.html.twig', [
+            'rows' => $rows,
+            'columns' => $columns
+        ]);
     }
 }

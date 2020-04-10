@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Collection\ColumnCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 
@@ -17,9 +18,15 @@ class Table
      */
     private $tableInfo;
     /**
-     * @var Column[]
+     * @var ColumnCollection
      */
     private $columns;
+
+
+    public function __construct()
+    {
+        $this->columns = new ColumnCollection();
+    }
 
     /**
      * @return Connection
@@ -58,18 +65,18 @@ class Table
     }
 
     /**
-     * @return Column[]
+     * @return ColumnCollection
      */
-    public function getColumns(): array
+    public function getColumns(): ColumnCollection
     {
         return $this->columns;
     }
 
     /**
-     * @param Column[] $columns
+     * @param ColumnCollection $columns
      * @return Table
      */
-    public function setColumns(array $columns): Table
+    public function setColumns(ColumnCollection $columns): Table
     {
         $this->columns = $columns;
         return $this;
