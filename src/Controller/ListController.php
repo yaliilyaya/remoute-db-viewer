@@ -9,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ListController
+ * @package App\Controller
+ */
 class ListController extends AbstractController
 {
     /**
@@ -45,8 +49,6 @@ class ListController extends AbstractController
         $table = $this->dynamicTableInfoService->getTableInfo($db, $tableName);
         $rows = $this->dataListTableService->getRows($table);
         $columns = $this->viewColumnsTableListService->getColumns($table);
-        dump($table);
-        dump($rows);
 
         return $this->render('table/list.html.twig', [
             'rows' => $rows,
