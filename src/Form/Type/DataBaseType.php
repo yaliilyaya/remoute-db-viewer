@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class DataBaseType extends AbstractType
 {
+    public const METHOD_EDIT_TYPE = 'edit';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -19,8 +21,20 @@ class DataBaseType extends AbstractType
             ->add('port', TextType::class)
             ->add('user', TextType::class)
             ->add('password', TextType::class)
-            ->add('db', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Connect Data Base'])
-            ->getForm();
+            ->add('db', TextType::class);
+
+        $method = $options['method'];
+        if ($method === self::METHOD_EDIT_TYPE)
+        {
+            $builder->add('edit', SubmitType::class, ['label' => 'Edit Connect Data Base']);
+        }
+        else
+        {
+            $builder->add('save', SubmitType::class, ['label' => 'Connect Data Base']);
+        }
+
+        $builder->getForm();
+
+
     }
 }
