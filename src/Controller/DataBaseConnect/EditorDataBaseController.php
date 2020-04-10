@@ -42,9 +42,26 @@ class EditorDataBaseController extends AbstractController
             $this->baseRepository->remove($dataBase);
         }
 
-        return new Response(
-            '<html><body>remove: '.$id . '</body></html>'
-        );
+        return $this->redirect("/dataBase/list");
+    }
+
+    /**
+     * @Route("/dataBase/activate/{id}")
+     * @param $id
+     * @return Response
+     */
+    public function activate($id)
+    {
+        /** @var DataBase $dataBase */
+        $dataBase = $this->baseRepository->find($id);
+        if ($dataBase)
+        {
+            $isActive = !$dataBase->isActive();
+            $dataBase->setIsActive($isActive);
+            $this->baseRepository->save($dataBase);
+        }
+
+        return $this->redirect("/dataBase/list");
     }
 
     /**
@@ -55,6 +72,7 @@ class EditorDataBaseController extends AbstractController
     public function connect(Request $request)
     {
         $dataBase = new DataBase();
+        $dataBase->setPort(3306);
 
         $form = $this->createForm(DataBaseType::class, $dataBase);
         $form->handleRequest($request);
@@ -63,10 +81,27 @@ class EditorDataBaseController extends AbstractController
 
             $dataBase = $form->getData();
             $this->baseRepository->save($dataBase);
+
+            return $this->redirect("/dataBase/list");
         }
 
         return $this->render('editorDataBase/connect.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/dataBase/list")
+     * @return Response
+     */
+    public function list()
+    {
+        /** @var DataBase[] $dataBase */
+        $dataBases = $this->baseRepository->findAll();
+
+
+        return $this->render('editorDataBase/list.html.twig', [
+            'dataBases' => $dataBases
         ]);
     }
 }

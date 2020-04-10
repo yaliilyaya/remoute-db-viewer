@@ -22,18 +22,5 @@ class EditorTableDataBaseController  extends AbstractController
         $this->baseRepository = $baseRepository;
     }
 
-    /**
-     * @Route("/dataBase/list")
-     * @return Response
-     */
-    public function list()
-    {
-        /** @var DataBase[] $dataBase */
-        $dataBases = $this->baseRepository->findAll();
 
-
-        return $this->render('editorDataBase/list.html.twig', [
-            'dataBases' => $dataBases
-        ]);
-    }
 }

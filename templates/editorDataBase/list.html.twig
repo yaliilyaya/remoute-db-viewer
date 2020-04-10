@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
+    <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_connect') }}">Create connection</a>
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
             <table class="table table-bordered table-hover dataTable">
@@ -18,10 +19,10 @@
                         <td>{{ dataBase.alias }}</td>
                         <td>{{ dataBase.user }}:***@{{ dataBase.host }}:{{ dataBase.port }}/{{ dataBase.db }}</td>
                         <td>
-                            <a href="">active {{ dataBase.isActive }}</a>
+                            <a href="{{ path('app_databaseconnect_editordatabase_activate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
                         </td>
                         <td>
-                            <a href="">delete</a>
+                            <a class="btn" href="{{ path('app_databaseconnect_editordatabase_delete', {'id': dataBase.id}) }}">delete</a>
                         </td>
                     </tr>
                 {% endfor %}
