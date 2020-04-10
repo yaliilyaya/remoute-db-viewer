@@ -8,6 +8,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * Class DataBaseRepository
+ * @package App\Repository
+ * @method DataBase findOneBy(array $criteria, array $orderBy = null)
+ * @method DataBase[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
 class DataBaseRepository extends ServiceEntityRepository
 {
     /**
@@ -34,5 +40,14 @@ class DataBaseRepository extends ServiceEntityRepository
     {
         $this->entityManager->remove($dataBase);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $alias
+     * @return DataBase|null
+     */
+    public function findByAlias(string $alias)
+    {
+        return $this->findOneBy(['alias' => $alias]);
     }
 }

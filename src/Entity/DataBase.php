@@ -217,4 +217,14 @@ class DataBase
         $this->isDeleted = $isDeleted;
         return $this;
     }
+
+    public function getConnectionUrl()
+    {
+        return sprintf('mysql://%s:%s@%s:%s/%s',
+            $this->user,
+            $this->password,
+            $this->host,
+            $this->port,
+            $this->db);
+    }
 }
