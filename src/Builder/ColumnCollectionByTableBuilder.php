@@ -35,6 +35,12 @@ class ColumnCollectionByTableBuilder
             $column->setIsViewList(true);
         });
 
+        $columnPopup = array_slice($columns, 0, 20);
+        array_walk($columnPopup, static function (Column $column)
+        {
+            $column->setIsViewPopup(true);
+        });
+
         return new ColumnCollection($columns);
     }
 }

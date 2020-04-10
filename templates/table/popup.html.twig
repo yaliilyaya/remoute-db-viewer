@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <table class="table table-bordered table-striped js-options-table js-options-table">
+                <thead>
+                <tr role="row">
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for column in columns %}
+                    <tr>
+                        <td title="{{ column.description }}">{{ column.label }}</td>
+                        <td>{{ row.data[column.name] }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
