@@ -91,6 +91,33 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
+     * @Route("/dataBase/edit/{id}")
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Request $request, $id)
+    {
+        /** @var DataBase $dataBase */
+        $dataBase = $this->baseRepository->find($id);
+
+        $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $dataBase = $form->getData();
+            $this->baseRepository->save($dataBase);
+
+            return $this->redirect("/dataBase/list");
+        }
+
+        return $this->render('editorDataBase/connect.html.twig', [
+            'form' => $form->createView(),
+            'edit' => true
+        ]);
+    }
+
+    /**
      * @Route("/dataBase/list")
      * @return Response
      */

@@ -21,8 +21,11 @@
                         <td>
                             <a href="{{ path('app_databaseconnect_editordatabase_activate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
                         </td>
-                        <td>
-                            <a class="btn" href="{{ path('app_databaseconnect_editordatabase_delete', {'id': dataBase.id}) }}">delete</a>
+                        <td width="100">
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_delete', {'id': dataBase.id}) }}">delete</a>
+                                <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_edit', {'id': dataBase.id}) }}">edit</a>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
