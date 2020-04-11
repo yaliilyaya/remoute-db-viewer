@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DataBaseRepository")
  */
@@ -55,6 +58,18 @@ class RemoteDataBase
      * @var boolean
      */
     private $isDeleted = false;
+    /**
+     * @OneToMany(targetEntity="App\Entity\RemoteTable", mappedBy="database", fetch="EXTRA_LAZY")
+     *
+     * @var PersistentCollection
+     */
+    private $tables;
+
+
+    public function __construct()
+    {
+        $this->tables = new PersistentCollection ();
+    }
 
     /**
      * @return int|null
@@ -215,6 +230,24 @@ class RemoteDataBase
     public function setIsDeleted(bool $isDeleted): RemoteDataBase
     {
         $this->isDeleted = $isDeleted;
+        return $this;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getTables(): PersistentCollection
+    {
+        return $this->tables;
+    }
+
+    /**
+     * @param PersistentCollection $tables
+     * @return RemoteDataBase
+     */
+    public function setTables(PersistentCollection $tables): RemoteDataBase
+    {
+        $this->tables = $tables;
         return $this;
     }
 

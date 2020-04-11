@@ -75,7 +75,7 @@ class SyncRemoteTableService
         }
         $tableNames = $this->remoteTableNamesService->getNames($connection);
 
-        return array_map(function ($tableName) use ($connection)
+        return array_map(function ($tableName) use ($connection, $dataBase)
         {
             try {
                 $table = $this->remoteTableInfoService->getTableInfo($connection, $tableName);
@@ -85,7 +85,8 @@ class SyncRemoteTableService
             }
 
             $table->setName($tableName)
-                ->setLabel($tableName);
+                ->setLabel($tableName)
+                ->setDatabase($dataBase);
             return $table;
         }, $tableNames);
     }

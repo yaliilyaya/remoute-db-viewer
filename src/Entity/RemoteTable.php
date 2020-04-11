@@ -6,6 +6,8 @@ use App\Collection\ColumnCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+
 /**
  * Class Table
  * @package App\Entity
@@ -55,7 +57,11 @@ class RemoteTable
      * @var boolean
      */
     private $isActive;
-
+    /**
+     * @var RemoteDataBase
+     * @ManyToOne(targetEntity="App\Entity\RemoteDataBase")
+     */
+    private $database;
 
     public function __construct()
     {
@@ -216,4 +222,23 @@ class RemoteTable
         $this->isActive = $isActive;
         return $this;
     }
+
+    /**
+     * @return RemoteDataBase
+     */
+    public function getDatabase(): RemoteDataBase
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param RemoteDataBase $database
+     * @return RemoteTable
+     */
+    public function setDatabase(RemoteDataBase $database): RemoteTable
+    {
+        $this->database = $database;
+        return $this;
+    }
+
 }
