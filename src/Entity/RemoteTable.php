@@ -46,7 +46,7 @@ class RemoteTable
      */
     private $name;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
     private $description;
@@ -60,6 +60,7 @@ class RemoteTable
     public function __construct()
     {
         $this->columns = new ColumnCollection();
+        $this->isActive = true;
     }
 
     /**
@@ -121,7 +122,17 @@ class RemoteTable
      */
     public function getName()
     {
-        return $this->tableInfo->getName();
+        return $this->name ?? $this->tableInfo->getName();
+    }
+
+    /**
+     * @param string|null $name
+     * @return RemoteTable
+     */
+    public function setName(?string $name): RemoteTable
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function getListRowCount()

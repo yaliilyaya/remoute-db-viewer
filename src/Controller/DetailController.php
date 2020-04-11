@@ -44,7 +44,7 @@ class DetailController extends AbstractController
     }
 
     /**
-     * @Route("/detail/{db}/{tableName}/{id}")
+     * @Route("/detail/{db}/{tableName}/{id}", name="detail")
      * @param $db
      * @param $tableName
      * @param $id

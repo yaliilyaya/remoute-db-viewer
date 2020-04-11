@@ -1,30 +1,40 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_connect') }}">Sync</a>
+    <a class="btn btn-default" href="{{ path('app_databaseconnect_editortabledatabase_sync') }}">Sync</a>
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
             <table class="table table-bordered table-hover dataTable">
                 <thead>
                 <tr role="row">
-                    <th>Alias</th>
-                    <th>Connect</th>
-                    <th>Active</th>
+                    <th>Label</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>IsActive</th>
                     <th>Tools</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for table in tables %}
                     <tr role="row" class="odd">
-                        <td>!!!</td>
+                        <td>
+                            <a href="{{ path('list',{'db': 'procedure', 'tableName':table.name }) }}">{{ table.name }}</a>
+                        </td>
+                        <td>{{ table.label }}</td>
+                        <td>{{ table.description }}</td>
+                        <td>{{ table.isActive }}</td>
+                        <td>
+
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Alias</th>
-                    <th>Connect</th>
-                    <th>Active</th>
+                    <th>Label</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>IsActive</th>
                     <th>Tools</th>
                 </tr>
                 </tfoot>

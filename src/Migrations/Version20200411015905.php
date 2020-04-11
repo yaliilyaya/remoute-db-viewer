@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200411003147 extends AbstractMigration
+final class Version20200411015905 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,7 @@ final class Version20200411003147 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
-        $this->addSql('CREATE TABLE remote_table (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, label VARCHAR(50) NOT NULL, name VARCHAR(50) NOT NULL, description VARCHAR(255) NOT NULL, is_active BOOLEAN DEFAULT \'TRUE\' NOT NULL)');
-        $this->addSql('DROP TABLE "table"');
+        $this->addSql('CREATE TABLE remote_table (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, label VARCHAR(50) NOT NULL, name VARCHAR(50) NOT NULL, description VARCHAR(255) DEFAULT NULL, is_active BOOLEAN DEFAULT \'TRUE\' NOT NULL)');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +30,6 @@ final class Version20200411003147 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
-        $this->addSql('CREATE TABLE "table" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, label VARCHAR(50) NOT NULL COLLATE BINARY, name VARCHAR(50) NOT NULL COLLATE BINARY, description VARCHAR(255) NOT NULL COLLATE BINARY, is_active BOOLEAN DEFAULT \'TRUE\' NOT NULL)');
         $this->addSql('DROP TABLE remote_table');
     }
 }

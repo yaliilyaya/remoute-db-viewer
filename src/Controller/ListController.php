@@ -47,7 +47,7 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{db}/{tableName}")
+     * @Route("/list/{db}/{tableName}", name="list")
      * @param $db
      * @param $tableName
      * @return Response
