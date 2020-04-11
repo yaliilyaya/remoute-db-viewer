@@ -7,6 +7,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Class Table
@@ -24,10 +26,7 @@ class RemoteTable
      * @var TableInfo
      */
     private $tableInfo;
-    /**
-     * @var ColumnCollection
-     */
-    private $columns;
+
 
     /**
      * @ORM\Id
@@ -62,10 +61,14 @@ class RemoteTable
      * @ManyToOne(targetEntity="App\Entity\RemoteDataBase")
      */
     private $database;
+    /**
+     * @OneToMany(targetEntity="App\Entity\RemoteTableColumn", mappedBy="table", cascade={"persist"})
+     * @var PersistentCollection
+     */
+    private $columns;
 
     public function __construct()
     {
-        $this->columns = new ColumnCollection();
         $this->isActive = true;
     }
 

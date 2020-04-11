@@ -18,10 +18,11 @@ class ColumnCollectionByTableBuilder
     public function create(RemoteTable $table)
     {
         $columnInfoList = $table->getTableInfo()->getColumns();
-        $columns = array_map(static function (ColumnInfo $columnInfo)
+        $columns = array_map(static function (ColumnInfo $columnInfo) use ($table)
         {
             $column = new RemoteTableColumn();
-            return $column->setName($columnInfo->getName())
+            return $column->setTable($table)
+                ->setName($columnInfo->getName())
                 ->setLabel($columnInfo->getName())
                 ->setDescription($columnInfo->getComment() ?: "")
                 ->setType($columnInfo->getType())

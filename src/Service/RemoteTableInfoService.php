@@ -41,11 +41,11 @@ class RemoteTableInfoService
         $table->setConnection($connection)
             ->setTableInfo($schemaManager->listTableDetails($tableName));
 
-        if (!$table->getColumns()->count())
-        {
-            $columns = $this->columnCollectionByTableBuilder->create($table);
-            $table->setColumns($columns);
-        }
+//        if (!$table->getColumns()->count())
+//        {
+//            $columns = $this->columnCollectionByTableBuilder->create($table);
+//            $table->setColumns($columns);
+//        }
 
         return $table;
     }
