@@ -5,7 +5,13 @@ namespace App\Entity;
 use App\Collection\ColumnCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Table
+ * @package App\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TableRepository")
+ */
 class Table
 {
     /**
@@ -21,6 +27,35 @@ class Table
      * @var ColumnCollection
      */
     private $columns;
+
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @var string|null
+     */
+    private $label;
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @var string|null
+     */
+    private $name;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     */
+    private $description;
+    /**
+     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @var boolean
+     */
+    private $isActive;
 
 
     public function __construct()

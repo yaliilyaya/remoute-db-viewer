@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_connect') }}">Create connection</a>
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                <tr role="row">
+                    <th>Alias</th>
+                    <th>Connect</th>
+                    <th>Active</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for table in tables %}
+                    <tr role="row" class="odd">
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Alias</th>
+                    <th>Connect</th>
+                    <th>Active</th>
+                    <th>Tools</th>
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
