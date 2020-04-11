@@ -51,11 +51,11 @@ class SyncRemoteTableService
     }
 
     /**
-     * @param DataBase[] $dataBases
+     * @param DataBase $dataBase
      */
-    public function sync(array $dataBases)
+    public function sync(DataBase $dataBase)
     {
-        $tables = $this->findTables($dataBases);
+        $tables = $this->getTables($dataBase);
         array_walk($tables, [$this->entityManager, 'persist']);
         $this->entityManager->flush();
     }
@@ -90,17 +90,4 @@ class SyncRemoteTableService
         }, $tableNames);
     }
 
-    private function findTables(array $dataBases)
-    {
-        $tables = array_map(function (DataBase $dataBase)
-        {
-            try {
-                return $this->getTables($dataBase);
-            } catch (DBALException $e) {
-                return  [];
-            }
-        }, $dataBases);
-
-        return $tables ? array_merge(...$tables) : [];
-    }
 }

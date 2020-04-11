@@ -1,7 +1,6 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    <a class="btn btn-default" href="{{ path('app_databaseconnect_editortabledatabase_sync') }}">Sync</a>
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
             <table class="table table-bordered table-hover dataTable">

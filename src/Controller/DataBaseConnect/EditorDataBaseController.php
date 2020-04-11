@@ -7,6 +7,7 @@ namespace App\Controller\DataBaseConnect;
 use App\Entity\DataBase;
 use App\Form\Type\DataBaseType;
 use App\Repository\DataBaseRepository;
+use App\Service\SyncRemoteTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,11 +22,18 @@ class EditorDataBaseController extends AbstractController
     /**
      * @var DataBaseRepository
      */
-    private $baseRepository;
+    private $dataBaseRepository;
+    /**
+     * @var SyncRemoteTableService
+     */
+    private $syncRemoteTableService;
 
-    public function __construct(DataBaseRepository $baseRepository)
-    {
-        $this->baseRepository = $baseRepository;
+    public function __construct(
+        DataBaseRepository $baseRepository,
+        SyncRemoteTableService $syncRemoteTableService
+    ) {
+        $this->dataBaseRepository = $baseRepository;
+        $this->syncRemoteTableService = $syncRemoteTableService;
     }
 
     /**
@@ -36,10 +44,10 @@ class EditorDataBaseController extends AbstractController
     public function delete($id)
     {
         /** @var DataBase $dataBase */
-        $dataBase = $this->baseRepository->find($id);
+        $dataBase = $this->dataBaseRepository->find($id);
         if ($dataBase)
         {
-            $this->baseRepository->remove($dataBase);
+            $this->dataBaseRepository->remove($dataBase);
         }
 
         return $this->redirect("/dataBase/list");
@@ -53,12 +61,12 @@ class EditorDataBaseController extends AbstractController
     public function activate($id)
     {
         /** @var DataBase $dataBase */
-        $dataBase = $this->baseRepository->find($id);
+        $dataBase = $this->dataBaseRepository->find($id);
         if ($dataBase)
         {
             $isActive = !$dataBase->isActive();
             $dataBase->setIsActive($isActive);
-            $this->baseRepository->save($dataBase);
+            $this->dataBaseRepository->save($dataBase);
         }
 
         return $this->redirect("/dataBase/list");
@@ -80,7 +88,7 @@ class EditorDataBaseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $dataBase = $form->getData();
-            $this->baseRepository->save($dataBase);
+            $this->dataBaseRepository->save($dataBase);
 
             return $this->redirect("/dataBase/list");
         }
@@ -98,7 +106,7 @@ class EditorDataBaseController extends AbstractController
     public function edit(Request $request, $id)
     {
         /** @var DataBase $dataBase */
-        $dataBase = $this->baseRepository->find($id);
+        $dataBase = $this->dataBaseRepository->find($id);
 
         $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
         $form->handleRequest($request);
@@ -106,7 +114,7 @@ class EditorDataBaseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $dataBase = $form->getData();
-            $this->baseRepository->save($dataBase);
+            $this->dataBaseRepository->save($dataBase);
 
             return $this->redirect("/dataBase/list");
         }
@@ -124,11 +132,23 @@ class EditorDataBaseController extends AbstractController
     public function list()
     {
         /** @var DataBase[] $dataBase */
-        $dataBases = $this->baseRepository->findAll();
-
+        $dataBases = $this->dataBaseRepository->findAll();
 
         return $this->render('editorDataBase/list.html.twig', [
             'dataBases' => $dataBases
         ]);
+    }
+
+    /**
+     * @Route("/table/sync/{dbName}", name="syncTable")
+     * @param $dbName
+     * @return Response
+     */
+    public function syncTable($dbName)
+    {
+        $dataBases = $this->dataBaseRepository->findByAlias($dbName);
+        $this->syncRemoteTableService->sync($dataBases);
+
+        return $this->redirect("/dataBase/list");
     }
 }
