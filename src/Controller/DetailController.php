@@ -3,9 +3,11 @@
 
 namespace App\Controller;
 
+use App\Factory\ConnectionFactory;
 use App\Service\DetailRowTableService;
 use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsRowDetailService;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,15 +26,21 @@ class DetailController extends AbstractController
      * @var ViewColumnsRowDetailService
      */
     private $viewColumnsRowDetailService;
+    /**
+     * @var ConnectionFactory
+     */
+    private $connectionFactory;
 
     public function __construct(
         RemoteTableInfoService $dynamicTableInfoService,
         DetailRowTableService $detailRowTableService,
-        ViewColumnsRowDetailService $viewColumnsRowDetailService
+        ViewColumnsRowDetailService $viewColumnsRowDetailService,
+        ConnectionFactory $connectionFactory
     ) {
         $this->dynamicTableInfoService = $dynamicTableInfoService;
         $this->detailRowTableService = $detailRowTableService;
         $this->viewColumnsRowDetailService = $viewColumnsRowDetailService;
+        $this->connectionFactory = $connectionFactory;
     }
 
     /**
@@ -41,10 +49,12 @@ class DetailController extends AbstractController
      * @param $tableName
      * @param $id
      * @return Response
+     * @throws DBALException
      */
     public function list($db, $tableName, $id)
     {
-        $table = $this->dynamicTableInfoService->getTableInfo($db, $tableName);
+        $connection = $this->connectionFactory->createConnection($db);
+        $table = $this->dynamicTableInfoService->getTableInfo($connection, $tableName);
         $row = $this->detailRowTableService->getRow($table, $id);
         $columns = $this->viewColumnsRowDetailService->getColumns($table);
 

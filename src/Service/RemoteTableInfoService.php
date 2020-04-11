@@ -3,11 +3,10 @@
 
 namespace App\Service;
 
-
 use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\RemoteTable;
 use App\Factory\ConnectionFactory;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Connection;
 
 class RemoteTableInfoService
 {
@@ -28,13 +27,13 @@ class RemoteTableInfoService
         $this->columnCollectionByTableBuilder = $columnCollectionByTableBuilder;
     }
 
-    public function getTableInfo($db, $tableName)
+    /**
+     * @param Connection $connection
+     * @param $tableName
+     * @return RemoteTable|null
+     */
+    public function getTableInfo(Connection $connection, $tableName)
     {
-        try {
-            $connection = $this->dynamicDataBaseConnectionFactory->createConnection($db);
-        } catch (DBALException $e) {
-            return null;
-        }
         $schemaManager = $connection->getSchemaManager();
 
         $table = new RemoteTable();

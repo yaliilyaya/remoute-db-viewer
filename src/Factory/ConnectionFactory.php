@@ -23,7 +23,6 @@ class ConnectionFactory
 
     /**
      * @param string $alias alias or full connection
-     * TODO:: alias
      * @return Connection
      * @throws DBALException
      * @throws Exception
