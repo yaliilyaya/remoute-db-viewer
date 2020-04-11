@@ -4,7 +4,7 @@
 namespace App\Controller\DataBaseConnect;
 
 
-use App\Entity\DataBase;
+use App\Entity\RemoteDataBase;
 use App\Repository\DataBaseRepository;
 use App\Repository\RemoteTableRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +42,7 @@ class EditorTableDataBaseController  extends AbstractController
      */
     public function list()
     {
-        /** @var DataBase[] $dataBase */
+        /** @var RemoteDataBase[] $dataBase */
         $tables = $this->tableRepository->findAll();
 
         return $this->render('editorDataBase/tables.html.twig', [

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DataBaseRepository")
  */
-class DataBase
+class RemoteDataBase
 {
     /**
      * @ORM\Id
@@ -66,9 +66,9 @@ class DataBase
 
     /**
      * @param int|null $id
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setId(?int $id): DataBase
+    public function setId(?int $id): RemoteDataBase
     {
         $this->id = $id;
         return $this;
@@ -84,9 +84,9 @@ class DataBase
 
     /**
      * @param string|null $alias
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setAlias(?string $alias): DataBase
+    public function setAlias(?string $alias): RemoteDataBase
     {
         $this->alias = $alias;
         return $this;
@@ -102,9 +102,9 @@ class DataBase
 
     /**
      * @param string|null $host
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setHost(?string $host): DataBase
+    public function setHost(?string $host): RemoteDataBase
     {
         $this->host = $host;
         return $this;
@@ -120,9 +120,9 @@ class DataBase
 
     /**
      * @param string|null $port
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setPort(?string $port): DataBase
+    public function setPort(?string $port): RemoteDataBase
     {
         $this->port = $port;
         return $this;
@@ -138,9 +138,9 @@ class DataBase
 
     /**
      * @param string|null $user
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setUser(?string $user): DataBase
+    public function setUser(?string $user): RemoteDataBase
     {
         $this->user = $user;
         return $this;
@@ -156,9 +156,9 @@ class DataBase
 
     /**
      * @param string|null $password
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setPassword(?string $password): DataBase
+    public function setPassword(?string $password): RemoteDataBase
     {
         $this->password = $password;
         return $this;
@@ -174,9 +174,9 @@ class DataBase
 
     /**
      * @param string|null $db
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setDb(?string $db): DataBase
+    public function setDb(?string $db): RemoteDataBase
     {
         $this->db = $db;
         return $this;
@@ -192,9 +192,9 @@ class DataBase
 
     /**
      * @param bool $isActive
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setIsActive(bool $isActive): DataBase
+    public function setIsActive(bool $isActive): RemoteDataBase
     {
         $this->isActive = $isActive;
         return $this;
@@ -210,9 +210,9 @@ class DataBase
 
     /**
      * @param bool $isDeleted
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setIsDeleted(bool $isDeleted): DataBase
+    public function setIsDeleted(bool $isDeleted): RemoteDataBase
     {
         $this->isDeleted = $isDeleted;
         return $this;

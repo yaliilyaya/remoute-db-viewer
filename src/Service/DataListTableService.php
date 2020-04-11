@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\Entity\Column;
-use App\Entity\Row;
+use App\Entity\RemoteTableColumn;
+use App\Entity\RemoteRow;
 use App\Entity\RemoteTable;
 use App\Collection\RowsIterator;
 
@@ -14,7 +14,7 @@ class DataListTableService
     public function getRows(RemoteTable $table)
     {
         $queryBuilder = $table->getConnection()->createQueryBuilder();
-        $queryBuilder->select($table->getFieldSet(Column::TYPE_LIST))
+        $queryBuilder->select($table->getFieldSet(RemoteTableColumn::TYPE_LIST))
             ->from($table->getName())
             ->setMaxResults($table->getListRowCount());
 
@@ -28,7 +28,7 @@ class DataListTableService
 
     private function createRow($dataRow)
     {
-        $row = new Row();
+        $row = new RemoteRow();
         $row->setData($dataRow);
         return $row;
     }

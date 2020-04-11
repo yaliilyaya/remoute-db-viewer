@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\DataBase;
+use App\Entity\RemoteDataBase;
 use App\Entity\RemoteTable;
 use App\Factory\ConnectionFactory;
 use Doctrine\DBAL\DBALException;
@@ -51,9 +51,9 @@ class SyncRemoteTableService
     }
 
     /**
-     * @param DataBase $dataBase
+     * @param RemoteDataBase $dataBase
      */
-    public function sync(DataBase $dataBase)
+    public function sync(RemoteDataBase $dataBase)
     {
         $tables = $this->getTables($dataBase);
         array_walk($tables, [$this->entityManager, 'persist']);
@@ -61,10 +61,10 @@ class SyncRemoteTableService
     }
 
     /**
-     * @param DataBase $dataBase
+     * @param RemoteDataBase $dataBase
      * @return array
      */
-    private function getTables(DataBase $dataBase)
+    private function getTables(RemoteDataBase $dataBase)
     {
         try {
             $connection = $this->connectionFactory->createConnection($dataBase->getAlias());
