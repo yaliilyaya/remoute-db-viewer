@@ -6,12 +6,12 @@ namespace App\Service;
 
 use App\Entity\Column;
 use App\Entity\Row;
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 use App\Collection\RowsIterator;
 
 class DataListTableService
 {
-    public function getRows(Table $table)
+    public function getRows(RemoteTable $table)
     {
         $queryBuilder = $table->getConnection()->createQueryBuilder();
         $queryBuilder->select($table->getFieldSet(Column::TYPE_LIST))

@@ -4,7 +4,7 @@
 namespace App\Service\TableView;
 
 use App\Collection\ColumnCollection;
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 
 /**
  * Class ViewColumnsRowDetailService
@@ -13,10 +13,10 @@ use App\Entity\Table;
 class ViewColumnsRowDetailService implements TableViewColumnsInterface
 {
     /**
-     * @param Table $table
+     * @param RemoteTable $table
      * @return ColumnCollection
      */
-    public function getColumns(Table $table)
+    public function getColumns(RemoteTable $table)
     {
         return $table->getColumns()
             ->filterByViewDetail();

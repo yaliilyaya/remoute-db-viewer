@@ -6,14 +6,14 @@ namespace App\Service;
 
 use App\Entity\Column;
 use App\Entity\Row;
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 use App\Collection\RowsIterator;
 use Doctrine\DBAL\DBALException;
 
 class DetailRowTableService
 {
 
-    public function getRow(Table $table, $id)
+    public function getRow(RemoteTable $table, $id)
     {
         $queryBuilder = $table->getConnection()->createQueryBuilder();
         //TODO:: filter field

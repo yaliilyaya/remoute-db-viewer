@@ -6,7 +6,7 @@ namespace App\Controller\DataBaseConnect;
 
 use App\Entity\DataBase;
 use App\Repository\DataBaseRepository;
-use App\Repository\TableRepository;
+use App\Repository\RemoteTableRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,11 +15,11 @@ class EditorTableDataBaseController  extends AbstractController
 {
 
     /**
-     * @var TableRepository
+     * @var RemoteTableRepository
      */
     private $tableRepository;
 
-    public function __construct(TableRepository $tableRepository)
+    public function __construct(RemoteTableRepository $tableRepository)
     {
         $this->tableRepository = $tableRepository;
     }

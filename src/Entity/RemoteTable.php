@@ -6,13 +6,12 @@ use App\Collection\ColumnCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Class Table
  * @package App\Entity
- * @ORM\Entity(repositoryClass="App\Repository\TableRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RemoteTableRepository")
  */
-class Table
+class RemoteTable
 {
     /**
      * @var Connection
@@ -73,7 +72,7 @@ class Table
 
     /**
      * @param Connection $connection
-     * @return Table
+     * @return RemoteTable
      */
     public function setConnection($connection)
     {
@@ -91,9 +90,9 @@ class Table
 
     /**
      * @param TableInfo $tableInfo
-     * @return Table
+     * @return RemoteTable
      */
-    public function setTableInfo(TableInfo $tableInfo): Table
+    public function setTableInfo(TableInfo $tableInfo): RemoteTable
     {
         $this->tableInfo = $tableInfo;
         return $this;
@@ -109,9 +108,9 @@ class Table
 
     /**
      * @param ColumnCollection $columns
-     * @return Table
+     * @return RemoteTable
      */
-    public function setColumns(ColumnCollection $columns): Table
+    public function setColumns(ColumnCollection $columns): RemoteTable
     {
         $this->columns = $columns;
         return $this;
@@ -133,5 +132,77 @@ class Table
     public function getFieldSet(string $fieldSet)
     {
         return ['*'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return RemoteTable
+     */
+    public function setId(int $id): RemoteTable
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string|null $label
+     * @return RemoteTable
+     */
+    public function setLabel(?string $label): RemoteTable
+    {
+        $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     * @return RemoteTable
+     */
+    public function setDescription(?string $description): RemoteTable
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return RemoteTable
+     */
+    public function setIsActive(bool $isActive): RemoteTable
+    {
+        $this->isActive = $isActive;
+        return $this;
     }
 }

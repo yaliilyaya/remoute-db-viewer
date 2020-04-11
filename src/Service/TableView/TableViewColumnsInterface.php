@@ -4,13 +4,13 @@
 namespace App\Service\TableView;
 
 
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 
 interface TableViewColumnsInterface
 {
     /**
-     * @param Table $table
+     * @param RemoteTable $table
      * @return array
      */
-    public function getColumns(Table $table);
+    public function getColumns(RemoteTable $table);
 }

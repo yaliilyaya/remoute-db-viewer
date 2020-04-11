@@ -5,7 +5,7 @@ namespace App\Service;
 
 
 use App\Builder\ColumnCollectionByTableBuilder;
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 use App\Factory\DynamicDataBaseConnectionFactory;
 use Doctrine\DBAL\DBALException;
 
@@ -37,7 +37,7 @@ class DynamicTableInfoService
         }
         $schemaManager = $connection->getSchemaManager();
 
-        $table = new Table();
+        $table = new RemoteTable();
 
         $table->setConnection($connection)
             ->setTableInfo($schemaManager->listTableDetails($tableName));

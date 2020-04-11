@@ -6,16 +6,16 @@ namespace App\Builder;
 
 use App\Collection\ColumnCollection;
 use App\Entity\Column;
-use App\Entity\Table;
+use App\Entity\RemoteTable;
 use Doctrine\DBAL\Schema\Column as ColumnInfo;
 
 class ColumnCollectionByTableBuilder
 {
     /**
-     * @param Table $table
+     * @param RemoteTable $table
      * @return ColumnCollection
      */
-    public function create(Table $table)
+    public function create(RemoteTable $table)
     {
         $columnInfoList = $table->getTableInfo()->getColumns();
         $columns = array_map(static function (ColumnInfo $columnInfo)
