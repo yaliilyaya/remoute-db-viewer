@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Service\DetailRowTableService;
-use App\Service\DynamicTableInfoService;
+use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsRowDetailService;
 use App\Service\TableView\ViewColumnsRowPopupService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PopupController extends AbstractController
 {
     /**
-     * @var DynamicTableInfoService
+     * @var RemoteTableInfoService
      */
     private $dynamicTableInfoService;
     /**
@@ -27,7 +27,7 @@ class PopupController extends AbstractController
     private $viewColumnsRowPopupService;
 
     public function __construct(
-        DynamicTableInfoService $dynamicTableInfoService,
+        RemoteTableInfoService $dynamicTableInfoService,
         DetailRowTableService $detailRowTableService,
         ViewColumnsRowPopupService $viewColumnsRowPopupService
     ) {

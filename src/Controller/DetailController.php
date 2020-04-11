@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Service\DetailRowTableService;
-use App\Service\DynamicTableInfoService;
+use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsRowDetailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailController extends AbstractController
 {
     /**
-     * @var DynamicTableInfoService
+     * @var RemoteTableInfoService
      */
     private $dynamicTableInfoService;
     /**
@@ -26,7 +26,7 @@ class DetailController extends AbstractController
     private $viewColumnsRowDetailService;
 
     public function __construct(
-        DynamicTableInfoService $dynamicTableInfoService,
+        RemoteTableInfoService $dynamicTableInfoService,
         DetailRowTableService $detailRowTableService,
         ViewColumnsRowDetailService $viewColumnsRowDetailService
     ) {

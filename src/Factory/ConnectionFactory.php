@@ -9,7 +9,7 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Exception;
 
-class DynamicDataBaseConnectionFactory
+class ConnectionFactory
 {
     /**
      * @var DataBaseRepository

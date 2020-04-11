@@ -6,13 +6,13 @@ namespace App\Service;
 
 use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\RemoteTable;
-use App\Factory\DynamicDataBaseConnectionFactory;
+use App\Factory\ConnectionFactory;
 use Doctrine\DBAL\DBALException;
 
-class DynamicTableInfoService
+class RemoteTableInfoService
 {
     /**
-     * @var DynamicDataBaseConnectionFactory
+     * @var ConnectionFactory
      */
     private $dynamicDataBaseConnectionFactory;
     /**
@@ -21,7 +21,7 @@ class DynamicTableInfoService
     private $columnCollectionByTableBuilder;
 
     public function __construct(
-        DynamicDataBaseConnectionFactory $dynamicDataBaseConnectionFactory,
+        ConnectionFactory $dynamicDataBaseConnectionFactory,
         ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
     ) {
         $this->dynamicDataBaseConnectionFactory = $dynamicDataBaseConnectionFactory;

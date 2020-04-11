@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DataListTableService;
-use App\Service\DynamicTableInfoService;
+use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsTableListService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
     /**
-     * @var DynamicTableInfoService
+     * @var RemoteTableInfoService
      */
     private $dynamicTableInfoService;
     /**
@@ -29,7 +29,7 @@ class ListController extends AbstractController
     private $viewColumnsTableListService;
 
     public function __construct(
-        DynamicTableInfoService $dynamicTableInfoService,
+        RemoteTableInfoService $dynamicTableInfoService,
         DataListTableService $dataListTableService,
         ViewColumnsTableListService $viewColumnsTableListService
     ) {

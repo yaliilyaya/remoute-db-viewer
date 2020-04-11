@@ -18,10 +18,17 @@ class EditorTableDataBaseController  extends AbstractController
      * @var RemoteTableRepository
      */
     private $tableRepository;
+    /**
+     * @var DataBaseRepository
+     */
+    private $dataBaseRepository;
 
-    public function __construct(RemoteTableRepository $tableRepository)
-    {
+    public function __construct(
+        RemoteTableRepository $tableRepository,
+        DataBaseRepository $dataBaseRepository
+    ) {
         $this->tableRepository = $tableRepository;
+        $this->dataBaseRepository = $dataBaseRepository;
     }
 
     /**
@@ -36,6 +43,16 @@ class EditorTableDataBaseController  extends AbstractController
         return $this->render('editorDataBase/tables.html.twig', [
             'tables' => $tables
         ]);
+    }
+    /**
+     * @Route("/table/sync")
+     * @return Response
+     */
+    public function sync()
+    {
+        /** @var DataBase[] $dataBase */
+        $dataBases = $this->dataBaseRepository->findAll();
+
     }
 
 }
