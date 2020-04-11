@@ -25,6 +25,7 @@
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                 <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_delete', {'id': dataBase.id}) }}">delete</a>
                                 <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_edit', {'id': dataBase.id}) }}">edit</a>
+                                <a class="btn btn-default" href="{{ path('syncTable', {'dbName': dataBase.alias}) }}">Sync Table</a>
                             </div>
                         </td>
                     </tr>
