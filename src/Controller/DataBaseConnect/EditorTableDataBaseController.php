@@ -37,7 +37,7 @@ class EditorTableDataBaseController  extends AbstractController
     }
 
     /**
-     * @Route("/table/list")
+     * @Route("/table/list", name="tableList")
      * @return Response
      */
     public function list()

@@ -126,7 +126,7 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
-     * @Route("/dataBase/list")
+     * @Route("/dataBase/list", name="dataBaseList")
      * @return Response
      */
     public function list()
