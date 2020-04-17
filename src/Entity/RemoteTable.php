@@ -58,7 +58,7 @@ class RemoteTable
     private $isActive;
     /**
      * @var RemoteDataBase
-     * @ManyToOne(targetEntity="App\Entity\RemoteDataBase")
+     * @ManyToOne(targetEntity="App\Entity\RemoteDataBase", inversedBy="tables")
      */
     private $database;
     /**

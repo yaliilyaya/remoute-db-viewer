@@ -61,7 +61,7 @@ class RemoteTableColumn
     private $isViewPopup;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\RemoteTable"))
+     * @ManyToOne(targetEntity="App\Entity\RemoteTable", inversedBy="columns"))
      * @var RemoteTable
      */
     private $table;
