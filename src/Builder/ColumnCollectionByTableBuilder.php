@@ -28,7 +28,7 @@ class ColumnCollectionByTableBuilder
                 ->setType($columnInfo->getType())
                 ->setIsViewDetail(true);
 
-        }, $columnInfoList);
+        }, array_values($columnInfoList));
 
         $columnViewList = array_slice($columns, 0, 10);
         array_walk($columnViewList, static function (RemoteTableColumn $column)

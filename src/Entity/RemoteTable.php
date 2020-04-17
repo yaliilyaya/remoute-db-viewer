@@ -113,7 +113,8 @@ class RemoteTable
      */
     public function getColumns(): ColumnCollection
     {
-        return $this->columns;
+        $columns = $this->columns ? iterator_to_array($this->columns) : [];
+        return new ColumnCollection($columns);
     }
 
     /**

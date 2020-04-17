@@ -3,11 +3,8 @@
 namespace App\Service;
 
 use App\Builder\ColumnCollectionByTableBuilder;
-use App\Entity\RemoteDataBase;
 use App\Entity\RemoteTable;
-use App\Factory\ConnectionFactory;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -50,13 +47,15 @@ class SyncRemoteTableService
             ->setTableInfo($schemaManager->listTableDetails($table->getName()));
 
         $columns = $this->columnCollectionByTableBuilder->create($table);
+
         $table->setColumns($columns);
-        $this->save($columns->toArray());
+
+        $this->saveTable($table);
     }
 
-    private function save(array $columns)
+    private function saveTable(RemoteTable $table)
     {
-        array_walk($columns, [$this->entityManager, 'persist']);
+        $this->entityManager->persist($table);
         $this->entityManager->flush();
     }
 
