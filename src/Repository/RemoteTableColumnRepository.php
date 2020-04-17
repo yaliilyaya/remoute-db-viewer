@@ -3,7 +3,7 @@
 
 namespace App\Repository;
 
-use App\Entity\RemoteTable;
+use App\Entity\RemoteTableColumn;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,11 +11,10 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class TableRepository
  * @package App\Repository
- * @method RemoteTable find($id, $lockMode = null, $lockVersion = null)
- * @method RemoteTable findOneBy(array $criteria, array $orderBy = null)
- * @method RemoteTable[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RemoteTableColumn findOneBy(array $criteria, array $orderBy = null)
+ * @method RemoteTableColumn[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RemoteTableRepository extends ServiceEntityRepository
+class RemoteTableColumnRepository extends ServiceEntityRepository
 {
     /**
      * @var EntityManagerInterface
@@ -24,12 +23,12 @@ class RemoteTableRepository extends ServiceEntityRepository
 
     public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
-        parent::__construct($registry, RemoteTable::class);
+        parent::__construct($registry, RemoteTableColumn::class);
         $this->entityManager = $entityManager;
     }
 
     /**
-     * @param RemoteTable $Table
+     * @param RemoteTableColumn $Table
      */
     public function save($Table)
     {
@@ -37,7 +36,7 @@ class RemoteTableRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function remove(RemoteTable $Table)
+    public function remove(RemoteTableColumn $Table)
     {
         $this->entityManager->remove($Table);
         $this->entityManager->flush();

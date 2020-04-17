@@ -6,6 +6,10 @@ use App\Collection\ColumnCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
+
 /**
  * Class Table
  * @package App\Entity
@@ -22,10 +26,7 @@ class RemoteTable
      * @var TableInfo
      */
     private $tableInfo;
-    /**
-     * @var ColumnCollection
-     */
-    private $columns;
+
 
     /**
      * @ORM\Id
@@ -55,11 +56,19 @@ class RemoteTable
      * @var boolean
      */
     private $isActive;
-
+    /**
+     * @var RemoteDataBase
+     * @ManyToOne(targetEntity="App\Entity\RemoteDataBase", inversedBy="tables")
+     */
+    private $database;
+    /**
+     * @OneToMany(targetEntity="App\Entity\RemoteTableColumn", mappedBy="table", cascade={"persist"})
+     * @var PersistentCollection
+     */
+    private $columns;
 
     public function __construct()
     {
-        $this->columns = new ColumnCollection();
         $this->isActive = true;
     }
 
@@ -104,7 +113,8 @@ class RemoteTable
      */
     public function getColumns(): ColumnCollection
     {
-        return $this->columns;
+        $columns = $this->columns ? iterator_to_array($this->columns) : [];
+        return new ColumnCollection($columns);
     }
 
     /**
@@ -216,4 +226,23 @@ class RemoteTable
         $this->isActive = $isActive;
         return $this;
     }
+
+    /**
+     * @return RemoteDataBase
+     */
+    public function getDatabase(): RemoteDataBase
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param RemoteDataBase $database
+     * @return RemoteTable
+     */
+    public function setDatabase(RemoteDataBase $database): RemoteTable
+    {
+        $this->database = $database;
+        return $this;
+    }
+
 }

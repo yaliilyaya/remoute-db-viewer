@@ -3,46 +3,92 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
 
-class Column
+/**
+ * Class RemoteTableColumn
+ * @package App\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\RemoteTableColumnRepository")
+ */
+class RemoteTableColumn
 {
     public const TYPE_DETAIL = 'detail';
     public const TYPE_LIST = 'list';
 
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=50)
      * @var string
      */
     private $label;
     /**
+     * @ORM\Column(type="string", length=50)
      * @var string
      */
     private $name;
     /**
+     * @ORM\Column(type="string", length=50)
      * @var mixed
      */
     private $type;
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $description;
     /**
+     * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
     private $isViewList;
     /**
+     * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
     private $isViewDetail;
     /**
+     * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
     private $isViewPopup;
+
+    /**
+     * @ManyToOne(targetEntity="App\Entity\RemoteTable", inversedBy="columns"))
+     * @var RemoteTable
+     */
+    private $table;
 
     public function __construct()
     {
         $this->isViewList = false;
         $this->isViewDetail = false;
         $this->isViewPopup = false;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return RemoteTableColumn
+     */
+    public function setId(int $id): RemoteTableColumn
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -55,9 +101,9 @@ class Column
 
     /**
      * @param string $label
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setLabel(string $label): Column
+    public function setLabel(string $label): RemoteTableColumn
     {
         $this->label = $label;
         return $this;
@@ -73,9 +119,9 @@ class Column
 
     /**
      * @param string $name
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setName(string $name): Column
+    public function setName(string $name): RemoteTableColumn
     {
         $this->name = $name;
         return $this;
@@ -91,7 +137,7 @@ class Column
 
     /**
      * @param mixed $type
-     * @return Column
+     * @return RemoteTableColumn
      */
     public function setType($type)
     {
@@ -109,9 +155,9 @@ class Column
 
     /**
      * @param string $description
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setDescription(string $description): Column
+    public function setDescription(string $description): RemoteTableColumn
     {
         $this->description = $description;
         return $this;
@@ -127,9 +173,9 @@ class Column
 
     /**
      * @param bool $isViewList
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setIsViewList(bool $isViewList): Column
+    public function setIsViewList(bool $isViewList): RemoteTableColumn
     {
         $this->isViewList = $isViewList;
         return $this;
@@ -145,9 +191,9 @@ class Column
 
     /**
      * @param bool $isViewDetail
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setIsViewDetail(bool $isViewDetail): Column
+    public function setIsViewDetail(bool $isViewDetail): RemoteTableColumn
     {
         $this->isViewDetail = $isViewDetail;
         return $this;
@@ -163,11 +209,29 @@ class Column
 
     /**
      * @param bool $isViewPopup
-     * @return Column
+     * @return RemoteTableColumn
      */
-    public function setIsViewPopup(bool $isViewPopup): Column
+    public function setIsViewPopup(bool $isViewPopup): RemoteTableColumn
     {
         $this->isViewPopup = $isViewPopup;
+        return $this;
+    }
+
+    /**
+     * @return RemoteTable
+     */
+    public function getTable(): RemoteTable
+    {
+        return $this->table;
+    }
+
+    /**
+     * @param RemoteTable $table
+     * @return RemoteTableColumn
+     */
+    public function setTable(RemoteTable $table): RemoteTableColumn
+    {
+        $this->table = $table;
         return $this;
     }
 }

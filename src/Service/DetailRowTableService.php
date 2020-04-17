@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\Entity\Column;
-use App\Entity\Row;
+use App\Entity\RemoteTableColumn;
+use App\Entity\RemoteRow;
 use App\Entity\RemoteTable;
 use App\Collection\RowsIterator;
 use Doctrine\DBAL\DBALException;
@@ -17,7 +17,7 @@ class DetailRowTableService
     {
         $queryBuilder = $table->getConnection()->createQueryBuilder();
         //TODO:: filter field
-        $queryBuilder->select($table->getFieldSet(Column::TYPE_DETAIL))
+        $queryBuilder->select($table->getFieldSet(RemoteTableColumn::TYPE_DETAIL))
             ->from($table->getName())
             ->setMaxResults(1);
 
@@ -28,7 +28,7 @@ class DetailRowTableService
         } catch (DBALException $e) {
             return null;
         }
-        $row = new Row();
+        $row = new RemoteRow();
         $row->setData($dataRow);
         return $row;
     }

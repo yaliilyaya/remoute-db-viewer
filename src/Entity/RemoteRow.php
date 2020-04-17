@@ -4,7 +4,7 @@
 namespace App\Entity;
 
 
-class Row
+class RemoteRow
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class Row
 
     /**
      * @param array $data
-     * @return Row
+     * @return RemoteRow
      */
     public function setData($data)
     {

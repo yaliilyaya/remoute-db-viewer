@@ -2,10 +2,9 @@
 
 namespace App\Service;
 
-use App\Entity\DataBase;
+use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\RemoteTable;
-use App\Factory\ConnectionFactory;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -15,79 +14,49 @@ use Doctrine\ORM\EntityManagerInterface;
 class SyncRemoteTableService
 {
     /**
-     * @var RemoteTableNamesService
-     */
-    private $remoteTableNamesService;
-    /**
-     * @var ConnectionFactory
-     */
-    private $connectionFactory;
-    /**
-     * @var RemoteTableInfoService
-     */
-    private $remoteTableInfoService;
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var ColumnCollectionByTableBuilder
+     */
+    private $columnCollectionByTableBuilder;
 
     /**
      * SyncRemoteTableService constructor.
-     * @param RemoteTableNamesService $remoteTableNamesService
-     * @param RemoteTableInfoService $remoteTableInfoService
-     * @param ConnectionFactory $connectionFactory
      * @param EntityManagerInterface $entityManager
+     * @param ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
      */
     public function __construct(
-        RemoteTableNamesService $remoteTableNamesService,
-        RemoteTableInfoService $remoteTableInfoService,
-        ConnectionFactory $connectionFactory,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
     ) {
-        $this->remoteTableNamesService = $remoteTableNamesService;
-        $this->remoteTableInfoService = $remoteTableInfoService;
-        $this->connectionFactory = $connectionFactory;
         $this->entityManager = $entityManager;
+        $this->columnCollectionByTableBuilder = $columnCollectionByTableBuilder;
     }
 
     /**
-     * @param DataBase $dataBase
+     * @param Connection $connection
+     * @param RemoteTable $table
      */
-    public function sync(DataBase $dataBase)
+    public function sync(Connection $connection, RemoteTable $table)
     {
-        $tables = $this->getTables($dataBase);
-        array_walk($tables, [$this->entityManager, 'persist']);
+        $schemaManager = $connection->getSchemaManager();
+
+        $table->setConnection($connection)
+            ->setTableInfo($schemaManager->listTableDetails($table->getName()));
+
+        $columns = $this->columnCollectionByTableBuilder->create($table);
+
+        $table->setColumns($columns);
+
+        $this->saveTable($table);
+    }
+
+    private function saveTable(RemoteTable $table)
+    {
+        $this->entityManager->persist($table);
         $this->entityManager->flush();
-    }
-
-    /**
-     * @param DataBase $dataBase
-     * @return array
-     */
-    private function getTables(DataBase $dataBase)
-    {
-        try {
-            $connection = $this->connectionFactory->createConnection($dataBase->getAlias());
-        } catch (DBALException $e) {
-            return [];
-        } catch (\Exception $e) {
-            return [];
-        }
-        $tableNames = $this->remoteTableNamesService->getNames($connection);
-
-        return array_map(function ($tableName) use ($connection)
-        {
-            try {
-                $table = $this->remoteTableInfoService->getTableInfo($connection, $tableName);
-            } catch (DBALException $e) {
-                $table =  new RemoteTable();
-                $table->setIsActive(false);
-            }
-
-            $table->setName($tableName)
-                ->setLabel($tableName);
-            return $table;
-        }, $tableNames);
     }
 
 }

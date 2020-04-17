@@ -3,7 +3,7 @@
 
 namespace App\Collection;
 
-use App\Entity\Column;
+use App\Entity\RemoteTableColumn;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -17,7 +17,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewList()
     {
-        $columns = array_filter($this->toArray(), function (Column $column)
+        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
         {
             return $column->isViewList();
         });
@@ -30,7 +30,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewDetail()
     {
-        $columns = array_filter($this->toArray(), function (Column $column)
+        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
         {
             return $column->isViewDetail();
         });
@@ -43,7 +43,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewPopup()
     {
-        $columns = array_filter($this->toArray(), function (Column $column)
+        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
         {
             return $column->isViewPopup();
         });

@@ -3,7 +3,7 @@
 
 namespace App\Repository;
 
-use App\Entity\DataBase;
+use App\Entity\RemoteDataBase;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,8 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class DataBaseRepository
  * @package App\Repository
- * @method DataBase findOneBy(array $criteria, array $orderBy = null)
- * @method DataBase[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RemoteDataBase findOneBy(array $criteria, array $orderBy = null)
+ * @method RemoteDataBase[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DataBaseRepository extends ServiceEntityRepository
 {
@@ -23,12 +23,12 @@ class DataBaseRepository extends ServiceEntityRepository
 
     public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
-        parent::__construct($registry, DataBase::class);
+        parent::__construct($registry, RemoteDataBase::class);
         $this->entityManager = $entityManager;
     }
 
     /**
-     * @param DataBase $dataBase
+     * @param RemoteDataBase $dataBase
      */
     public function save($dataBase)
     {
@@ -36,7 +36,7 @@ class DataBaseRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function remove(DataBase $dataBase)
+    public function remove(RemoteDataBase $dataBase)
     {
         $this->entityManager->remove($dataBase);
         $this->entityManager->flush();
@@ -44,7 +44,7 @@ class DataBaseRepository extends ServiceEntityRepository
 
     /**
      * @param string $alias
-     * @return DataBase|null
+     * @return RemoteDataBase|null
      */
     public function findByAlias(string $alias)
     {

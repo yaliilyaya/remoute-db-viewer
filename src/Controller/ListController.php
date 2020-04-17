@@ -57,6 +57,7 @@ class ListController extends AbstractController
     {
         $connection = $this->connectionFactory->createConnection($db);
         $table = $this->dynamicTableInfoService->getTableInfo($connection, $tableName);
+
         $rows = $this->dataListTableService->getRows($table);
         $columns = $this->viewColumnsTableListService->getColumns($table);
 

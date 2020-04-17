@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
+use App\Collection\TableCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DataBaseRepository")
  */
-class DataBase
+class RemoteDataBase
 {
     /**
      * @ORM\Id
@@ -55,6 +59,17 @@ class DataBase
      * @var boolean
      */
     private $isDeleted = false;
+    /**
+     * @OneToMany(targetEntity="App\Entity\RemoteTable", mappedBy="database", fetch="EXTRA_LAZY")
+     *
+     * @var PersistentCollection
+     */
+    private $tables;
+
+
+    public function __construct()
+    {
+    }
 
     /**
      * @return int|null
@@ -66,9 +81,9 @@ class DataBase
 
     /**
      * @param int|null $id
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setId(?int $id): DataBase
+    public function setId(?int $id): RemoteDataBase
     {
         $this->id = $id;
         return $this;
@@ -84,9 +99,9 @@ class DataBase
 
     /**
      * @param string|null $alias
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setAlias(?string $alias): DataBase
+    public function setAlias(?string $alias): RemoteDataBase
     {
         $this->alias = $alias;
         return $this;
@@ -102,9 +117,9 @@ class DataBase
 
     /**
      * @param string|null $host
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setHost(?string $host): DataBase
+    public function setHost(?string $host): RemoteDataBase
     {
         $this->host = $host;
         return $this;
@@ -120,9 +135,9 @@ class DataBase
 
     /**
      * @param string|null $port
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setPort(?string $port): DataBase
+    public function setPort(?string $port): RemoteDataBase
     {
         $this->port = $port;
         return $this;
@@ -138,9 +153,9 @@ class DataBase
 
     /**
      * @param string|null $user
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setUser(?string $user): DataBase
+    public function setUser(?string $user): RemoteDataBase
     {
         $this->user = $user;
         return $this;
@@ -156,9 +171,9 @@ class DataBase
 
     /**
      * @param string|null $password
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setPassword(?string $password): DataBase
+    public function setPassword(?string $password): RemoteDataBase
     {
         $this->password = $password;
         return $this;
@@ -174,9 +189,9 @@ class DataBase
 
     /**
      * @param string|null $db
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setDb(?string $db): DataBase
+    public function setDb(?string $db): RemoteDataBase
     {
         $this->db = $db;
         return $this;
@@ -192,9 +207,9 @@ class DataBase
 
     /**
      * @param bool $isActive
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setIsActive(bool $isActive): DataBase
+    public function setIsActive(bool $isActive): RemoteDataBase
     {
         $this->isActive = $isActive;
         return $this;
@@ -210,11 +225,30 @@ class DataBase
 
     /**
      * @param bool $isDeleted
-     * @return DataBase
+     * @return RemoteDataBase
      */
-    public function setIsDeleted(bool $isDeleted): DataBase
+    public function setIsDeleted(bool $isDeleted): RemoteDataBase
     {
         $this->isDeleted = $isDeleted;
+        return $this;
+    }
+
+    /**
+     * @return TableCollection
+     */
+    public function getTables(): TableCollection
+    {
+        $tables = $this->tables ? iterator_to_array($this->tables): [];
+        return new TableCollection($tables);
+    }
+
+    /**
+     * @param TableCollection $tables
+     * @return RemoteDataBase
+     */
+    public function setTables(TableCollection $tables): TableCollection
+    {
+        $this->tables = $tables;
         return $this;
     }
 

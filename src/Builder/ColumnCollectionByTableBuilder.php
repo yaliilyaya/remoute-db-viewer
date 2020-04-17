@@ -5,7 +5,7 @@ namespace App\Builder;
 
 
 use App\Collection\ColumnCollection;
-use App\Entity\Column;
+use App\Entity\RemoteTableColumn;
 use App\Entity\RemoteTable;
 use Doctrine\DBAL\Schema\Column as ColumnInfo;
 
@@ -18,25 +18,26 @@ class ColumnCollectionByTableBuilder
     public function create(RemoteTable $table)
     {
         $columnInfoList = $table->getTableInfo()->getColumns();
-        $columns = array_map(static function (ColumnInfo $columnInfo)
+        $columns = array_map(static function (ColumnInfo $columnInfo) use ($table)
         {
-            $column = new Column();
-            return $column->setName($columnInfo->getName())
+            $column = new RemoteTableColumn();
+            return $column->setTable($table)
+                ->setName($columnInfo->getName())
                 ->setLabel($columnInfo->getName())
                 ->setDescription($columnInfo->getComment() ?: "")
                 ->setType($columnInfo->getType())
                 ->setIsViewDetail(true);
 
-        }, $columnInfoList);
+        }, array_values($columnInfoList));
 
         $columnViewList = array_slice($columns, 0, 10);
-        array_walk($columnViewList, static function (Column $column)
+        array_walk($columnViewList, static function (RemoteTableColumn $column)
         {
             $column->setIsViewList(true);
         });
 
         $columnPopup = array_slice($columns, 0, 20);
-        array_walk($columnPopup, static function (Column $column)
+        array_walk($columnPopup, static function (RemoteTableColumn $column)
         {
             $column->setIsViewPopup(true);
         });
