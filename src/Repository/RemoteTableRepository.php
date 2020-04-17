@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class TableRepository
  * @package App\Repository
+ * @method RemoteTable find($id, $lockMode = null, $lockVersion = null)
  * @method RemoteTable findOneBy(array $criteria, array $orderBy = null)
  * @method RemoteTable[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

@@ -23,7 +23,9 @@
                         <td>{{ table.description }}</td>
                         <td>{{ table.isActive }}</td>
                         <td>
-
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                              <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
