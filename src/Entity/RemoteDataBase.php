@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Collection\TableCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\PersistentCollection;
@@ -68,7 +69,6 @@ class RemoteDataBase
 
     public function __construct()
     {
-        $this->tables = new PersistentCollection ();
     }
 
     /**
@@ -234,18 +234,19 @@ class RemoteDataBase
     }
 
     /**
-     * @return PersistentCollection
+     * @return TableCollection
      */
-    public function getTables(): PersistentCollection
+    public function getTables(): TableCollection
     {
-        return $this->tables;
+        $tables = $this->tables ? iterator_to_array($this->tables): [];
+        return new TableCollection($tables);
     }
 
     /**
-     * @param PersistentCollection $tables
+     * @param TableCollection $tables
      * @return RemoteDataBase
      */
-    public function setTables(PersistentCollection $tables): RemoteDataBase
+    public function setTables(TableCollection $tables): TableCollection
     {
         $this->tables = $tables;
         return $this;
