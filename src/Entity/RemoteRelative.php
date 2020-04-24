@@ -23,18 +23,18 @@ class RemoteRelative
      */
     private $id;
     /**
-     * @var RemoteTable
+     * @var RemoteTableColumn|null
      * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
      */
     private $columnFrom;
     /**
-     * @var RemoteTable
+     * @var RemoteTableColumn|null
      * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
      */
     private $columnTo;
     /**
      * TODO:: возможно json
-     * @var string
+     * @var string|null
      */
     private $query;
 
@@ -57,54 +57,54 @@ class RemoteRelative
     }
 
     /**
-     * @return RemoteTable
+     * @return RemoteTableColumn|null
      */
-    public function getColumnFrom(): RemoteTable
+    public function getColumnFrom(): ?RemoteTableColumn
     {
         return $this->columnFrom;
     }
 
     /**
-     * @param RemoteTable $columnFrom
+     * @param RemoteTableColumn|null $columnFrom
      * @return RemoteRelative
      */
-    public function setColumnFrom(RemoteTable $columnFrom): RemoteRelative
+    public function setColumnFrom(?RemoteTableColumn $columnFrom): RemoteRelative
     {
         $this->columnFrom = $columnFrom;
         return $this;
     }
 
     /**
-     * @return RemoteTable
+     * @return RemoteTableColumn|null
      */
-    public function getColumnTo(): RemoteTable
+    public function getColumnTo(): ?RemoteTableColumn
     {
         return $this->columnTo;
     }
 
     /**
-     * @param RemoteTable $columnTo
+     * @param RemoteTableColumn|null $columnTo
      * @return RemoteRelative
      */
-    public function setColumnTo(RemoteTable $columnTo): RemoteRelative
+    public function setColumnTo(?RemoteTableColumn $columnTo): RemoteRelative
     {
         $this->columnTo = $columnTo;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQuery(): string
+    public function getQuery(): ?string
     {
         return $this->query;
     }
 
     /**
-     * @param string $query
+     * @param string|null $query
      * @return RemoteRelative
      */
-    public function setQuery(string $query): RemoteRelative
+    public function setQuery(?string $query): RemoteRelative
     {
         $this->query = $query;
         return $this;
