@@ -17,7 +17,7 @@
                 {% for table in tables %}
                     <tr role="row" class="odd">
                         <td>
-                            <a href="{{ path('list',{'db': 'procedure', 'tableName':table.name }) }}">{{ table.name }}</a>
+                            <a href="{{ path('list',{'tableId': table.id }) }}">{{ table.name }}</a>
                         </td>
                         <td>{{ table.label }}</td>
                         <td>{{ table.description }}</td>

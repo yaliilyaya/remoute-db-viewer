@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class ColumnIterator
  * @package App\Iterator
+ * @method RemoteTableColumn current()
  */
 class ColumnCollection extends ArrayCollection
 {
