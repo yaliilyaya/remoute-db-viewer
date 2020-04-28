@@ -36,8 +36,10 @@
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-primary " href="{{ path('configColumn', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
-
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a class="btn btn-primary " href="{{ path('configColumn', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a class="btn btn-primary " href="{{ path('relativeCreate', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-link"></i></a>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}

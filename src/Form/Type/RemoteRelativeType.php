@@ -25,21 +25,22 @@ class RemoteRelativeType extends AbstractType
         $builder
             ->add('columnFrom', EntityType::class, [
                 'class' => RemoteTableColumn::class,
-                'choice_label' => 'id',
-                'query_builder' => function (RemoteTableColumnRepository $er) {
+                'choice_label' => [$this, 'extractColumnLabel'],
+                'query_builder' => static function (RemoteTableColumnRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.id', 'ASC');
                 },
             ])
             ->add('columnTo', EntityType::class, [
                 'class' => RemoteTableColumn::class,
-                'choice_label' => 'id',
-                'query_builder' => function (RemoteTableColumnRepository $er) {
+                'choice_label' => [$this, 'extractColumnLabel'],
+                'query_builder' => static function (RemoteTableColumnRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.id', 'ASC');
                 },
-            ])
-            ->add('query', TextType::class, ['required' => false]);
+                ])
+            //    ->add('query', TextType::class, ['required' => false])
+        ;
 
         $method = $options['method'];
         if ($method === self::METHOD_EDIT_TYPE)
@@ -52,7 +53,9 @@ class RemoteRelativeType extends AbstractType
         }
 
         $builder->getForm();
+    }
 
-
+    public function extractColumnLabel(RemoteTableColumn $column) {
+        return sprintf('%s - %s', $column->getTable()->getLabel(), $column->getLabel());
     }
 }

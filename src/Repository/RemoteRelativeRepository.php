@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\RemoteRelative;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,11 +22,19 @@ class RemoteRelativeRepository extends ServiceEntityRepository
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var RemoteTableColumnRepository
+     */
+    private $remoteTableColumnRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ManagerRegistry $registry,
+        RemoteTableColumnRepository $remoteTableColumnRepository
+    ) {
         parent::__construct($registry, RemoteRelative::class);
         $this->entityManager = $entityManager;
+        $this->remoteTableColumnRepository = $remoteTableColumnRepository;
     }
 
     /**
@@ -41,5 +50,16 @@ class RemoteRelativeRepository extends ServiceEntityRepository
     {
         $this->entityManager->remove($dataBase);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param $tableId
+     * @return ArrayCollection|RemoteRelative[]
+     */
+    public function findByTableId($tableId)
+    {
+        $columnIds = $this->remoteTableColumnRepository->findIdsByTable($tableId);
+
+        return new ArrayCollection($this->findBy(['columnFrom' => $columnIds]));
     }
 }

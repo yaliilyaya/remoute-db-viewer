@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteRelativeRepository")
  * Связи между таблицами являються абстрактными, ибо может быть случаи не травиальной связи - значение из закодированного пакета xml
- * Всегда связь идёт от колонки(значение колонки) к первичному ключу таблици (один ко многим)
+ * Всегда связь идёт от колонки(значение колонки) к первичному ключу таблици (многие к одному)
+ * TODO:: вынесем создание связи на колонки не являющимися первичным ключём
  */
 class RemoteRelative
 {
@@ -23,12 +24,14 @@ class RemoteRelative
      */
     private $id;
     /**
-     * @var RemoteTableColumn|null
+     * Колонка первичного ключа  для связи на детальную информацию
+     * @var RemoteTableColumn
      * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
      */
     private $columnFrom;
     /**
-     * @var RemoteTableColumn|null
+     * Колонка с первичным ключём для связи с таблицей
+     * @var RemoteTableColumn
      * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
      */
     private $columnTo;
@@ -57,25 +60,25 @@ class RemoteRelative
     }
 
     /**
-     * @return RemoteTableColumn|null
+     * @return RemoteTableColumn
      */
-    public function getColumnFrom(): ?RemoteTableColumn
+    public function getColumnFrom(): RemoteTableColumn
     {
         return $this->columnFrom;
     }
 
     /**
-     * @param RemoteTableColumn|null $columnFrom
+     * @param RemoteTableColumn $columnFrom
      * @return RemoteRelative
      */
-    public function setColumnFrom(?RemoteTableColumn $columnFrom): RemoteRelative
+    public function setColumnFrom(RemoteTableColumn $columnFrom): RemoteRelative
     {
         $this->columnFrom = $columnFrom;
         return $this;
     }
 
     /**
-     * @return RemoteTableColumn|null
+     * @return RemoteTableColumn
      */
     public function getColumnTo(): ?RemoteTableColumn
     {
@@ -83,10 +86,10 @@ class RemoteRelative
     }
 
     /**
-     * @param RemoteTableColumn|null $columnTo
+     * @param RemoteTableColumn $columnTo
      * @return RemoteRelative
      */
-    public function setColumnTo(?RemoteTableColumn $columnTo): RemoteRelative
+    public function setColumnTo(RemoteTableColumn $columnTo): RemoteRelative
     {
         $this->columnTo = $columnTo;
         return $this;

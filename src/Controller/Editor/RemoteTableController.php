@@ -43,6 +43,7 @@ class RemoteTableController  extends AbstractController
     /**
      * EditorTableDataBaseController constructor.
      * @param RemoteTableRepository $tableRepository
+     * @param RemoteTableRepository $remoteTableRepository
      * @param DataBaseRepository $dataBaseRepository
      * @param ConnectionByDataBaseFactory $connectionByDataBaseFactory
      * @param SyncRemoteTableService $syncRemoteTableService

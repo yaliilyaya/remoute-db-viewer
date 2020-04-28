@@ -37,9 +37,28 @@ class RemoteTableColumnRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function remove(RemoteTableColumn $Table)
+    /**
+     * @param RemoteTableColumn $Table
+     */
+    public function remove(RemoteTableColumn $Table): void
     {
         $this->entityManager->remove($Table);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param $tableId
+     * @return array
+     */
+    public function findIdsByTable($tableId): array
+    {
+        $queryBuilder = $this->createQueryBuilder('column');
+
+        $query = $this->createQueryBuilder('column')
+            ->where($queryBuilder->expr()->eq('column.table', $tableId))
+            ->select(['column.id'])
+            ->getQuery();
+
+        return array_map('current', $query->getArrayResult());
     }
 }

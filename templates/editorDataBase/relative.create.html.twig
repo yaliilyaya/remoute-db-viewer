@@ -3,6 +3,11 @@
 {% block page_content %}
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
+            <div>
+                Column from - Колонка первичного ключа  для связи на детальную информацию
+                <br/>
+                Column to - Колонка с первичным ключём для связи с таблицей
+            </div>
             {{ form(form) }}
         {% endblock %}
     {% endembed %}
