@@ -1,43 +1,94 @@
 <?php
 
 
-namespace App\Controller\DataBaseConnect;
+namespace App\Controller\Editor;
 
+
+use App\Entity\RemoteDataBase;
 use App\Factory\ConnectionByDataBaseFactory;
-use App\Form\Type\RemoteTableColumnType;
 use App\Form\Type\RemoteTableType;
-use App\Repository\RemoteTableColumnRepository;
+use App\Repository\DataBaseRepository;
 use App\Repository\RemoteTableRepository;
+use App\Service\SyncRemoteTableService;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ConfigController  extends AbstractController
+class RemoteTableController  extends AbstractController
 {
+
     /**
      * @var RemoteTableRepository
      */
-    private $remoteTableRepository;
+    private $tableRepository;
+    /**
+     * @var DataBaseRepository
+     */
+    private $dataBaseRepository;
+    /**
+     * @var SyncRemoteTableService
+     */
+    private $syncRemoteTableService;
     /**
      * @var ConnectionByDataBaseFactory
      */
     private $connectionByDataBaseFactory;
     /**
-     * @var RemoteTableColumnRepository
+     * @var RemoteTableRepository
      */
-    private $remoteTableColumnRepository;
+    private $remoteTableRepository;
 
+    /**
+     * EditorTableDataBaseController constructor.
+     * @param RemoteTableRepository $tableRepository
+     * @param DataBaseRepository $dataBaseRepository
+     * @param ConnectionByDataBaseFactory $connectionByDataBaseFactory
+     * @param SyncRemoteTableService $syncRemoteTableService
+     */
     public function __construct(
+        RemoteTableRepository $tableRepository,
         RemoteTableRepository $remoteTableRepository,
-        RemoteTableColumnRepository $remoteTableColumnRepository,
-        ConnectionByDataBaseFactory $connectionByDataBaseFactory
+        DataBaseRepository $dataBaseRepository,
+        ConnectionByDataBaseFactory $connectionByDataBaseFactory,
+        SyncRemoteTableService $syncRemoteTableService
     ) {
-
-        $this->remoteTableRepository = $remoteTableRepository;
+        $this->tableRepository = $tableRepository;
+        $this->dataBaseRepository = $dataBaseRepository;
+        $this->syncRemoteTableService = $syncRemoteTableService;
         $this->connectionByDataBaseFactory = $connectionByDataBaseFactory;
-        $this->remoteTableColumnRepository = $remoteTableColumnRepository;
+        $this->remoteTableRepository = $remoteTableRepository;
+    }
+
+    /**
+     * @Route("/table/list", name="tableList")
+     * @return Response
+     */
+    public function list()
+    {
+        /** @var RemoteDataBase[] $dataBase */
+        $tables = $this->tableRepository->findAll();
+
+        return $this->render('editorDataBase/tables.html.twig', [
+            'tables' => $tables
+        ]);
+    }
+
+    /**
+     * @Route("/table/sync/{tableId}", name="syncTable")
+     * @param $tableId
+     * @return Response
+     * @throws DBALException
+     */
+    public function syncTable($tableId)
+    {
+        $table = $this->tableRepository->find($tableId);
+        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDatabase());
+
+        $this->syncRemoteTableService->sync($connection, $table);
+
+        return $this->redirect("/table/list");
     }
 
     /**
@@ -83,35 +134,6 @@ class ConfigController  extends AbstractController
 
         return $this->render('config/columns.html.twig', [
             'columns' => $table->getColumns()
-        ]);
-    }
-
-    /**
-     * @Route("/config/column/{columnId}", name="configColumn")
-     * @param Request $request
-     * @param $columnId
-     * @return Response
-     */
-    public function configColumn(Request $request, $columnId)
-    {
-        $column = $this->remoteTableColumnRepository->find($columnId);
-
-        $form = $this->createForm(RemoteTableColumnType::class, $column, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $column = $form->getData();
-            $this->remoteTableRepository->save($column);
-
-            //return $this->redirect("/dataBase/list");
-        }
-
-
-        return $this->render('config/column.html.twig', [
-            'form' => $form->createView(),
-            'column' => $column,
-            'edit' => true
         ]);
     }
 
