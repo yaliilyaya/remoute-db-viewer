@@ -3,15 +3,13 @@
 
 namespace App\Controller\DataBaseConnect;
 
-
-use App\Entity\RemoteDataBase;
 use App\Factory\ConnectionByDataBaseFactory;
-use App\Repository\DataBaseRepository;
+use App\Form\Type\RemoteTableType;
 use App\Repository\RemoteTableColumnRepository;
 use App\Repository\RemoteTableRepository;
-use App\Service\SyncRemoteTableService;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -43,16 +41,29 @@ class ConfigController  extends AbstractController
 
     /**
      * @Route("/config/table/{tableId}", name="configTable")
+     * @param Request $request
      * @param $tableId
      * @return Response
-     * @throws DBALException
      */
-    public function configTable($tableId)
+    public function configTable(Request $request, $tableId)
     {
         $table = $this->remoteTableRepository->find($tableId);
 
+        $form = $this->createForm(RemoteTableType::class, $table, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $dataBase = $form->getData();
+            $this->remoteTableRepository->save($dataBase);
+
+            //return $this->redirect("/dataBase/list");
+        }
+
         return $this->render('config/table.html.twig', [
-            'table' => $table
+            'form' => $form->createView(),
+            'table' => $table,
+            'edit' => true
         ]);
     }
 

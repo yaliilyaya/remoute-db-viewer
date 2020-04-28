@@ -5,40 +5,7 @@
         {% block box_body %}
             <div class="row">
                 <div class="col-lg-6">
-
-                    <table class="table table-bordered table-hover dataTable">
-                        <thead>
-                        <tr role="row">
-                            <th>Name</th>
-                            <th>Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr role="row" class="odd">
-                            <td>Id</td>
-                            <td>{{ table.id }}</td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td>label</td>
-                            <td>{{ table.label }}</td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td>name</td>
-                            <td>{{ table.name }}</td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td>description</td>
-                            <td>{{ table.description }}</td>
-                        </tr>
-                        <tr role="row" class="odd">
-                            <td>isActive</td>
-                            <td>{{ table.isActive }}</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        </tfoot>
-                    </table>
+                    {{ form(form) }}
                 </div>
             </div>
         {% endblock %}
