@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                <tr role="row">
+                    <th>Label</th>
+                    <th>View in list</th>
+                    <th>View in detail</th>
+                    <th>View in popup</th>
+                    <th>Config</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for column in columns %}
+                    <tr role="row" class="odd">
+                        <td>{{ column.label }}</td>
+                        <td>
+                            <a class="btn {{ column.isViewList ? 'btn-success' : 'btn-default' }}">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn {{ column.isViewDetail ? 'btn-success' : 'btn-default' }}">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn {{ column.isViewPopup ?  'btn-success' : 'btn-default'}}">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary " href="{{ path('configColumn', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Label</th>
+                    <th>View in list</th>
+                    <th>View in detail</th>
+                    <th>View in popup</th>
+                    <th>Config</th>
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

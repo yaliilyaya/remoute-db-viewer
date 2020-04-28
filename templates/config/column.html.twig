@@ -3,29 +3,76 @@
 {% block page_content %}
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
-            <table class="table table-bordered table-hover dataTable">
-                <thead>
-                <tr role="row">
-                    <th>Label</th>
-                    <th>Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for column in columns %}
-                    <tr role="row" class="odd">
-                        <td>
-                            {{ column.label }}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Label</th>
-                    <th>Name</th>
-                </tr>
-                </tfoot>
-            </table>
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <table class="table table-bordered table-hover dataTable">
+                        <thead>
+                        <tr role="row">
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr role="row" >
+                            <td>Id</td>
+                            <td>{{ column.id }}</td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>label</td>
+                            <td>{{ column.label }}</td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>name</td>
+                            <td>{{ column.name }}</td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>type</td>
+                            <td>{{ column.type }}</td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>description</td>
+                            <td>{{ column.description }}</td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>is view list</td>
+                            <td>
+                                <a class="btn {{ column.isViewList ?  'btn-success' : 'btn-default'}}">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>is view detail</td>
+                            <td>
+                                <a class="btn {{ column.isViewDetail ?  'btn-success' : 'btn-default'}}">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr role="row" >
+                            <td>Is view popup</td>
+                            <td>
+                                <a class="btn {{ column.isViewPopup ?  'btn-success' : 'btn-default'}}">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         {% endblock %}
     {% endembed %}
 {% endblock %}
