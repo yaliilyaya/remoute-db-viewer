@@ -2,6 +2,13 @@
 
 {% block page_content %}
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_title %} Список {% endblock %}
+        {% block box_tools %}
+            <div class="btn-group">
+                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
+                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
+            </div>
+        {% endblock %}
         {% block box_body %}
             <table class="table table-bordered table-hover dataTable">
                 <thead>

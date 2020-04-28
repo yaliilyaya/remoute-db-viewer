@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\DataBaseConnect;
+namespace App\Controller\Editor;
 
 
 use App\Entity\RemoteDataBase;
