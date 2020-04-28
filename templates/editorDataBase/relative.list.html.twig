@@ -19,7 +19,7 @@
                         <td>{{ relative.columnTo.table.label }} - {{ relative.columnTo.label }}</td>
                         <td>
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                {#<a class="btn btn-default" href="">!!</a>#}
+                                <a class="btn btn-default" href="{{ path('relativeRemove', {'relativeId': relative.id}) }}"><i class="glyphicon glyphicon-trash"></i></a>
                             </div>
                         </td>
                     </tr>

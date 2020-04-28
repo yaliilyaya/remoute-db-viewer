@@ -7,6 +7,7 @@
             <div class="btn-group">
                 <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
                 <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
+                <a class="btn btn-primary " href="{{ path('relatives', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-link"></i></a>
             </div>
         {% endblock %}
         {% block box_body %}

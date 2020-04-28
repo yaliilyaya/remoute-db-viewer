@@ -79,7 +79,20 @@ class RemoteRelativeController extends AbstractController
     }
 
     /**
-     * @Route("/relative/list/{tableId}", name="relativeList")
+     * @Route("/relative/remove/{relativeId}", name="relativeRemove")
+     * @param $relativeId
+     * @return Response
+     */
+    public function remove($relativeId)
+    {
+        $remoteRelative = $this->remoteRelativeRepository->find($relativeId);
+        $this->remoteRelativeRepository->remove($remoteRelative);
+
+        return $this->redirect('/relative/list/'. $remoteRelative->getColumnFrom()->getTable()->getId());
+    }
+
+    /**
+     * @Route("/relative/list/{tableId}", name="relatives")
      * @param $tableId
      * @return Response
      */
