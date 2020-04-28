@@ -4,6 +4,7 @@
 namespace App\Controller\DataBaseConnect;
 
 use App\Factory\ConnectionByDataBaseFactory;
+use App\Form\Type\RemoteTableColumnType;
 use App\Form\Type\RemoteTableType;
 use App\Repository\RemoteTableColumnRepository;
 use App\Repository\RemoteTableRepository;
@@ -87,16 +88,30 @@ class ConfigController  extends AbstractController
 
     /**
      * @Route("/config/column/{columnId}", name="configColumn")
+     * @param Request $request
      * @param $columnId
      * @return Response
-     * @throws DBALException
      */
-    public function configColumn($columnId)
+    public function configColumn(Request $request, $columnId)
     {
         $column = $this->remoteTableColumnRepository->find($columnId);
 
+        $form = $this->createForm(RemoteTableColumnType::class, $column, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $column = $form->getData();
+            $this->remoteTableRepository->save($column);
+
+            //return $this->redirect("/dataBase/list");
+        }
+
+
         return $this->render('config/column.html.twig', [
-            'column' => $column
+            'form' => $form->createView(),
+            'column' => $column,
+            'edit' => true
         ]);
     }
 

@@ -41,7 +41,7 @@ class RemoteTableColumn
     private $type;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
+     * @var string|null
      */
     private $description;
     /**
@@ -148,16 +148,16 @@ class RemoteTableColumn
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      * @return RemoteTableColumn
      */
-    public function setDescription(string $description): RemoteTableColumn
+    public function setDescription(?string $description): RemoteTableColumn
     {
         $this->description = $description;
         return $this;
