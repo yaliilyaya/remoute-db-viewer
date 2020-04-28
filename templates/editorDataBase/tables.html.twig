@@ -25,6 +25,8 @@
                         <td>
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                               <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
+                                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
                             </div>
                         </td>
                     </tr>
