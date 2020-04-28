@@ -96,12 +96,14 @@ class ListController extends AbstractController
         $connection = $this->connectionByDataBaseFactory->createConnection($table->getDatabase());
         $table->setConnection($connection);
 
+        $columns = $this->viewColumnsTableListService->getColumns($table);
+
         $rows = $this->dataListTableService->getRows($table);
 
         return $this->render('table/list.html.twig', [
             'rows' => $rows,
             'table' => $table,
-            'columns' => $table->getColumns()
+            'columns' => $columns
         ]);
     }
 }
