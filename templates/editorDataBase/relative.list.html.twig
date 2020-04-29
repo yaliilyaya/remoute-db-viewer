@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_title %} Column relative {{ table.label }} {% endblock %}
+        {% block box_body %}
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                <tr role="row">
+                    <th>columnFrom</th>
+                    <th>columnTo</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for relative in relatives %}
+                    <tr role="row" class="odd">
+                        <td>{{ relative.columnFrom.table.label }} - {{ relative.columnFrom.label }}</td>
+                        <td>{{ relative.columnTo.table.label }} - {{ relative.columnTo.label }}</td>
+                        <td>
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                <a class="btn btn-default" href="{{ path('relativeRemove', {'relativeId': relative.id}) }}"><i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>columnFrom</th>
+                    <th>columnTo</th>
+                    <th>Tools</th>
+                </tr>
+                </tfoot>
+            </table>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
