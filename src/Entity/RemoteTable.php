@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Collection\ColumnCollection;
+use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +18,8 @@ use Doctrine\ORM\PersistentCollection;
  */
 class RemoteTable
 {
+    use EntityIdentifierTrait;
+
     /**
      * @var Connection
      */
@@ -28,13 +31,6 @@ class RemoteTable
     private $tableInfo;
 
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=50)

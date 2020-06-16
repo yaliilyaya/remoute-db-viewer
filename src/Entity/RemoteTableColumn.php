@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 
@@ -13,16 +14,11 @@ use Doctrine\ORM\Mapping\ManyToOne;
  */
 class RemoteTableColumn
 {
+    use EntityIdentifierTrait;
+
     public const TYPE_DETAIL = 'detail';
     public const TYPE_LIST = 'list';
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -65,6 +61,8 @@ class RemoteTableColumn
      * @var RemoteTable
      */
     private $table;
+
+    private $decorators;
 
     public function __construct()
     {
