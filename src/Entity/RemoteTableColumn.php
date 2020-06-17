@@ -6,6 +6,8 @@ namespace App\Entity;
 use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Class RemoteTableColumn
@@ -62,6 +64,11 @@ class RemoteTableColumn
      */
     private $table;
 
+    /**
+     * @OneToMany(targetEntity="\App\Entity\ColumnDecorator", mappedBy="decorator", fetch="EXTRA_LAZY")
+     *
+     * @var PersistentCollection
+     */
     private $decorators;
 
     public function __construct()
