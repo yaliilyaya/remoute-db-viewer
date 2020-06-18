@@ -65,7 +65,7 @@ class RemoteTableColumn
     private $table;
 
     /**
-     * @OneToMany(targetEntity="\App\Entity\ColumnDecorator", mappedBy="decorator", fetch="EXTRA_LAZY")
+     * @OneToMany(targetEntity="\App\Entity\ColumnDecorator", mappedBy="column", fetch="EXTRA_LAZY")
      *
      * @var PersistentCollection
      */
@@ -239,4 +239,24 @@ class RemoteTableColumn
         $this->table = $table;
         return $this;
     }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getDecorators(): PersistentCollection
+    {
+        return $this->decorators;
+    }
+
+    /**
+     * @param PersistentCollection $decorators
+     * @return RemoteTableColumn
+     */
+    public function setDecorators(PersistentCollection $decorators): RemoteTableColumn
+    {
+        $this->decorators = $decorators;
+        return $this;
+    }
+
+
 }

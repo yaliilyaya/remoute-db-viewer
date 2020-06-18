@@ -23,7 +23,7 @@
                 {% for row in rows %}
                     <tr role="row" class="odd">
                         {% for column in columns %}
-                            <th>{{ row.data[column.name] }}</th>
+                            <th>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </th>
                         {% endfor %}
                     </tr>
                 {% endfor %}
