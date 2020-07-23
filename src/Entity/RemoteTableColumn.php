@@ -3,8 +3,11 @@
 
 namespace App\Entity;
 
+use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Class RemoteTableColumn
@@ -13,16 +16,11 @@ use Doctrine\ORM\Mapping\ManyToOne;
  */
 class RemoteTableColumn
 {
+    use EntityIdentifierTrait;
+
     public const TYPE_DETAIL = 'detail';
     public const TYPE_LIST = 'list';
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -65,6 +63,13 @@ class RemoteTableColumn
      * @var RemoteTable
      */
     private $table;
+
+    /**
+     * @OneToMany(targetEntity="\App\Entity\ColumnDecorator", mappedBy="column", fetch="EXTRA_LAZY")
+     *
+     * @var PersistentCollection
+     */
+    private $decorators;
 
     public function __construct()
     {
@@ -234,4 +239,24 @@ class RemoteTableColumn
         $this->table = $table;
         return $this;
     }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getDecorators(): PersistentCollection
+    {
+        return $this->decorators;
+    }
+
+    /**
+     * @param PersistentCollection $decorators
+     * @return RemoteTableColumn
+     */
+    public function setDecorators(PersistentCollection $decorators): RemoteTableColumn
+    {
+        $this->decorators = $decorators;
+        return $this;
+    }
+
+
 }

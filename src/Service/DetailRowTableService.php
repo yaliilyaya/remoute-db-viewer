@@ -19,7 +19,8 @@ class DetailRowTableService
         //TODO:: filter field
         $queryBuilder->select($table->getFieldSet(RemoteTableColumn::TYPE_DETAIL))
             ->from($table->getName())
-            ->setMaxResults(1);
+            ->where('id = :id')
+            ->setParameter('id', $id);
 
         $query = $queryBuilder->getSQL();
 

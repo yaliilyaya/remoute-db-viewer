@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,13 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RemoteRelative
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var int|null
-     */
-    private $id;
+    use EntityIdentifierTrait;
+
     /**
      * Колонка первичного ключа  для связи на детальную информацию
      * @var RemoteTableColumn
