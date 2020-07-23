@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+        {% block box_body %}
+            <a class="btn btn-default" href="{{ path('configExport') }}">Config export</a>
+            <a class="btn btn-default" href="{{ path('configImport') }}">Config import</a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

@@ -33,6 +33,7 @@ class RemoteTableColumn
      */
     private $name;
     /**
+     * TODO:: Избавиться в счёт декораторов
      * @ORM\Column(type="string", length=50)
      * @var mixed
      */
@@ -43,16 +44,19 @@ class RemoteTableColumn
      */
     private $description;
     /**
+     * TODO:: Вынести в таблицу
      * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
     private $isViewList;
     /**
+     * TODO:: Вынести в таблицу
      * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
     private $isViewDetail;
     /**
+     * TODO:: Вынести в таблицу
      * @ORM\Column(type="boolean", options={"default": "TRUE"})
      * @var boolean
      */
@@ -70,6 +74,13 @@ class RemoteTableColumn
      * @var PersistentCollection
      */
     private $decorators;
+
+    /**
+     * @OneToMany(targetEntity="\App\Entity\RemoteRelative", mappedBy="columnFrom", fetch="EXTRA_LAZY")
+     *
+     * @var PersistentCollection
+     */
+    private $relations;
 
     public function __construct()
     {
@@ -120,6 +131,16 @@ class RemoteTableColumn
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->getTable()->getDatabase()->getAlias() . '.' .
+            $this->getTable()->getName() . '.' .
+            $this->name;
     }
 
     /**
@@ -258,5 +279,21 @@ class RemoteTableColumn
         return $this;
     }
 
+    /**
+     * @return PersistentCollection
+     */
+    public function getRelations(): PersistentCollection
+    {
+        return $this->relations;
+    }
 
+    /**
+     * @param PersistentCollection $relations
+     * @return RemoteTableColumn
+     */
+    public function setRelations(PersistentCollection $relations): RemoteTableColumn
+    {
+        $this->relations = $relations;
+        return $this;
+    }
 }

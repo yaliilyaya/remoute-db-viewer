@@ -16,6 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
 class DetailDecorator extends  ColumnDecorator
 {
     /**
+     * @inheritDoc
+     */
+    function getType() :string
+    {
+        return 'detail';
+    }
+
+    /**
      * @param $value
      * @param RemoteTableColumn $column
      * @return mixed

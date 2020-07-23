@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * @ORM\DiscriminatorMap(value={ "rootEntity" = "App\Entity\ColumnDecorator", "detail" = "App\Entity\Decoretor\DetailDecorator" })
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  */
-class ColumnDecorator
+abstract class ColumnDecorator
 {
     use EntityIdentifierTrait;
 
@@ -30,5 +30,47 @@ class ColumnDecorator
      * @var array|null
      */
     private $parameter;
+
+    /**
+     * @return string
+     */
+    abstract public function getType() :string ;
+
+    /**
+     * @return RemoteTable
+     */
+    public function getColumn(): RemoteTable
+    {
+        return $this->column;
+    }
+
+    /**
+     * @param RemoteTable $column
+     * @return ColumnDecorator
+     */
+    public function setColumn(RemoteTable $column): ColumnDecorator
+    {
+        $this->column = $column;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getParameter(): ?array
+    {
+        return $this->parameter;
+    }
+
+    /**
+     * @param array|null $parameter
+     * @return ColumnDecorator
+     */
+    public function setParameter(?array $parameter): ColumnDecorator
+    {
+        $this->parameter = $parameter;
+        return $this;
+    }
+
 
 }
