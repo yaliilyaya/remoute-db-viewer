@@ -9,7 +9,7 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Exception;
 
-class ConnectionFactory
+class ConnectionFactory implements ConnectionFactoryInterface
 {
     /**
      * @var DataBaseRepository
@@ -27,7 +27,7 @@ class ConnectionFactory
      * @throws DBALException
      * @throws Exception
      */
-    public function createConnection($alias)
+    public function createConnection($alias) :Connection
     {
         $dataBase = $this->baseRepository->findByAlias($alias);
         if (!$dataBase)

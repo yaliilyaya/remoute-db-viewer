@@ -3,6 +3,7 @@
 
 namespace App\Collection;
 
+use App\Entity\RemoteTable;
 use App\Entity\RemoteTableColumn;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -50,5 +51,18 @@ class ColumnCollection extends ArrayCollection
         });
 
         return new self($columns);
+    }
+
+    /**
+     * TODO:: По возможности удалить
+     * @param RemoteTable $table
+     */
+    public function setTable(RemoteTable $table): void
+    {
+        /** @var RemoteTableColumn $column */
+        foreach ($this as $column)
+        {
+            $column->setTable($table);
+        }
     }
 }

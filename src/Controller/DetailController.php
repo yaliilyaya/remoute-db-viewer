@@ -3,9 +3,8 @@
 
 namespace App\Controller;
 
-use App\Factory\ConnectionFactory;
+use App\Repository\RemoteTableRepository;
 use App\Service\DetailRowTableService;
-use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsRowDetailService;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailController extends AbstractController
 {
     /**
-     * @var RemoteTableInfoService
-     */
-    private $dynamicTableInfoService;
-    /**
      * @var DetailRowTableService
      */
     private $detailRowTableService;
@@ -27,20 +22,18 @@ class DetailController extends AbstractController
      */
     private $viewColumnsRowDetailService;
     /**
-     * @var ConnectionFactory
+     * @var RemoteTableRepository
      */
-    private $connectionFactory;
+    private $remoteTableRepository;
 
     public function __construct(
-        RemoteTableInfoService $dynamicTableInfoService,
         DetailRowTableService $detailRowTableService,
         ViewColumnsRowDetailService $viewColumnsRowDetailService,
-        ConnectionFactory $connectionFactory
+        RemoteTableRepository $remoteTableRepository
     ) {
-        $this->dynamicTableInfoService = $dynamicTableInfoService;
         $this->detailRowTableService = $detailRowTableService;
         $this->viewColumnsRowDetailService = $viewColumnsRowDetailService;
-        $this->connectionFactory = $connectionFactory;
+        $this->remoteTableRepository = $remoteTableRepository;
     }
 
     /**
@@ -53,10 +46,20 @@ class DetailController extends AbstractController
      */
     public function list($db, $tableName, $id)
     {
-        $connection = $this->connectionFactory->createConnection($db);
-        $table = $this->dynamicTableInfoService->getTableInfo($connection, $tableName);
+        $table = $this->remoteTableRepository->findByTableFullName($db, $tableName);
+
+        if (!$table)
+        {
+            throw $this->createNotFoundException('The table does not exist');
+        }
+
         $row = $this->detailRowTableService->getRow($table, $id);
         $columns = $this->viewColumnsRowDetailService->getColumns($table);
+
+        if (!$row)
+        {
+            throw $this->createNotFoundException('The row does not exist');
+        }
 
         return $this->render('table/detail.html.twig', [
             'row' => $row,
