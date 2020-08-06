@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_connect') }}">Create connection</a>
+    <a class="btn btn-default" href="{{ path('remoteDatabaseConnect') }}">Create connection</a>
     {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
         {% block box_body %}
             <table class="table table-bordered table-hover dataTable">
@@ -19,12 +19,12 @@
                         <td>{{ dataBase.alias }}</td>
                         <td>{{ dataBase.user }}:***@{{ dataBase.host }}:{{ dataBase.port }}/{{ dataBase.db }}</td>
                         <td>
-                            <a href="{{ path('app_databaseconnect_editordatabase_activate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
+                            <a href="{{ path('remoteDatabaseActivate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
                         </td>
                         <td width="100">
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_delete', {'id': dataBase.id}) }}">delete</a>
-                                <a class="btn btn-default" href="{{ path('app_databaseconnect_editordatabase_edit', {'id': dataBase.id}) }}">edit</a>
+                                <a class="btn btn-default" href="{{ path('remoteDatabaseDelete', {'id': dataBase.id}) }}">delete</a>
+                                <a class="btn btn-default" href="{{ path('remoteDatabaseEdit', {'id': dataBase.id}) }}">edit</a>
                                 <a class="btn btn-default" href="{{ path('syncTables', {'dbName': dataBase.alias}) }}">Sync Table</a>
                             </div>
                         </td>
