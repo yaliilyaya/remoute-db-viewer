@@ -75,7 +75,7 @@ class ListController extends AbstractController
     {
         $table = $this->remoteTableRepository->find($tableId);
 
-        return $this->redirectToRoute('listByName', [
+        return $this->redirectToRoute('list', [
             'db' => $table->getDatabase()->getAlias(),
             'tableName' => $table->getName()
         ]);

@@ -61,11 +61,13 @@ class RemoteDataBase
      * @var PersistentCollection
      */
     private $tables;
+    /**
+     * @ORM\Column(type="string", length=40, options={"default": "UTF8"})
+     *
+     * @var string
+     */
+    private $charset = 'UTF8';
 
-
-    public function __construct()
-    {
-    }
 
     /**
      * @return int|null
@@ -242,19 +244,41 @@ class RemoteDataBase
      * @param TableCollection $tables
      * @return RemoteDataBase
      */
-    public function setTables(TableCollection $tables): TableCollection
+    public function setTables(TableCollection $tables): RemoteDataBase
     {
         $this->tables = $tables;
         return $this;
     }
 
-    public function getConnectionUrl()
+    /**
+     * @return string
+     */
+    public function getCharset(): string
     {
-        return sprintf('mysql://%s:%s@%s:%s/%s',
+        return $this->charset;
+    }
+
+    /**
+     * @param string $charset
+     * @return RemoteDataBase
+     */
+    public function setCharset(string $charset): RemoteDataBase
+    {
+        $this->charset = $charset;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConnectionUrl(): string
+    {
+        return sprintf('mysql://%s:%s@%s:%s/%s?charset=%s',
             $this->user,
             $this->password,
             $this->host,
             $this->port,
-            $this->db);
+            $this->db,
+            $this->charset);
     }
 }
