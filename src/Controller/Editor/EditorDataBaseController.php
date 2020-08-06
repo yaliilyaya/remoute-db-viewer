@@ -37,7 +37,7 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
-     * @Route("/dataBase/delete/{id}")
+     * @Route("/dataBase/delete/{id}", name="remoteDatabaseDelete")
      * @param $id
      * @return Response
      */
@@ -54,7 +54,7 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
-     * @Route("/dataBase/activate/{id}")
+     * @Route("/dataBase/activate/{id}", name="remoteDatabaseActivate")
      * @param $id
      * @return Response
      */
@@ -73,7 +73,7 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
-     * @Route("/dataBase/connect")
+     * @Route("/dataBase/connect", name="remoteDatabaseConnect")
      * @param Request $request
      * @return Response
      */
@@ -99,7 +99,7 @@ class EditorDataBaseController extends AbstractController
     }
 
     /**
-     * @Route("/dataBase/edit/{id}")
+     * @Route("/dataBase/edit/{id}", name="remoteDatabaseEdit")
      * @param Request $request
      * @return Response
      */
