@@ -21,7 +21,8 @@ class DataBaseType extends AbstractType
             ->add('port', TextType::class)
             ->add('user', TextType::class)
             ->add('password', TextType::class)
-            ->add('db', TextType::class);
+            ->add('db', TextType::class)
+            ->add('charset', TextType::class);
 
         $method = $options['method'];
         if ($method === self::METHOD_EDIT_TYPE)

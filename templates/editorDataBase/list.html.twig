@@ -9,6 +9,7 @@
                 <tr role="row">
                     <th>Alias</th>
                     <th>Connect</th>
+                    <th>Charset</th>
                     <th>Active</th>
                     <th>Tools</th>
                 </tr>
@@ -18,6 +19,7 @@
                     <tr role="row" class="odd">
                         <td>{{ dataBase.alias }}</td>
                         <td>{{ dataBase.user }}:***@{{ dataBase.host }}:{{ dataBase.port }}/{{ dataBase.db }}</td>
+                        <td>{{ dataBase.charset }}</td>
                         <td>
                             <a href="{{ path('remoteDatabaseActivate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
                         </td>
@@ -35,6 +37,7 @@
                 <tr>
                     <th>Alias</th>
                     <th>Connect</th>
+                    <th>Charset</th>
                     <th>Active</th>
                     <th>Tools</th>
                 </tr>
