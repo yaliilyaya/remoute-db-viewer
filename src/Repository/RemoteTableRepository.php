@@ -3,6 +3,7 @@
 
 namespace App\Repository;
 
+use App\Builder\DelayedConnectionBuilder;
 use App\Entity\RemoteTable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,25 +22,62 @@ class RemoteTableRepository extends ServiceEntityRepository
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var DataBaseRepository
+     */
+    private $baseRepository;
+    /**
+     * @var DelayedConnectionBuilder
+     */
+    private $delayedConnectionBuilder;
 
-    public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ManagerRegistry $registry,
+        DataBaseRepository $dataBaseRepository,
+        DelayedConnectionBuilder $delayedConnectionBuilder
+    ) {
         parent::__construct($registry, RemoteTable::class);
         $this->entityManager = $entityManager;
+        $this->baseRepository = $dataBaseRepository;
+        $this->delayedConnectionBuilder = $delayedConnectionBuilder;
     }
 
     /**
      * @param RemoteTable $Table
      */
-    public function save($Table)
+    public function save($Table): void
     {
         $this->entityManager->persist($Table);
         $this->entityManager->flush();
     }
 
-    public function remove(RemoteTable $Table)
+    /**
+     * @param RemoteTable $Table
+     */
+    public function remove(RemoteTable $Table): void
     {
         $this->entityManager->remove($Table);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param $dbAlias
+     * @param $tableName
+     * @return RemoteTable
+     */
+    public function findByTableFullName($dbAlias, $tableName): ?RemoteTable
+    {
+        $db = $this->baseRepository->findOneBy(['alias' => $dbAlias]);
+
+        $table = $this->findOneBy([
+            'name' => $tableName,
+            'database' => $db
+        ]);
+
+        $delayedConnection = $this->delayedConnectionBuilder->create($db, $table);
+        $table->setDelayedConnection($delayedConnection);
+
+        return $table;
     }
 }

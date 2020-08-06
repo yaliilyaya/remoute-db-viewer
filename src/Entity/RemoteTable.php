@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Collection\ColumnCollection;
 use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table as TableInfo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -26,11 +27,14 @@ class RemoteTable
     private $connection;
 
     /**
+     * @var DelayedConnection
+     */
+    private $delayedConnection;
+
+    /**
      * @var TableInfo
      */
     private $tableInfo;
-
-
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -70,10 +74,11 @@ class RemoteTable
 
     /**
      * @return Connection
+     * @throws DBALException
      */
     public function getConnection() : Connection
     {
-        return $this->connection;
+        return $this->connection ?? $this->connection = $this->delayedConnection->getConnection();
     }
 
     /**
@@ -87,11 +92,22 @@ class RemoteTable
     }
 
     /**
+     * @param DelayedConnection $delayedConnection
+     * @return RemoteTable
+     */
+    public function setDelayedConnection(DelayedConnection $delayedConnection): RemoteTable
+    {
+        $this->delayedConnection = $delayedConnection;
+        return $this;
+    }
+
+    /**
      * @return TableInfo
+     * @throws DBALException
      */
     public function getTableInfo(): TableInfo
     {
-        return $this->tableInfo;
+        return $this->tableInfo ?? $this->tableInfo = $this->delayedConnection->getTableInfo();
     }
 
     /**
@@ -109,7 +125,7 @@ class RemoteTable
      */
     public function getColumns(): ColumnCollection
     {
-        $columns = $this->columns ? iterator_to_array($this->columns) : [];
+        $columns = $this->columns ? iterator_to_array($this->columns) : $this->delayedConnection->getColumns();
         return new ColumnCollection($columns);
     }
 

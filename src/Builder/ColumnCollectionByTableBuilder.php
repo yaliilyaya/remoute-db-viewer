@@ -7,6 +7,7 @@ namespace App\Builder;
 use App\Collection\ColumnCollection;
 use App\Entity\RemoteTableColumn;
 use App\Entity\RemoteTable;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Column as ColumnInfo;
 
 class ColumnCollectionByTableBuilder
@@ -14,6 +15,7 @@ class ColumnCollectionByTableBuilder
     /**
      * @param RemoteTable $table
      * @return ColumnCollection
+     * @throws DBALException
      */
     public function create(RemoteTable $table)
     {
@@ -21,8 +23,7 @@ class ColumnCollectionByTableBuilder
         $columns = array_map(static function (ColumnInfo $columnInfo) use ($table)
         {
             $column = new RemoteTableColumn();
-            return $column->setTable($table)
-                ->setName($columnInfo->getName())
+            return $column->setName($columnInfo->getName())
                 ->setLabel($columnInfo->getName())
                 ->setDescription($columnInfo->getComment() ?: "")
                 ->setType($columnInfo->getType())

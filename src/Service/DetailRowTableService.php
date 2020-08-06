@@ -18,11 +18,12 @@ class DetailRowTableService
         $queryBuilder = $table->getConnection()->createQueryBuilder();
         //TODO:: filter field
         $queryBuilder->select($table->getFieldSet(RemoteTableColumn::TYPE_DETAIL))
-            ->from($table->getName())
+            ->from($table->getDatabase()->getDb() .'.'.$table->getName())
             ->where('id = :id')
             ->setParameter('id', $id);
 
         $query = $queryBuilder->getSQL();
+        dump($query);
 
         try {
             $dataRow = $table->getConnection()->fetchAssoc($query);

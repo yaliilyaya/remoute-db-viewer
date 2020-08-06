@@ -55,8 +55,12 @@ class DetailController extends AbstractController
     {
         $connection = $this->connectionFactory->createConnection($db);
         $table = $this->dynamicTableInfoService->getTableInfo($connection, $tableName);
+
+        dump($table);
         $row = $this->detailRowTableService->getRow($table, $id);
         $columns = $this->viewColumnsRowDetailService->getColumns($table);
+
+        dump($row);
 
         return $this->render('table/detail.html.twig', [
             'row' => $row,
