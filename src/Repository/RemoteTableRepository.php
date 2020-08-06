@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\Entity\RemoteTable;
+use App\Iterator\RemoteTableIterator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,5 +42,18 @@ class RemoteTableRepository extends ServiceEntityRepository
     {
         $this->entityManager->remove($Table);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param null $limit
+     * @param null $offset
+     * @return RemoteTableIterator
+     */
+    public function findTables(array $criteria, array $orderBy = null, $limit = null, $offset = null): RemoteTableIterator
+    {
+        $list = $this->findBy($criteria, $orderBy, $limit, $offset);
+        return new RemoteTableIterator($list);
     }
 }

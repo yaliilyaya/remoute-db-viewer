@@ -16,7 +16,7 @@ use Doctrine\ORM\PersistentCollection;
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteTableRepository")
  */
-class RemoteTable
+class RemoteTable implements IdentifierInterface
 {
     use EntityIdentifierTrait;
 

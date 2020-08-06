@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\Entity\RemoteTableColumn;
+use App\Iterator\RemoteTableIterator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -60,5 +61,11 @@ class RemoteTableColumnRepository extends ServiceEntityRepository
             ->getQuery();
 
         return array_map('current', $query->getArrayResult());
+    }
+
+    public function findColumns(array $criteria, array $orderBy = null, $limit = null, $offset = null): RemoteTableIterator
+    {
+        $list = $this->findBy($criteria, $orderBy, $limit, $offset);
+        return new RemoteTableIterator($list);
     }
 }
