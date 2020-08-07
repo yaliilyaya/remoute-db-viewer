@@ -5,37 +5,56 @@
         {% block box_title %} Список {% endblock %}
         {% block box_tools %}
             <div class="btn-group">
-                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
-                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
-                <a class="btn btn-primary " href="{{ path('relatives', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-link"></i></a>
+                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i
+                            class="glyphicon glyphicon-th-list"></i></a>
+                <a class="btn btn-primary " href="{{ path('relatives', {'tableId': table.id}) }}"><i
+                            class="glyphicon glyphicon-link"></i></a>
             </div>
         {% endblock %}
         {% block box_body %}
-            <table class="table table-bordered table-hover dataTable">
-                <thead>
-                <tr role="row">
-                    {% for column in columns %}
-                        <th title="{{ column.description }}">{{ column.label }}</th>
-                    {% endfor %}
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in rows %}
-                    <tr role="row" class="odd">
-                        {% for column in columns %}
-                            <th>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </th>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form method="get">
+                        <div class="input-group">
+                            <input type="text" name="filter" id="filter" class="form-control" placeholder="Search" value="{{ filter ? filter | json_encode : '' }}">
+                            <span class="input-group-btn">
+                                <button type="submit"  class="btn btn-flat"><i class="fas fa-search"></i> Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover dataTable">
+                        <thead>
+                        <tr role="row">
+                            {% for column in columns %}
+                                <th title="{{ column.description }}">{{ column.label }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in rows %}
+                            <tr role="row" class="odd">
+                                {% for column in columns %}
+                                    <th>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </th>
+                                {% endfor %}
+                            </tr>
                         {% endfor %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                    {% for column in columns %}
-                        <th title="{{ column.description }}">{{ column.label }}</th>
-                    {% endfor %}
-                </tr>
-                </tfoot>
-            </table>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            {% for column in columns %}
+                                <th title="{{ column.description }}">{{ column.label }}</th>
+                            {% endfor %}
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         {% endblock %}
     {% endembed %}
 {% endblock %}
