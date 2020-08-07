@@ -54,7 +54,10 @@ class ListController extends AbstractController
             throw $this->createNotFoundException('The table does not exist');
         }
 
-        $rows = $this->dataListTableService->getRows($table);
+        $filter = $_GET['filter'] ?? null;
+        $filter = is_string($filter) ? json_decode($filter, true) : $filter;
+
+        $rows = $this->dataListTableService->getRows($table, $filter);
         $columns = $this->viewColumnsTableListService->getColumns($table);
 
         $table = $columns->count() ? $columns->current()->getTable() : null;//TODO нужно доделать
@@ -62,7 +65,8 @@ class ListController extends AbstractController
         return $this->render('table/list.html.twig', [
             'rows' => $rows,
             'table' => $table,
-            'columns' => $columns
+            'columns' => $columns,
+            'filter' => $filter
         ]);
     }
 
