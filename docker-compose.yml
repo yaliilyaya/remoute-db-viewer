@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  service:
+  app:
     build:
-      context: dockerfile/service
+      context: dockerfile/app
     depends_on:
       - db
     ports:
