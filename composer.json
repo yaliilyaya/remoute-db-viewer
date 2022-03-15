@@ -93,10 +93,7 @@
         ],
         "init-app": [
             "@auto-scripts",
-            "mkdir -p data && chmod 777 data",
-            "bin/console doctrine:database:create",
-            "chmod 777 data/data.db",
-            "bin/console --no-interaction doctrine:migrations:migrate"
+            "mkdir -p data && chmod 777 data"
         ]
     },
     "conflict": {

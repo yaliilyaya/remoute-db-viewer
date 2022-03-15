@@ -1,7 +1,3 @@
 FROM nginx:alpine
 
-
-COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
-
-
-WORKDIR /project
+COPY conf.d /etc/nginx/conf.d/
