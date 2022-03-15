@@ -1,6 +1,6 @@
 FROM php:7.2-fpm
 
-COPY php.ini /usr/local/etc/php/conf.d/local.ini
+COPY local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Set working directory
 WORKDIR /project

@@ -3,7 +3,8 @@ version: '2'
 services:
   #Nginx Service
   webserver:
-    image: nginx:alpine
+    build:
+      context: dockerfile/webserver
     restart: unless-stopped
     tty: true
     ports:
