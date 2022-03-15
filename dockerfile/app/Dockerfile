@@ -35,6 +35,6 @@ EXPOSE 22
 RUN echo 'alias gtw-app="php /var/www/symfony/app/console"' >> ~/.bashrc \
 && echo 'alias gtw="php /var/www/symfony/bin/console"' >> ~/.bashrc
 
-WORKDIR /var/www/symfony
+WORKDIR /project
 
 CMD ["/usr/sbin/sshd", "-D"]
