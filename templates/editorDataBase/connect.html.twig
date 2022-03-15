@@ -1,9 +1,16 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
-        {% block box_body %}
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Название</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+
+        <div class="card-body">
             {{ form(form) }}
-        {% endblock %}
-    {% endembed %}
+        </div>
+    </div>
 {% endblock %}

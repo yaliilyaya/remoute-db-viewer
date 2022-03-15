@@ -1,14 +1,26 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
-        {% block box_body %}
-            <div>
-                Column from - Колонка первичного ключа  для связи на детальную информацию
-                <br/>
-                Column to - Колонка с первичным ключём для связи с таблицей
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Название</h3>
+            <div class="card-tools">
             </div>
-            {{ form(form) }}
-        {% endblock %}
-    {% endembed %}
+        </div>
+
+        <div class="card-body">
+            <div class="col-lg-12">
+                <div>
+                    Column from - Колонка первичного ключа  для связи на детальную информацию
+                    <br/>
+                    Column to - Колонка с первичным ключём для связи с таблицей
+                </div>
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

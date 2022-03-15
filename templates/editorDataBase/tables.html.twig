@@ -1,8 +1,16 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
-        {% block box_body %}
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Название</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+
+        <div class="card-body">
             <table class="table table-bordered table-hover dataTable">
                 <thead>
                 <tr role="row">
@@ -24,7 +32,7 @@
                         <td>{{ table.isActive }}</td>
                         <td>
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                              <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
+                                <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
                                 <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
                                 <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
                             </div>
@@ -42,6 +50,6 @@
                 </tr>
                 </tfoot>
             </table>
-        {% endblock %}
-    {% endembed %}
+        </div>
+    </div>
 {% endblock %}
