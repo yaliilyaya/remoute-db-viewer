@@ -1,40 +1,35 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
-RUN apt-get update && apt-get install -y \
-    wget \
-    openssl \
-    git \
-    unzip \
-    openssh-server
+COPY php.ini /usr/local/etc/php/conf.d/local.ini
 
-#composer install
-RUN wget https://getcomposer.org/installer -O - -q \
-    | php -- --install-dir=/bin --filename=composer --quiet
-
-RUN wget https://get.symfony.com/cli/installer -O - | bash \
-    && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
-
-RUN docker-php-ext-install pdo \
-    pdo_mysql \
-    pcntl
-
-#ADD ./php.ini /usr/local/etc/php/php.ini
-# install sshd for phpshtorm
-RUN mkdir /var/run/sshd
-RUN echo 'root:developer' | chpasswd
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-# SSH login fix. Otherwise user is kicked off after login
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-ENV NOTVISIBLE "in users profile"
-RUN echo "export VISIBLE=now" >> /etc/profile
-
-EXPOSE 22
-
-RUN echo 'alias gtw-app="php /var/www/symfony/app/console"' >> ~/.bashrc \
-&& echo 'alias gtw="php /var/www/symfony/bin/console"' >> ~/.bashrc
-
+# Set working directory
 WORKDIR /project
 
-CMD ["/usr/sbin/sshd", "-D"]
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install extensions
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN docker-php-ext-install gd
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
