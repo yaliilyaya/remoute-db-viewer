@@ -46,12 +46,12 @@ class RemoteDataBase
      */
     private $db;
     /**
-     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @ORM\Column(type="boolean", options={"default": "1"})
      * @var boolean
      */
     private $isActive = true;
     /**
-     * @ORM\Column(type="boolean", options={"default": "FALSE"})
+     * @ORM\Column(type="boolean", options={"default": "0"})
      * @var boolean
      */
     private $isDeleted = false;

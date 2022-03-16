@@ -93,8 +93,10 @@
         ],
         "init-app": [
             "@auto-scripts",
-            "mkdir -p data && chmod 777 data"
-        ]
+            "mkdir -p data && chmod 777 data",
+            "bin/console --no-interaction doctrine:migrations:migrate"
+        ],
+        "app": "php bin/console"
     },
     "conflict": {
         "symfony/symfony": "*"

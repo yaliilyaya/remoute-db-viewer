@@ -52,7 +52,7 @@ class RemoteTable
      */
     private $description;
     /**
-     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @ORM\Column(type="boolean", options={"default": "1"})
      * @var boolean
      */
     private $isActive;

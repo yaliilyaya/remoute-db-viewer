@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller\Editor;
-
 
 use App\Entity\RemoteDataBase;
 use App\Factory\ConnectionByDataBaseFactory;
@@ -18,15 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RemoteTableController  extends AbstractController
 {
-
     /**
      * @var RemoteTableRepository
      */
     private $tableRepository;
-    /**
-     * @var DataBaseRepository
-     */
-    private $dataBaseRepository;
     /**
      * @var SyncRemoteTableService
      */
@@ -44,19 +37,16 @@ class RemoteTableController  extends AbstractController
      * EditorTableDataBaseController constructor.
      * @param RemoteTableRepository $tableRepository
      * @param RemoteTableRepository $remoteTableRepository
-     * @param DataBaseRepository $dataBaseRepository
      * @param ConnectionByDataBaseFactory $connectionByDataBaseFactory
      * @param SyncRemoteTableService $syncRemoteTableService
      */
     public function __construct(
         RemoteTableRepository $tableRepository,
         RemoteTableRepository $remoteTableRepository,
-        DataBaseRepository $dataBaseRepository,
         ConnectionByDataBaseFactory $connectionByDataBaseFactory,
         SyncRemoteTableService $syncRemoteTableService
     ) {
         $this->tableRepository = $tableRepository;
-        $this->dataBaseRepository = $dataBaseRepository;
         $this->syncRemoteTableService = $syncRemoteTableService;
         $this->connectionByDataBaseFactory = $connectionByDataBaseFactory;
         $this->remoteTableRepository = $remoteTableRepository;

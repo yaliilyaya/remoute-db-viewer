@@ -43,17 +43,17 @@ class RemoteTableColumn
      */
     private $description;
     /**
-     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @ORM\Column(type="boolean", options={"default": "1"})
      * @var boolean
      */
     private $isViewList;
     /**
-     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @ORM\Column(type="boolean", options={"default": "1"})
      * @var boolean
      */
     private $isViewDetail;
     /**
-     * @ORM\Column(type="boolean", options={"default": "TRUE"})
+     * @ORM\Column(type="boolean", options={"default": "1"})
      * @var boolean
      */
     private $isViewPopup;
