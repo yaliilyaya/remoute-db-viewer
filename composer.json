@@ -67,7 +67,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/App/src",
+            "Editor\\": "src/Editor/src"
         }
     },
     "autoload-dev": {
