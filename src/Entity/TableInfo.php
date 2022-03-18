@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Collection\ColumnCollection;
-use App\Entity\EntityTrait\EntityIdentifierTrait;
+use App\Model\DelayedConnection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table;
@@ -19,7 +19,7 @@ use Doctrine\ORM\PersistentCollection;
  */
 class TableInfo
 {
-    use EntityIdentifierTrait;
+    use IdentifierTrait;
 
     /**
      * @var Connection

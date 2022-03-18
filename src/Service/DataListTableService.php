@@ -4,10 +4,10 @@
 namespace App\Service;
 
 
-use App\Entity\ColumnInfo;
-use App\Entity\RemoteRow;
-use App\Entity\TableInfo;
 use App\Collection\RowsIterator;
+use App\Entity\ColumnInfo;
+use App\Entity\TableInfo;
+use App\Model\RowValue;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 
@@ -43,7 +43,7 @@ class DataListTableService
 
     private function createRow($dataRow)
     {
-        $row = new RemoteRow();
+        $row = new RowValue();
         $row->setData($dataRow);
         return $row;
     }

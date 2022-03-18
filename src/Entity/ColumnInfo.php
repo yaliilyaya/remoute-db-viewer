@@ -3,7 +3,6 @@
 
 namespace App\Entity;
 
-use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
@@ -16,11 +15,10 @@ use Doctrine\ORM\PersistentCollection;
  */
 class ColumnInfo
 {
-    use EntityIdentifierTrait;
+    use IdentifierTrait;
 
     public const TYPE_DETAIL = 'detail';
     public const TYPE_LIST = 'list';
-
 
     /**
      * @ORM\Column(type="string", length=50)

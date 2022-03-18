@@ -1,11 +1,13 @@
 <?php
 
 
-namespace App\Entity;
+namespace App\Model;
 
 
 use App\Builder\ColumnCollectionByTableBuilder;
 use App\Collection\ColumnCollection;
+use App\Entity\DataBaseInfo;
+use App\Entity\TableInfo;
 use App\Factory\ConnectionFactoryInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;

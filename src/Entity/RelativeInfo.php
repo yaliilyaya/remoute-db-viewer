@@ -3,7 +3,6 @@
 
 namespace App\Entity;
 
-use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RelativeInfo
 {
-    use EntityIdentifierTrait;
+    use IdentifierTrait;
 
     /**
      * Колонка первичного ключа  для связи на детальную информацию

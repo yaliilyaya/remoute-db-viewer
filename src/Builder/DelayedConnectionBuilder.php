@@ -4,10 +4,10 @@
 namespace App\Builder;
 
 
-use App\Entity\DelayedConnection;
 use App\Entity\DataBaseInfo;
 use App\Entity\TableInfo;
 use App\Factory\ConnectionFactory;
+use App\Model\DelayedConnection;
 
 class DelayedConnectionBuilder
 {

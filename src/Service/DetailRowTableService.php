@@ -5,8 +5,8 @@ namespace App\Service;
 
 
 use App\Entity\ColumnInfo;
-use App\Entity\RemoteRow;
 use App\Entity\TableInfo;
+use App\Model\RowValue;
 use Doctrine\DBAL\DBALException;
 
 class DetailRowTableService
@@ -15,9 +15,9 @@ class DetailRowTableService
     /**
      * @param TableInfo $table
      * @param int $id
-     * @return RemoteRow|null
+     * @return RowValue|null
      */
-    public function getRow(TableInfo $table, $id): ?RemoteRow
+    public function getRow(TableInfo $table, $id): ?RowValue
     {
         try {
             $queryBuilder = $table->getConnection()->createQueryBuilder();
@@ -42,7 +42,7 @@ class DetailRowTableService
             return null;
         }
 
-        $row = new RemoteRow();
+        $row = new RowValue();
         $row->setData($dataRow);
         return $row;
     }

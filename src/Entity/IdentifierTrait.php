@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Entity\EntityTrait;
+namespace App\Entity;
 
 
-trait EntityIdentifierTrait
+trait IdentifierTrait
 {
     /**
      * @ORM\Id
@@ -24,7 +24,7 @@ trait EntityIdentifierTrait
 
     /**
      * @param int|null $id
-     * @return EntityIdentifierTrait
+     * @return IdentifierTrait
      */
     public function setId(?int $id)
     {

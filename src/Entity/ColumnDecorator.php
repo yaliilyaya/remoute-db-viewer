@@ -3,7 +3,6 @@
 
 namespace App\Entity;
 
-use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 
@@ -17,7 +16,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  */
 class ColumnDecorator
 {
-    use EntityIdentifierTrait;
+    use IdentifierTrait;
 
     /**
      * @ManyToOne(targetEntity="App\Entity\ColumnInfo", inversedBy="decorators"))

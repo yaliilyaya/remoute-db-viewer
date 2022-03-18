@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Entity;
+namespace App\Model;
 
 
-class RemoteRow
+class RowValue
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class RemoteRow
 
     /**
      * @param array $data
-     * @return RemoteRow
+     * @return RowValue
      */
     public function setData($data)
     {

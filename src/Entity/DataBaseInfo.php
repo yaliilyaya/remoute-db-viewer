@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Collection\TableCollection;
-use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\PersistentCollection;
@@ -13,7 +12,7 @@ use Doctrine\ORM\PersistentCollection;
  */
 class DataBaseInfo
 {
-    use EntityIdentifierTrait;
+    use IdentifierTrait;
 
     /**
      * @ORM\Column(type="string", length=50)

@@ -92,11 +92,25 @@ class RemoteRelativeController extends AbstractController
     }
 
     /**
-     * @Route("/relative/list/{tableId}", name="relatives")
+     * @Route("/relative/list", name="relativeList")
+     * @return Response
+     */
+    public function list()
+    {
+        $relatives = $this->remoteRelativeRepository->findAll();
+
+        return $this->render('editorDataBase/relative.list.html.twig', [
+            'table' => null,
+            'relatives' => $relatives,
+        ]);
+    }
+
+    /**
+     * @Route("/relative/table/{tableId}", name="tableRelative")
      * @param $tableId
      * @return Response
      */
-    public function list($tableId)
+    public function tableList($tableId)
     {
         $table =  $this->remoteTableRepository->find($tableId);
         $relatives = $this->remoteRelativeRepository->findByTableId($tableId);
