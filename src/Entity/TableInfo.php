@@ -6,7 +6,7 @@ use App\Collection\ColumnCollection;
 use App\Entity\EntityTrait\EntityIdentifierTrait;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Schema\Table as TableInfo;
+use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
@@ -17,7 +17,7 @@ use Doctrine\ORM\PersistentCollection;
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteTableRepository")
  */
-class RemoteTable
+class TableInfo
 {
     use EntityIdentifierTrait;
 
@@ -32,7 +32,7 @@ class RemoteTable
     private $delayedConnection;
 
     /**
-     * @var TableInfo
+     * @var Table
      */
     private $tableInfo;
 
@@ -57,12 +57,12 @@ class RemoteTable
      */
     private $isActive;
     /**
-     * @var RemoteDataBase
-     * @ManyToOne(targetEntity="App\Entity\RemoteDataBase", inversedBy="tables")
+     * @var DataBaseInfo
+     * @ManyToOne(targetEntity="App\Entity\DataBaseInfo", inversedBy="tables")
      */
     private $database;
     /**
-     * @OneToMany(targetEntity="App\Entity\RemoteTableColumn", mappedBy="table", cascade={"persist"})
+     * @OneToMany(targetEntity="App\Entity\ColumnInfo", mappedBy="table", cascade={"persist"})
      * @var PersistentCollection
      */
     private $columns;
@@ -83,7 +83,7 @@ class RemoteTable
 
     /**
      * @param Connection $connection
-     * @return RemoteTable
+     * @return TableInfo
      */
     public function setConnection($connection)
     {
@@ -93,28 +93,28 @@ class RemoteTable
 
     /**
      * @param DelayedConnection $delayedConnection
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setDelayedConnection(DelayedConnection $delayedConnection): RemoteTable
+    public function setDelayedConnection(DelayedConnection $delayedConnection): Table
     {
         $this->delayedConnection = $delayedConnection;
         return $this;
     }
 
     /**
-     * @return TableInfo
+     * @return Table
      * @throws DBALException
      */
-    public function getTableInfo(): TableInfo
+    public function getTableInfo(): Table
     {
         return $this->tableInfo ?? $this->tableInfo = $this->delayedConnection->getTableInfo();
     }
 
     /**
      * @param TableInfo $tableInfo
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setTableInfo(TableInfo $tableInfo): RemoteTable
+    public function setTableInfo(TableInfo $tableInfo): TableInfo
     {
         $this->tableInfo = $tableInfo;
         return $this;
@@ -131,9 +131,9 @@ class RemoteTable
 
     /**
      * @param ColumnCollection $columns
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setColumns(ColumnCollection $columns): RemoteTable
+    public function setColumns(ColumnCollection $columns): TableInfo
     {
         $this->columns = $columns;
         return $this;
@@ -149,9 +149,9 @@ class RemoteTable
 
     /**
      * @param string|null $name
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setName(?string $name): RemoteTable
+    public function setName(?string $name): TableInfo
     {
         $this->name = $name;
         return $this;
@@ -177,9 +177,9 @@ class RemoteTable
 
     /**
      * @param int $id
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setId(int $id): RemoteTable
+    public function setId(int $id): TableInfo
     {
         $this->id = $id;
         return $this;
@@ -195,9 +195,9 @@ class RemoteTable
 
     /**
      * @param string|null $label
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setLabel(?string $label): RemoteTable
+    public function setLabel(?string $label): TableInfo
     {
         $this->label = $label;
         return $this;
@@ -213,9 +213,9 @@ class RemoteTable
 
     /**
      * @param string|null $description
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setDescription(?string $description): RemoteTable
+    public function setDescription(?string $description): TableInfo
     {
         $this->description = $description;
         return $this;
@@ -231,27 +231,27 @@ class RemoteTable
 
     /**
      * @param bool $isActive
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function setIsActive(bool $isActive): RemoteTable
+    public function setIsActive(bool $isActive): TableInfo
     {
         $this->isActive = $isActive;
         return $this;
     }
 
     /**
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function getDatabase(): RemoteDataBase
+    public function getDatabase(): DataBaseInfo
     {
         return $this->database;
     }
 
     /**
-     * @param RemoteDataBase $database
-     * @return RemoteTable
+     * @param DataBaseInfo $database
+     * @return TableInfo
      */
-    public function setDatabase(RemoteDataBase $database): RemoteTable
+    public function setDatabase(DataBaseInfo $database): TableInfo
     {
         $this->database = $database;
         return $this;

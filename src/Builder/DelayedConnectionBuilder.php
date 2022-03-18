@@ -5,8 +5,8 @@ namespace App\Builder;
 
 
 use App\Entity\DelayedConnection;
-use App\Entity\RemoteDataBase;
-use App\Entity\RemoteTable;
+use App\Entity\DataBaseInfo;
+use App\Entity\TableInfo;
 use App\Factory\ConnectionFactory;
 
 class DelayedConnectionBuilder
@@ -29,11 +29,11 @@ class DelayedConnectionBuilder
     }
 
     /**
-     * @param RemoteDataBase $db
-     * @param RemoteTable $table
+     * @param DataBaseInfo $db
+     * @param TableInfo $table
      * @return DelayedConnection
      */
-    public function create(RemoteDataBase $db, RemoteTable $table) :DelayedConnection
+    public function create(DataBaseInfo $db, TableInfo $table) :DelayedConnection
     {
         return new DelayedConnection($db,
             $table,

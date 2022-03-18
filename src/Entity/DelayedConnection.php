@@ -15,11 +15,11 @@ class DelayedConnection
 {
 
     /**
-     * @var RemoteDataBase
+     * @var DataBaseInfo
      */
     private $db;
     /**
-     * @var RemoteTable
+     * @var TableInfo
      */
     private $table;
     /**
@@ -41,9 +41,9 @@ class DelayedConnection
     private $columnCollectionByTableBuilder;
 
     public function __construct(
-        RemoteDataBase $db,
-        RemoteTable $table,
-        ConnectionFactoryInterface $connectionFactory,
+        DataBaseInfo                   $db,
+        TableInfo                      $table,
+        ConnectionFactoryInterface     $connectionFactory,
         ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
     ) {
         $this->db = $db;

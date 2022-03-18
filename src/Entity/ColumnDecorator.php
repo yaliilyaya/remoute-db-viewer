@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * Class RemoteTableColumn
+ * Class ColumnInfo
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\ColumnDecoratorRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -20,8 +20,8 @@ class ColumnDecorator
     use EntityIdentifierTrait;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="decorators"))
-     * @var RemoteTable
+     * @ManyToOne(targetEntity="App\Entity\ColumnInfo", inversedBy="decorators"))
+     * @var TableInfo
      */
     private $column;
 

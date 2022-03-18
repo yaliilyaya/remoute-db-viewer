@@ -4,15 +4,15 @@
 namespace App\Service\TableView;
 
 use App\Collection\ColumnCollection;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 
 class ViewColumnsTableListService implements TableViewColumnsInterface
 {
     /**
-     * @param RemoteTable $table
+     * @param TableInfo $table
      * @return ColumnCollection
      */
-    public function getColumns(RemoteTable $table)
+    public function getColumns(TableInfo $table)
     {
         return $table->getColumns()
             ->filterByViewList();

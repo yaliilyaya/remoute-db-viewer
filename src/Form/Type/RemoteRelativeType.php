@@ -3,7 +3,7 @@
 
 namespace App\Form\Type;
 
-use App\Entity\RemoteTableColumn;
+use App\Entity\ColumnInfo;
 use App\Repository\RemoteTableColumnRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,7 +24,7 @@ class RemoteRelativeType extends AbstractType
     {
         $builder
             ->add('columnFrom', EntityType::class, [
-                'class' => RemoteTableColumn::class,
+                'class' => ColumnInfo::class,
                 'choice_label' => [$this, 'extractColumnLabel'],
                 'query_builder' => static function (RemoteTableColumnRepository $er) {
                     return $er->createQueryBuilder('u')
@@ -32,7 +32,7 @@ class RemoteRelativeType extends AbstractType
                 },
             ])
             ->add('columnTo', EntityType::class, [
-                'class' => RemoteTableColumn::class,
+                'class' => ColumnInfo::class,
                 'choice_label' => [$this, 'extractColumnLabel'],
                 'query_builder' => static function (RemoteTableColumnRepository $er) {
                     return $er->createQueryBuilder('u')
@@ -55,7 +55,7 @@ class RemoteRelativeType extends AbstractType
         $builder->getForm();
     }
 
-    public function extractColumnLabel(RemoteTableColumn $column) {
+    public function extractColumnLabel(ColumnInfo $column) {
         return sprintf('%s - %s', $column->getTable()->getLabel(), $column->getLabel());
     }
 }

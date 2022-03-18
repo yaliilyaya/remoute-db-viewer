@@ -11,7 +11,7 @@ use Doctrine\ORM\PersistentCollection;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DataBaseRepository")
  */
-class RemoteDataBase
+class DataBaseInfo
 {
     use EntityIdentifierTrait;
 
@@ -56,7 +56,7 @@ class RemoteDataBase
      */
     private $isDeleted = false;
     /**
-     * @OneToMany(targetEntity="App\Entity\RemoteTable", mappedBy="database", fetch="EXTRA_LAZY")
+     * @OneToMany(targetEntity="App\Entity\TableInfo", mappedBy="database", fetch="EXTRA_LAZY")
      *
      * @var PersistentCollection
      */
@@ -79,9 +79,9 @@ class RemoteDataBase
 
     /**
      * @param int|null $id
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setId(?int $id): RemoteDataBase
+    public function setId(?int $id): DataBaseInfo
     {
         $this->id = $id;
         return $this;
@@ -97,9 +97,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $alias
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setAlias(?string $alias): RemoteDataBase
+    public function setAlias(?string $alias): DataBaseInfo
     {
         $this->alias = $alias;
         return $this;
@@ -115,9 +115,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $host
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setHost(?string $host): RemoteDataBase
+    public function setHost(?string $host): DataBaseInfo
     {
         $this->host = $host;
         return $this;
@@ -133,9 +133,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $port
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setPort(?string $port): RemoteDataBase
+    public function setPort(?string $port): DataBaseInfo
     {
         $this->port = $port;
         return $this;
@@ -151,9 +151,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $user
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setUser(?string $user): RemoteDataBase
+    public function setUser(?string $user): DataBaseInfo
     {
         $this->user = $user;
         return $this;
@@ -169,9 +169,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $password
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setPassword(?string $password): RemoteDataBase
+    public function setPassword(?string $password): DataBaseInfo
     {
         $this->password = $password;
         return $this;
@@ -187,9 +187,9 @@ class RemoteDataBase
 
     /**
      * @param string|null $db
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setDb(?string $db): RemoteDataBase
+    public function setDb(?string $db): DataBaseInfo
     {
         $this->db = $db;
         return $this;
@@ -205,9 +205,9 @@ class RemoteDataBase
 
     /**
      * @param bool $isActive
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setIsActive(bool $isActive): RemoteDataBase
+    public function setIsActive(bool $isActive): DataBaseInfo
     {
         $this->isActive = $isActive;
         return $this;
@@ -223,9 +223,9 @@ class RemoteDataBase
 
     /**
      * @param bool $isDeleted
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setIsDeleted(bool $isDeleted): RemoteDataBase
+    public function setIsDeleted(bool $isDeleted): DataBaseInfo
     {
         $this->isDeleted = $isDeleted;
         return $this;
@@ -242,9 +242,9 @@ class RemoteDataBase
 
     /**
      * @param TableCollection $tables
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setTables(TableCollection $tables): RemoteDataBase
+    public function setTables(TableCollection $tables): DataBaseInfo
     {
         $this->tables = $tables;
         return $this;
@@ -260,9 +260,9 @@ class RemoteDataBase
 
     /**
      * @param string $charset
-     * @return RemoteDataBase
+     * @return DataBaseInfo
      */
-    public function setCharset(string $charset): RemoteDataBase
+    public function setCharset(string $charset): DataBaseInfo
     {
         $this->charset = $charset;
         return $this;

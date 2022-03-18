@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Builder\ColumnCollectionByTableBuilder;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,10 +38,10 @@ class SyncRemoteTableService
 
     /**
      * @param Connection $connection
-     * @param RemoteTable $table
+     * @param TableInfo $table
      * @throws DBALException
      */
-    public function sync(Connection $connection, RemoteTable $table): void
+    public function sync(Connection $connection, TableInfo $table): void
     {
         $schemaManager = $connection->getSchemaManager();
 
@@ -56,9 +56,9 @@ class SyncRemoteTableService
     }
 
     /**
-     * @param RemoteTable $table
+     * @param TableInfo $table
      */
-    private function saveTable(RemoteTable $table): void
+    private function saveTable(TableInfo $table): void
     {
         $this->entityManager->persist($table);
         $this->entityManager->flush();

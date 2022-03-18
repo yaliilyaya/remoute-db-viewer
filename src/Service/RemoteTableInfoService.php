@@ -4,7 +4,7 @@
 namespace App\Service;
 
 use App\Builder\ColumnCollectionByTableBuilder;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 use App\Factory\ConnectionFactory;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -25,14 +25,14 @@ class RemoteTableInfoService
     /**
      * @param Connection $connection
      * @param $tableName
-     * @return RemoteTable
+     * @return TableInfo
      * @throws DBALException
      */
-    public function getTableInfo(Connection $connection, $tableName): RemoteTable
+    public function getTableInfo(Connection $connection, $tableName): TableInfo
     {
         $schemaManager = $connection->getSchemaManager();
 
-        $table = new RemoteTable();
+        $table = new TableInfo();
 
         $table->setConnection($connection)
             ->setTableInfo($schemaManager->listTableDetails($tableName));

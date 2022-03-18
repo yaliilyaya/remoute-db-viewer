@@ -3,7 +3,7 @@
 
 namespace App\Controller\Editor;
 
-use App\Entity\RemoteRelative;
+use App\Entity\RelativeInfo;
 use App\Form\Type\RemoteRelativeType;
 use App\Repository\RemoteRelativeRepository;
 use App\Repository\RemoteTableColumnRepository;
@@ -58,7 +58,7 @@ class RemoteRelativeController extends AbstractController
     {
         $column = $this->remoteTableColumnRepository->find($columnId);
 
-        $remoteRelative = new RemoteRelative();
+        $remoteRelative = new RelativeInfo();
         $remoteRelative->setColumnFrom($column);
 
         $form = $this->createForm(RemoteRelativeType::class, $remoteRelative);
@@ -66,7 +66,7 @@ class RemoteRelativeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var RemoteRelative $remoteRelative */
+            /** @var RelativeInfo $remoteRelative */
             $remoteRelative = $form->getData();
             $this->remoteRelativeRepository->save($remoteRelative);
 

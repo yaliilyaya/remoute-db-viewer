@@ -2,7 +2,7 @@
 
 namespace App\Controller\Editor;
 
-use App\Entity\RemoteDataBase;
+use App\Entity\DataBaseInfo;
 use App\Factory\ConnectionByDataBaseFactory;
 use App\Form\Type\RemoteTableType;
 use App\Repository\DataBaseRepository;
@@ -58,7 +58,7 @@ class RemoteTableController  extends AbstractController
      */
     public function list()
     {
-        /** @var RemoteDataBase[] $dataBase */
+        /** @var DataBaseInfo[] $dataBase */
         $tables = $this->tableRepository->findAll();
 
         return $this->render('editorDataBase/tables.html.twig', [

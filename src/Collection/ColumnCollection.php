@@ -3,14 +3,14 @@
 
 namespace App\Collection;
 
-use App\Entity\RemoteTable;
-use App\Entity\RemoteTableColumn;
+use App\Entity\TableInfo;
+use App\Entity\ColumnInfo;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ColumnIterator
  * @package App\Iterator
- * @method RemoteTableColumn current()
+ * @method ColumnInfo current()
  */
 class ColumnCollection extends ArrayCollection
 {
@@ -19,7 +19,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewList()
     {
-        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
+        $columns = array_filter($this->toArray(), function (ColumnInfo $column)
         {
             return $column->isViewList();
         });
@@ -32,7 +32,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewDetail()
     {
-        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
+        $columns = array_filter($this->toArray(), function (ColumnInfo $column)
         {
             return $column->isViewDetail();
         });
@@ -45,7 +45,7 @@ class ColumnCollection extends ArrayCollection
      */
     public function filterByViewPopup()
     {
-        $columns = array_filter($this->toArray(), function (RemoteTableColumn $column)
+        $columns = array_filter($this->toArray(), function (ColumnInfo $column)
         {
             return $column->isViewPopup();
         });
@@ -55,11 +55,11 @@ class ColumnCollection extends ArrayCollection
 
     /**
      * TODO:: По возможности удалить
-     * @param RemoteTable $table
+     * @param TableInfo $table
      */
-    public function setTable(RemoteTable $table): void
+    public function setTable(TableInfo $table): void
     {
-        /** @var RemoteTableColumn $column */
+        /** @var ColumnInfo $column */
         foreach ($this as $column)
         {
             $column->setTable($table);

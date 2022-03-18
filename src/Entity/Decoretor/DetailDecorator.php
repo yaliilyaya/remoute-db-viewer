@@ -4,7 +4,7 @@
 namespace App\Entity\Decoretor;
 
 use App\Entity\ColumnDecorator;
-use App\Entity\RemoteTableColumn;
+use App\Entity\ColumnInfo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ class DetailDecorator extends  ColumnDecorator
 {
     /**
      * @param $value
-     * @param RemoteTableColumn $column
+     * @param ColumnInfo $column
      * @return mixed
      */
     public function execute($value, $column)

@@ -4,9 +4,9 @@
 namespace App\Service;
 
 
-use App\Entity\RemoteTableColumn;
+use App\Entity\ColumnInfo;
 use App\Entity\RemoteRow;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 use App\Collection\RowsIterator;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -14,15 +14,15 @@ use Doctrine\DBAL\DBALException;
 class DataListTableService
 {
     /**
-     * @param RemoteTable $table
+     * @param TableInfo $table
      * @param array $filter
      * @return RowsIterator
      * @throws DBALException
      */
-    public function getRows(RemoteTable $table, $filter = [])
+    public function getRows(TableInfo $table, $filter = [])
     {
         $queryBuilder = $table->getConnection()->createQueryBuilder()            ;
-        $queryBuilder->select($table->getFieldSet(RemoteTableColumn::TYPE_LIST))
+        $queryBuilder->select($table->getFieldSet(ColumnInfo::TYPE_LIST))
             ->from($table->getName())
             ->setMaxResults($table->getListRowCount());
 

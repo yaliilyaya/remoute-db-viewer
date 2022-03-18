@@ -8,27 +8,27 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class RemoteRelative
+ * Class RelativeInfo
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteRelativeRepository")
  * Связи между таблицами являються абстрактными, ибо может быть случаи не травиальной связи - значение из закодированного пакета xml
  * Всегда связь идёт от колонки(значение колонки) к первичному ключу таблици (многие к одному)
  * TODO:: вынесем создание связи на колонки не являющимися первичным ключём
  */
-class RemoteRelative
+class RelativeInfo
 {
     use EntityIdentifierTrait;
 
     /**
      * Колонка первичного ключа  для связи на детальную информацию
-     * @var RemoteTableColumn
-     * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
+     * @var ColumnInfo
+     * @ManyToOne(targetEntity="App\Entity\ColumnInfo", inversedBy="tables")
      */
     private $columnFrom;
     /**
      * Колонка с первичным ключём для связи с таблицей
-     * @var RemoteTableColumn
-     * @ManyToOne(targetEntity="App\Entity\RemoteTableColumn", inversedBy="tables")
+     * @var ColumnInfo
+     * @ManyToOne(targetEntity="App\Entity\ColumnInfo", inversedBy="tables")
      */
     private $columnTo;
     /**
@@ -47,45 +47,45 @@ class RemoteRelative
 
     /**
      * @param int|null $id
-     * @return RemoteRelative
+     * @return RelativeInfo
      */
-    public function setId(?int $id): RemoteRelative
+    public function setId(?int $id): RelativeInfo
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function getColumnFrom(): RemoteTableColumn
+    public function getColumnFrom(): ColumnInfo
     {
         return $this->columnFrom;
     }
 
     /**
-     * @param RemoteTableColumn $columnFrom
-     * @return RemoteRelative
+     * @param ColumnInfo $columnFrom
+     * @return RelativeInfo
      */
-    public function setColumnFrom(RemoteTableColumn $columnFrom): RemoteRelative
+    public function setColumnFrom(ColumnInfo $columnFrom): RelativeInfo
     {
         $this->columnFrom = $columnFrom;
         return $this;
     }
 
     /**
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function getColumnTo(): ?RemoteTableColumn
+    public function getColumnTo(): ?ColumnInfo
     {
         return $this->columnTo;
     }
 
     /**
-     * @param RemoteTableColumn $columnTo
-     * @return RemoteRelative
+     * @param ColumnInfo $columnTo
+     * @return RelativeInfo
      */
-    public function setColumnTo(RemoteTableColumn $columnTo): RemoteRelative
+    public function setColumnTo(ColumnInfo $columnTo): RelativeInfo
     {
         $this->columnTo = $columnTo;
         return $this;
@@ -101,9 +101,9 @@ class RemoteRelative
 
     /**
      * @param string|null $query
-     * @return RemoteRelative
+     * @return RelativeInfo
      */
-    public function setQuery(?string $query): RemoteRelative
+    public function setQuery(?string $query): RelativeInfo
     {
         $this->query = $query;
         return $this;

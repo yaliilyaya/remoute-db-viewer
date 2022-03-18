@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\PersistentCollection;
 
 /**
- * Class RemoteTableColumn
+ * Class ColumnInfo
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteTableColumnRepository")
  */
-class RemoteTableColumn
+class ColumnInfo
 {
     use EntityIdentifierTrait;
 
@@ -59,8 +59,8 @@ class RemoteTableColumn
     private $isViewPopup;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\RemoteTable", inversedBy="columns"))
-     * @var RemoteTable
+     * @ManyToOne(targetEntity="App\Entity\TableInfo", inversedBy="columns"))
+     * @var TableInfo
      */
     private $table;
 
@@ -88,9 +88,9 @@ class RemoteTableColumn
 
     /**
      * @param int $id
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setId(int $id): RemoteTableColumn
+    public function setId(int $id): ColumnInfo
     {
         $this->id = $id;
         return $this;
@@ -106,9 +106,9 @@ class RemoteTableColumn
 
     /**
      * @param string $label
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setLabel(string $label): RemoteTableColumn
+    public function setLabel(string $label): ColumnInfo
     {
         $this->label = $label;
         return $this;
@@ -124,9 +124,9 @@ class RemoteTableColumn
 
     /**
      * @param string $name
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setName(string $name): RemoteTableColumn
+    public function setName(string $name): ColumnInfo
     {
         $this->name = $name;
         return $this;
@@ -142,7 +142,7 @@ class RemoteTableColumn
 
     /**
      * @param mixed $type
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
     public function setType($type)
     {
@@ -160,9 +160,9 @@ class RemoteTableColumn
 
     /**
      * @param string|null $description
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setDescription(?string $description): RemoteTableColumn
+    public function setDescription(?string $description): ColumnInfo
     {
         $this->description = $description;
         return $this;
@@ -178,9 +178,9 @@ class RemoteTableColumn
 
     /**
      * @param bool $isViewList
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setIsViewList(bool $isViewList): RemoteTableColumn
+    public function setIsViewList(bool $isViewList): ColumnInfo
     {
         $this->isViewList = $isViewList;
         return $this;
@@ -196,9 +196,9 @@ class RemoteTableColumn
 
     /**
      * @param bool $isViewDetail
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setIsViewDetail(bool $isViewDetail): RemoteTableColumn
+    public function setIsViewDetail(bool $isViewDetail): ColumnInfo
     {
         $this->isViewDetail = $isViewDetail;
         return $this;
@@ -214,27 +214,27 @@ class RemoteTableColumn
 
     /**
      * @param bool $isViewPopup
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setIsViewPopup(bool $isViewPopup): RemoteTableColumn
+    public function setIsViewPopup(bool $isViewPopup): ColumnInfo
     {
         $this->isViewPopup = $isViewPopup;
         return $this;
     }
 
     /**
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function getTable(): RemoteTable
+    public function getTable(): TableInfo
     {
         return $this->table;
     }
 
     /**
-     * @param RemoteTable $table
-     * @return RemoteTableColumn
+     * @param TableInfo $table
+     * @return ColumnInfo
      */
-    public function setTable(RemoteTable $table): RemoteTableColumn
+    public function setTable(TableInfo $table): ColumnInfo
     {
         $this->table = $table;
         return $this;
@@ -250,9 +250,9 @@ class RemoteTableColumn
 
     /**
      * @param PersistentCollection $decorators
-     * @return RemoteTableColumn
+     * @return ColumnInfo
      */
-    public function setDecorators(PersistentCollection $decorators): RemoteTableColumn
+    public function setDecorators(PersistentCollection $decorators): ColumnInfo
     {
         $this->decorators = $decorators;
         return $this;

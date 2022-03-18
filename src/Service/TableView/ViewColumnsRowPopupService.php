@@ -4,7 +4,7 @@
 namespace App\Service\TableView;
 
 use App\Collection\ColumnCollection;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 
 /**
  * Class ViewColumnsRowDetailService
@@ -13,10 +13,10 @@ use App\Entity\RemoteTable;
 class ViewColumnsRowPopupService implements TableViewColumnsInterface
 {
     /**
-     * @param RemoteTable $table
+     * @param TableInfo $table
      * @return ColumnCollection
      */
-    public function getColumns(RemoteTable $table)
+    public function getColumns(TableInfo $table)
     {
         return $table->getColumns()
             ->filterByViewPopup();

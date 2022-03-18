@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\RemoteDataBase;
-use App\Entity\RemoteTable;
+use App\Entity\DataBaseInfo;
+use App\Entity\TableInfo;
 use App\Factory\ConnectionByDataBaseFactory;
 use App\Factory\ConnectionFactory;
 use Doctrine\DBAL\DBALException;
@@ -52,9 +52,9 @@ class SyncRemoteDataBaseTableService
     }
 
     /**
-     * @param RemoteDataBase $dataBase
+     * @param DataBaseInfo $dataBase
      */
-    public function sync(RemoteDataBase $dataBase)
+    public function sync(DataBaseInfo $dataBase)
     {
         $tables = $this->getTables($dataBase);
         array_walk($tables, [$this->entityManager, 'persist']);
@@ -62,10 +62,10 @@ class SyncRemoteDataBaseTableService
     }
 
     /**
-     * @param RemoteDataBase $dataBase
+     * @param DataBaseInfo $dataBase
      * @return array
      */
-    private function getTables(RemoteDataBase $dataBase)
+    private function getTables(DataBaseInfo $dataBase)
     {
         try {
             $connection = $this->connectionByDataBaseFactory->createConnection($dataBase);
@@ -82,7 +82,7 @@ class SyncRemoteDataBaseTableService
             try {
                 $table = $this->remoteTableInfoService->getTableInfo($connection, $tableName);
             } catch (DBALException $e) {
-                $table =  new RemoteTable();
+                $table =  new TableInfo();
                 $table->setIsActive(false);
             }
 

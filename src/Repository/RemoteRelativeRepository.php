@@ -3,7 +3,7 @@
 
 namespace App\Repository;
 
-use App\Entity\RemoteRelative;
+use App\Entity\RelativeInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,9 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class DataBaseRepository
  * @package App\Repository
- * @method RemoteRelative find($id, $lockMode = null, $lockVersion = null)
- * @method RemoteRelative findOneBy(array $criteria, array $orderBy = null)
- * @method RemoteRelative[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RelativeInfo find($id, $lockMode = null, $lockVersion = null)
+ * @method RelativeInfo findOneBy(array $criteria, array $orderBy = null)
+ * @method RelativeInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class RemoteRelativeRepository extends ServiceEntityRepository
 {
@@ -32,13 +32,13 @@ class RemoteRelativeRepository extends ServiceEntityRepository
         ManagerRegistry $registry,
         RemoteTableColumnRepository $remoteTableColumnRepository
     ) {
-        parent::__construct($registry, RemoteRelative::class);
+        parent::__construct($registry, RelativeInfo::class);
         $this->entityManager = $entityManager;
         $this->remoteTableColumnRepository = $remoteTableColumnRepository;
     }
 
     /**
-     * @param RemoteRelative $dataBase
+     * @param RelativeInfo $dataBase
      */
     public function save($dataBase)
     {
@@ -46,7 +46,7 @@ class RemoteRelativeRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function remove(RemoteRelative $dataBase)
+    public function remove(RelativeInfo $dataBase)
     {
         $this->entityManager->remove($dataBase);
         $this->entityManager->flush();
@@ -54,7 +54,7 @@ class RemoteRelativeRepository extends ServiceEntityRepository
 
     /**
      * @param $tableId
-     * @return ArrayCollection|RemoteRelative[]
+     * @return ArrayCollection|RelativeInfo[]
      */
     public function findByTableId($tableId)
     {

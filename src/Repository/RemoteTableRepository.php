@@ -4,7 +4,7 @@
 namespace App\Repository;
 
 use App\Builder\DelayedConnectionBuilder;
-use App\Entity\RemoteTable;
+use App\Entity\TableInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -12,9 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * Class TableRepository
  * @package App\Repository
- * @method RemoteTable find($id, $lockMode = null, $lockVersion = null)
- * @method RemoteTable findOneBy(array $criteria, array $orderBy = null)
- * @method RemoteTable[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TableInfo find($id, $lockMode = null, $lockVersion = null)
+ * @method TableInfo findOneBy(array $criteria, array $orderBy = null)
+ * @method TableInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class RemoteTableRepository extends ServiceEntityRepository
 {
@@ -37,14 +37,14 @@ class RemoteTableRepository extends ServiceEntityRepository
         DataBaseRepository $dataBaseRepository,
         DelayedConnectionBuilder $delayedConnectionBuilder
     ) {
-        parent::__construct($registry, RemoteTable::class);
+        parent::__construct($registry, TableInfo::class);
         $this->entityManager = $entityManager;
         $this->baseRepository = $dataBaseRepository;
         $this->delayedConnectionBuilder = $delayedConnectionBuilder;
     }
 
     /**
-     * @param RemoteTable $Table
+     * @param TableInfo $Table
      */
     public function save($Table): void
     {
@@ -53,9 +53,9 @@ class RemoteTableRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param RemoteTable $Table
+     * @param TableInfo $Table
      */
-    public function remove(RemoteTable $Table): void
+    public function remove(TableInfo $Table): void
     {
         $this->entityManager->remove($Table);
         $this->entityManager->flush();
@@ -64,9 +64,9 @@ class RemoteTableRepository extends ServiceEntityRepository
     /**
      * @param $dbAlias
      * @param $tableName
-     * @return RemoteTable
+     * @return TableInfo
      */
-    public function findByTableFullName($dbAlias, $tableName): ?RemoteTable
+    public function findByTableFullName($dbAlias, $tableName): ?TableInfo
     {
         $db = $this->baseRepository->findOneBy(['alias' => $dbAlias]);
 

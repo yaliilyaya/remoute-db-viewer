@@ -3,7 +3,7 @@
 
 namespace App\Factory;
 
-use App\Entity\RemoteDataBase;
+use App\Entity\DataBaseInfo;
 use App\Repository\DataBaseRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -22,11 +22,11 @@ class ConnectionByDataBaseFactory
     }
 
     /**
-     * @param RemoteDataBase $dataBase
+     * @param DataBaseInfo $dataBase
      * @return Connection
      * @throws DBALException
      */
-    public function createConnection(RemoteDataBase $dataBase)
+    public function createConnection(DataBaseInfo $dataBase)
     {
         $params = [
             'url' => $dataBase->getConnectionUrl()
