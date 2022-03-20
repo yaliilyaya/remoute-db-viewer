@@ -36,95 +36,95 @@ class DataBaseInfoController extends AbstractController
         $this->syncRemoteDataBaseTableService = $syncRemoteDataBaseTableService;
     }
 
-//    /**
-//     * @Route("/settings/dataBase/delete/{id}", name="remoteDatabaseDelete")
-//     * @param $id
-//     * @return Response
-//     */
-//    public function delete($id): Response
-//    {
-//        /** @var DataBaseInfo $dataBase */
-//        $dataBase = $this->dataBaseRepository->find($id);
-//        if ($dataBase)
-//        {
-//            $this->dataBaseRepository->remove($dataBase);
-//        }
-//
-//        return $this->redirect("/dataBase/list");
-//    }
-//
-//    /**
-//     * @Route("/settings/dataBase/activate/{id}", name="remoteDatabaseActivate")
-//     * @param $id
-//     * @return Response
-//     */
-//    public function activate($id): Response
-//    {
-//        /** @var DataBaseInfo $dataBase */
-//        $dataBase = $this->dataBaseRepository->find($id);
-//        if ($dataBase)
-//        {
-//            $isActive = !$dataBase->isActive();
-//            $dataBase->setIsActive($isActive);
-//            $this->dataBaseRepository->save($dataBase);
-//        }
-//
-//        return $this->redirect("/dataBase/list");
-//    }
-//
-//    /**
-//     * @Route("/settings/dataBase/connect", name="remoteDatabaseConnect")
-//     * @param Request $request
-//     * @return Response
-//     */
-//    public function connect(Request $request): Response
-//    {
-//        $dataBase = new DataBaseInfo();
-//        $dataBase->setPort(3306);
-//
-//        $form = $this->createForm(DataBaseType::class, $dataBase);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $dataBase = $form->getData();
-//            $this->dataBaseRepository->save($dataBase);
-//
-//            return $this->redirect("/dataBase/list");
-//        }
-//
-//        return $this->render('editorDataBase/connect.html.twig', [
-//            'form' => $form->createView(),
-//        ]);
-//    }
-//
-//    /**
-//     * @Route("/settings/dataBase/edit/{id}", name="settings.dataBase.edit")
-//     * @param Request $request
-//     * @param $id
-//     * @return Response
-//     */
-//    public function edit(Request $request, $id): Response
-//    {
-//        /** @var DataBaseInfo $dataBase */
-//        $dataBase = $this->dataBaseRepository->find($id);
-//
-//        $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $dataBase = $form->getData();
-//            $this->dataBaseRepository->save($dataBase);
-//
-//            return $this->redirect("/dataBase/list");
-//        }
-//
-//        return $this->render('editorDataBase/connect.html.twig', [
-//            'form' => $form->createView(),
-//            'edit' => true
-//        ]);
-//    }
+    /**
+     * @Route("/settings/dataBase/delete/{id}", name="settings.dataBase.delete")
+     * @param $id
+     * @return Response
+     */
+    public function delete($id): Response
+    {
+        /** @var DataBaseInfo $dataBase */
+        $dataBase = $this->dataBaseRepository->find($id);
+        if ($dataBase)
+        {
+            $this->dataBaseRepository->remove($dataBase);
+        }
+
+        return $this->redirectToRoute("settings.dataBase.list");
+    }
+
+    /**
+     * @Route("/settings/dataBase/activate/{id}", name="settings.dataBase.activate")
+     * @param $id
+     * @return Response
+     */
+    public function activate($id): Response
+    {
+        /** @var DataBaseInfo $dataBase */
+        $dataBase = $this->dataBaseRepository->find($id);
+        if ($dataBase)
+        {
+            $isActive = !$dataBase->isActive();
+            $dataBase->setIsActive($isActive);
+            $this->dataBaseRepository->save($dataBase);
+        }
+
+        return $this->redirectToRoute("settings.dataBase.list");
+    }
+
+    /**
+     * @Route("/settings/dataBase/connect", name="settings.dataBase.connect")
+     * @param Request $request
+     * @return Response
+     */
+    public function connect(Request $request): Response
+    {
+        $dataBase = new DataBaseInfo();
+        $dataBase->setPort(3306);
+
+        $form = $this->createForm(DataBaseType::class, $dataBase);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $dataBase = $form->getData();
+            $this->dataBaseRepository->save($dataBase);
+
+            return $this->redirectToRoute("settings.dataBase.list");
+        }
+
+        return $this->render('editorDataBase/connect.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/settings/dataBase/edit/{id}", name="settings.dataBase.edit")
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function edit(Request $request, $id): Response
+    {
+        /** @var DataBaseInfo $dataBase */
+        $dataBase = $this->dataBaseRepository->find($id);
+
+        $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $dataBase = $form->getData();
+            $this->dataBaseRepository->save($dataBase);
+
+            return $this->redirect("/dataBase/list");
+        }
+
+        return $this->render('editorDataBase/connect.html.twig', [
+            'form' => $form->createView(),
+            'edit' => true
+        ]);
+    }
 
     /**
      * @Route("/settings/dataBase/list", name="settings.dataBase.list")
