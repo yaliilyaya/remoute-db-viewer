@@ -73,65 +73,11 @@ class TableInfo
     }
 
     /**
-     * @deprecated
-     * @return Connection
-     * @throws DBALException
-     */
-    public function getConnection() : Connection
-    {
-        return $this->connection ?? $this->connection = $this->delayedConnection->getConnection();
-    }
-
-    /**
-     * @deprecated
-     * @param Connection $connection
-     * @return TableInfo
-     */
-    public function setConnection($connection)
-    {
-        $this->connection = $connection;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @param DelayedConnection $delayedConnection
-     * @return TableInfo
-     */
-    public function setDelayedConnection(DelayedConnection $delayedConnection): Table
-    {
-        $this->delayedConnection = $delayedConnection;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return Table
-     * @throws DBALException
-     */
-    public function getTableInfo(): Table
-    {
-        return $this->tableInfo ?? $this->tableInfo = $this->delayedConnection->getTableInfo();
-    }
-
-    /**
-     * @deprecated
-     * @param Table $tableInfo
-     * @return TableInfo
-     */
-    public function setTableInfo(Table $tableInfo): TableInfo
-    {
-        $this->tableInfo = $tableInfo;
-        return $this;
-    }
-
-    /**
      * @return ColumnInfoCollection
      */
     public function getColumns(): ColumnInfoCollection
     {
-        $columns = $this->columns ? iterator_to_array($this->columns) : $this->delayedConnection->getColumns();
-        return new ColumnInfoCollection($columns);
+        return new ColumnInfoCollection($this->columns ?: []);
     }
 
     /**
@@ -147,9 +93,9 @@ class TableInfo
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
-        return $this->name ?? $this->tableInfo->getName();
+        return $this->name;
     }
 
     /**
@@ -162,12 +108,12 @@ class TableInfo
         return $this;
     }
 
-    public function getListRowCount()
+    public function getListRowCount(): int
     {
         return 20;
     }
 
-    public function getFieldSet(string $fieldSet)
+    public function getFieldSet(string $fieldSet): array
     {
         return ['*'];
     }

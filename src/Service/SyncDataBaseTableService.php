@@ -49,8 +49,7 @@ class SyncDataBaseTableService
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
         $tables = $tableRemoteRepository->findAll();
         $tableInfoList = $this->createTableInfoList($tables, $dataBase);
-        dump($tableInfoList);
-//        $this->tableInfoRepository->saveAll($tableInfoList);
+        $this->tableInfoRepository->saveAll($tableInfoList);
     }
 
 //    /**
@@ -87,15 +86,22 @@ class SyncDataBaseTableService
     {
         return array_map(function (Table $table) use ($dataBase)
         {
-            $tableInfo =  new TableInfo();
-            $tableInfo->setTableInfo($table);
-            $tableInfo->setIsActive((bool)$table);
-
-            $tableInfo->setName($table->getName())
-                ->setLabel($table->getName())
-                ->setDatabase($dataBase);
-
-            return $tableInfo;
+            return $this->createTableInfo($table, $dataBase);
         }, $tables);
+    }
+
+    /**
+     * @param Table $table
+     * @param DataBaseInfo $dataBase
+     * @return TableInfo
+     */
+    private function createTableInfo(Table $table, DataBaseInfo $dataBase): TableInfo
+    {
+        $tableInfo = new TableInfo();
+        $tableInfo->setName($table->getName())
+            ->setLabel($table->getName())
+            ->setDatabase($dataBase);
+
+        return $tableInfo;
     }
 }
