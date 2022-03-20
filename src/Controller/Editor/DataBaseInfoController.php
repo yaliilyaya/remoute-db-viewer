@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class EditorDataBaseController
  * @package App\Controller\DataBaseConnect
  */
-class EditorDataBaseController extends AbstractController
+class DataBaseInfoController extends AbstractController
 {
     /**
      * @var DataBaseInfoRepository

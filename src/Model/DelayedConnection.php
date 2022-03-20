@@ -5,7 +5,7 @@ namespace App\Model;
 
 
 use App\Builder\ColumnCollectionByTableBuilder;
-use App\Collection\ColumnCollection;
+use App\Collection\ColumnInfoCollection;
 use App\Entity\DataBaseInfo;
 use App\Entity\TableInfo;
 use App\Factory\ConnectionFactoryInterface;
@@ -73,10 +73,10 @@ class DelayedConnection
     }
 
     /**
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      * @throws DBALException
      */
-    public function getColumns() :ColumnCollection
+    public function getColumns() :ColumnInfoCollection
     {
         return $this->columnCollectionByTableBuilder->create($this->table);
     }

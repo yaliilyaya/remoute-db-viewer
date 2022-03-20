@@ -3,7 +3,7 @@
 
 namespace App\Service\TableView;
 
-use App\Collection\ColumnCollection;
+use App\Collection\ColumnInfoCollection;
 use App\Entity\TableInfo;
 
 /**
@@ -14,7 +14,7 @@ class ViewColumnsRowPopupService implements TableViewColumnsInterface
 {
     /**
      * @param TableInfo $table
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      */
     public function getColumns(TableInfo $table)
     {

@@ -4,7 +4,7 @@
 namespace App\Builder;
 
 
-use App\Collection\ColumnCollection;
+use App\Collection\ColumnInfoCollection;
 use App\Entity\TableInfo;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Column;
@@ -13,7 +13,7 @@ class ColumnCollectionByTableBuilder
 {
     /**
      * @param TableInfo $table
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      * @throws DBALException
      */
     public function create(TableInfo $table)
@@ -42,6 +42,6 @@ class ColumnCollectionByTableBuilder
             $column->setIsViewPopup(true);
         });
 
-        return new ColumnCollection($columns);
+        return new ColumnInfoCollection($columns);
     }
 }

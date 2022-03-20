@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class RemoteRelativeController
  * @package App\Controller\DataBaseConnect
  */
-class RemoteRelativeController extends AbstractController
+class RelativeInfoController extends AbstractController
 {
     /**
      * @var RemoteRelativeRepository

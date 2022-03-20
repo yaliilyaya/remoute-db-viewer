@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Collection\ColumnCollection;
+use App\Collection\ColumnInfoCollection;
 use App\Model\DelayedConnection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -121,19 +121,19 @@ class TableInfo
     }
 
     /**
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      */
-    public function getColumns(): ColumnCollection
+    public function getColumns(): ColumnInfoCollection
     {
         $columns = $this->columns ? iterator_to_array($this->columns) : $this->delayedConnection->getColumns();
-        return new ColumnCollection($columns);
+        return new ColumnInfoCollection($columns);
     }
 
     /**
-     * @param ColumnCollection $columns
+     * @param ColumnInfoCollection $columns
      * @return TableInfo
      */
-    public function setColumns(ColumnCollection $columns): TableInfo
+    public function setColumns(ColumnInfoCollection $columns): TableInfo
     {
         $this->columns = $columns;
         return $this;

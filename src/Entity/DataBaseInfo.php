@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Collection\TableCollection;
+use App\Collection\TableInfoCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\PersistentCollection;
@@ -231,19 +231,19 @@ class DataBaseInfo
     }
 
     /**
-     * @return TableCollection
+     * @return TableInfoCollection
      */
-    public function getTables(): TableCollection
+    public function getTables(): TableInfoCollection
     {
         $tables = $this->tables ? iterator_to_array($this->tables): [];
-        return new TableCollection($tables);
+        return new TableInfoCollection($tables);
     }
 
     /**
-     * @param TableCollection $tables
+     * @param TableInfoCollection $tables
      * @return DataBaseInfo
      */
-    public function setTables(TableCollection $tables): DataBaseInfo
+    public function setTables(TableInfoCollection $tables): DataBaseInfo
     {
         $this->tables = $tables;
         return $this;

@@ -12,10 +12,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package App\Iterator
  * @method ColumnInfo current()
  */
-class ColumnCollection extends ArrayCollection
+class ColumnInfoCollection extends ArrayCollection
 {
     /**
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      */
     public function filterByViewList()
     {
@@ -28,7 +28,7 @@ class ColumnCollection extends ArrayCollection
     }
 
     /**
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      */
     public function filterByViewDetail()
     {
@@ -41,7 +41,7 @@ class ColumnCollection extends ArrayCollection
     }
 
     /**
-     * @return ColumnCollection
+     * @return ColumnInfoCollection
      */
     public function filterByViewPopup()
     {

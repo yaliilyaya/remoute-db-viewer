@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RemoteTableController  extends AbstractController
+class TableInfoController  extends AbstractController
 {
     /**
      * @var TableInfoRepository
