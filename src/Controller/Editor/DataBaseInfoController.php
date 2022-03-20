@@ -7,7 +7,7 @@ namespace App\Controller\Editor;
 use App\Entity\DataBaseInfo;
 use App\Form\Type\DataBaseType;
 use App\Repository\DataBaseInfoRepository;
-use App\Service\SyncRemoteDataBaseTableService;
+use App\Service\SyncDataBaseTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,17 +23,11 @@ class DataBaseInfoController extends AbstractController
      * @var DataBaseInfoRepository
      */
     private $dataBaseRepository;
-    /**
-     * @var SyncRemoteDataBaseTableService
-     */
-    private $syncRemoteDataBaseTableService;
 
     public function __construct(
-        DataBaseInfoRepository         $baseRepository,
-        SyncRemoteDataBaseTableService $syncRemoteDataBaseTableService
+        DataBaseInfoRepository         $baseRepository
     ) {
         $this->dataBaseRepository = $baseRepository;
-        $this->syncRemoteDataBaseTableService = $syncRemoteDataBaseTableService;
     }
 
     /**
@@ -140,16 +134,19 @@ class DataBaseInfoController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/settings/dataBase/table/sync/{dbName}", name="syncTables")
-//     * @param $dbName
-//     * @return Response
-//     */
-//    public function syncTable($dbName): Response
-//    {
-//        $dataBases = $this->dataBaseRepository->findByAlias($dbName);
-//        $this->syncRemoteDataBaseTableService->sync($dataBases);
-//
-//        return $this->redirect("/dataBase/list");
-//    }
+    /**
+     * @Route("/settings/dataBase/table/sync/{dbName}", name="settings.dataBase.syncTables")
+     * @param SyncDataBaseTableService $syncDataBaseTableService
+     * @param $id
+     * @return Response
+     */
+    public function syncTable(
+        SyncDataBaseTableService $syncDataBaseTableService,
+        $id
+    ): Response {
+        $dataBase = $this->dataBaseRepository->find($id);
+        $syncDataBaseTableService->sync($dataBase);
+
+        return $this->redirect("/dataBase/list");
+    }
 }

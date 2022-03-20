@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * Class DataBaseRepository
  * @package App\Repository
  * @method DataBaseInfo findOneBy(array $criteria, array $orderBy = null)
+ * @method DataBaseInfo find($id, $lockMode = null, $lockVersion = null)
  * @method DataBaseInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DataBaseInfoRepository extends ServiceEntityRepository

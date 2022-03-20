@@ -37,7 +37,7 @@
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                 <a class="btn btn-default" href="{{ path('settings.dataBase.delete', {'id': dataBase.id}) }}">delete</a>
                                 <a class="btn btn-default" href="{{ path('settings.dataBase.edit', {'id': dataBase.id}) }}">edit</a>
-{#                                <a class="btn btn-default" href="{{ path('syncTables', {'dbName': dataBase.alias}) }}">Sync Table</a>#}
+                                <a class="btn btn-default" href="{{ path('settings.dataBase.syncTables', {'dbName': dataBase.id}) }}">Sync Table</a>
                             </div>
                         </td>
                     </tr>
