@@ -23,25 +23,14 @@ class TableRemoteRepository
     }
 
     /**
-     * @param DataBaseInfo $dataBase
-     * @return array
+     * @return Table[]
      */
-    public function findAll(DataBaseInfo $dataBase)
+    public function findAll(): array
     {
         $tableNames = $this->findAllNames();
 
-        return array_map(function ($tableName) use ($dataBase)
-        {
-            $table = $this->getTableInfo($tableName);
-            $tableInfo =  new TableInfo();
-            $tableInfo->setTableInfo($table);
-            $tableInfo->setIsActive((bool)$table);
-
-            $tableInfo->setName($tableName)
-                ->setLabel($tableName)
-                ->setDatabase($dataBase);
-            return $table;
-        }, $tableNames);
+        $tables = array_map([$this, 'getTableInfo'], $tableNames);
+        return array_filter($tables);
     }
 
     /**

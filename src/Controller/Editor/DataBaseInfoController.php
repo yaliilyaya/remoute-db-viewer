@@ -11,7 +11,6 @@ use App\Repository\DataBaseInfoRepository;
 use App\Service\SyncDataBaseTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -38,7 +37,6 @@ class DataBaseInfoController extends AbstractController
      */
     public function delete($id): Response
     {
-        /** @var DataBaseInfo $dataBase */
         $dataBase = $this->dataBaseRepository->find($id);
         if ($dataBase)
         {
@@ -55,7 +53,6 @@ class DataBaseInfoController extends AbstractController
      */
     public function activate($id): Response
     {
-        /** @var DataBaseInfo $dataBase */
         $dataBase = $this->dataBaseRepository->find($id);
         if ($dataBase)
         {
@@ -101,7 +98,6 @@ class DataBaseInfoController extends AbstractController
      */
     public function edit(Request $request, $id): Response
     {
-        /** @var DataBaseInfo $dataBase */
         $dataBase = $this->dataBaseRepository->find($id);
 
         $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
@@ -149,6 +145,7 @@ class DataBaseInfoController extends AbstractController
         $dataBase = $this->dataBaseRepository->find($id);
         $syncDataBaseTableService->sync($dataBase);
 
-        return $this->redirect("/dataBase/list");
+//        die(__FILE__);
+        return $this->redirectToRoute("settings.dataBase.list");
     }
 }

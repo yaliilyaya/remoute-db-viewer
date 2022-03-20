@@ -10,6 +10,7 @@ use App\Factory\ConnectionBuilder;
 use App\Factory\ConnectionFactory;
 use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -46,9 +47,10 @@ class SyncDataBaseTableService
     public function sync(DataBaseInfo $dataBase)
     {
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
-        $tables = $tableRemoteRepository->findAll($dataBase);
-        dump($tables);
-//        $this->tableInfoRepository->saveAll($tables);
+        $tables = $tableRemoteRepository->findAll();
+        $tableInfoList = $this->createTableInfoList($tables, $dataBase);
+        dump($tableInfoList);
+//        $this->tableInfoRepository->saveAll($tableInfoList);
     }
 
 //    /**
@@ -76,4 +78,24 @@ class SyncDataBaseTableService
 //            return $table;
 //        }, $tableNames);
 //    }
+    /**
+     * @param Table[] $tables
+     * @param DataBaseInfo $dataBase
+     * @return TableInfo[]
+     */
+    private function createTableInfoList(array $tables, DataBaseInfo $dataBase): array
+    {
+        return array_map(function (Table $table) use ($dataBase)
+        {
+            $tableInfo =  new TableInfo();
+            $tableInfo->setTableInfo($table);
+            $tableInfo->setIsActive((bool)$table);
+
+            $tableInfo->setName($table->getName())
+                ->setLabel($table->getName())
+                ->setDatabase($dataBase);
+
+            return $tableInfo;
+        }, $tables);
+    }
 }
