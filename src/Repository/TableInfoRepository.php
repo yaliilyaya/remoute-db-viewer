@@ -61,6 +61,12 @@ class TableInfoRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
+    public function saveAll(array $tables)
+    {
+        array_walk($tables, [$this->entityManager, 'persist']);
+        $this->entityManager->flush();
+    }
+
     /**
      * @param $dbAlias
      * @param $tableName
@@ -80,4 +86,5 @@ class TableInfoRepository extends ServiceEntityRepository
 
         return $table;
     }
+
 }

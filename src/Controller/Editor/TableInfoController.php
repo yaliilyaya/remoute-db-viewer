@@ -3,7 +3,7 @@
 namespace App\Controller\Editor;
 
 use App\Entity\DataBaseInfo;
-use App\Factory\ConnectionByDataBaseFactory;
+use App\Factory\ConnectionBuilder;
 use App\Form\Type\RemoteTableType;
 use App\Repository\DataBaseInfoRepository;
 use App\Repository\TableInfoRepository;
@@ -25,7 +25,7 @@ class TableInfoController  extends AbstractController
      */
     private $syncRemoteTableService;
     /**
-     * @var ConnectionByDataBaseFactory
+     * @var ConnectionBuilder
      */
     private $connectionByDataBaseFactory;
     /**
@@ -37,14 +37,14 @@ class TableInfoController  extends AbstractController
      * EditorTableDataBaseController constructor.
      * @param TableInfoRepository $tableRepository
      * @param TableInfoRepository $remoteTableRepository
-     * @param ConnectionByDataBaseFactory $connectionByDataBaseFactory
+     * @param ConnectionBuilder $connectionByDataBaseFactory
      * @param SyncRemoteTableService $syncRemoteTableService
      */
     public function __construct(
-        TableInfoRepository         $tableRepository,
-        TableInfoRepository         $remoteTableRepository,
-        ConnectionByDataBaseFactory $connectionByDataBaseFactory,
-        SyncRemoteTableService      $syncRemoteTableService
+        TableInfoRepository    $tableRepository,
+        TableInfoRepository    $remoteTableRepository,
+        ConnectionBuilder      $connectionByDataBaseFactory,
+        SyncRemoteTableService $syncRemoteTableService
     ) {
         $this->tableRepository = $tableRepository;
         $this->syncRemoteTableService = $syncRemoteTableService;

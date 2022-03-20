@@ -10,16 +10,6 @@ use Doctrine\DBAL\DBALException;
 
 class RemoteTableNamesService
 {
-    /**
-     * @var ConnectionFactory
-     */
-    private $connectionFactory;
-
-    public function __construct(ConnectionFactory $connectionFactory)
-    {
-        $this->connectionFactory = $connectionFactory;
-    }
-
     public function getNames(Connection $connection)
     {
         $schemaManager = $connection->getSchemaManager();

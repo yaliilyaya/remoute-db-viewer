@@ -115,10 +115,11 @@ class TableInfo
     }
 
     /**
-     * @param TableInfo $tableInfo
+     * @deprecated
+     * @param Table $tableInfo
      * @return TableInfo
      */
-    public function setTableInfo(TableInfo $tableInfo): TableInfo
+    public function setTableInfo(Table $tableInfo): TableInfo
     {
         $this->tableInfo = $tableInfo;
         return $this;
