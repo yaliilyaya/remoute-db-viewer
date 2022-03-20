@@ -73,6 +73,7 @@ class TableInfo
     }
 
     /**
+     * @deprecated
      * @return Connection
      * @throws DBALException
      */
@@ -82,6 +83,7 @@ class TableInfo
     }
 
     /**
+     * @deprecated
      * @param Connection $connection
      * @return TableInfo
      */
@@ -92,6 +94,7 @@ class TableInfo
     }
 
     /**
+     * @deprecated
      * @param DelayedConnection $delayedConnection
      * @return TableInfo
      */
@@ -102,6 +105,7 @@ class TableInfo
     }
 
     /**
+     * @deprecated
      * @return Table
      * @throws DBALException
      */

@@ -22,7 +22,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         $blog = new MenuItemModel('SettingsId', 'Настройки', 'homepage', [], 'fas fa-tachometer-alt');
 
         $blog->addChild(
-            new MenuItemModel('dataBaseListId', 'Список БД', 'dataBaseList')
+            new MenuItemModel('dataBaseListId', 'Список БД', 'settings.dataBase.list')
         )->addChild(
             new MenuItemModel('tableListId', 'Список таблиц', 'tableList')
         );

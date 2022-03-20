@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    <a class="btn btn-default" href="{{ path('remoteDatabaseConnect') }}">Create connection</a>
+{#    <a class="btn btn-default" href="{{ path('remoteDatabaseConnect') }}">Create connection</a>#}
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Название</h3>
@@ -27,13 +27,13 @@
                         <td>{{ dataBase.user }}:***@{{ dataBase.host }}:{{ dataBase.port }}/{{ dataBase.db }}</td>
                         <td>{{ dataBase.charset }}</td>
                         <td>
-                            <a href="{{ path('remoteDatabaseActivate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>
+{#                            <a href="{{ path('remoteDatabaseActivate', {'id': dataBase.id}) }}">active {{ dataBase.isActive }}</a>#}
                         </td>
                         <td width="100">
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                <a class="btn btn-default" href="{{ path('remoteDatabaseDelete', {'id': dataBase.id}) }}">delete</a>
-                                <a class="btn btn-default" href="{{ path('remoteDatabaseEdit', {'id': dataBase.id}) }}">edit</a>
-                                <a class="btn btn-default" href="{{ path('syncTables', {'dbName': dataBase.alias}) }}">Sync Table</a>
+{#                                <a class="btn btn-default" href="{{ path('remoteDatabaseDelete', {'id': dataBase.id}) }}">delete</a>#}
+{#                                <a class="btn btn-default" href="{{ path('settings.dataBase.edit', {'id': dataBase.id}) }}">edit</a>#}
+{#                                <a class="btn btn-default" href="{{ path('syncTables', {'dbName': dataBase.alias}) }}">Sync Table</a>#}
                             </div>
                         </td>
                     </tr>
