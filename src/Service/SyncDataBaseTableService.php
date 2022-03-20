@@ -52,31 +52,31 @@ class SyncDataBaseTableService
         $this->tableInfoRepository->saveAll($tableInfoList);
     }
 
-//    /**
-//     * @param DataBaseInfo $dataBase
-//     * @return array
-//     * @throws ConnectionException
-//     */
-//    private function getTables(DataBaseInfo $dataBase)
-//    {
-//        $connection = $this->connectionByDataBaseFactory->createConnection($dataBase);
-//        $tableNames = $this->remoteTableNamesService->getNames($connection);
-//
-//        return array_map(function ($tableName) use ($connection, $dataBase)
-//        {
-//            try {
-//                $table = $this->remoteTableInfoService->getTableInfo($connection, $tableName);
-//            } catch (DBALException $e) {
-//                $table =  new TableInfo();
-//                $table->setIsActive(false);
-//            }
-//
-//            $table->setName($tableName)
-//                ->setLabel($tableName)
-//                ->setDatabase($dataBase);
-//            return $table;
-//        }, $tableNames);
-//    }
+    /**
+     * @param DataBaseInfo $dataBase
+     * @return array
+     * @throws ConnectionException
+     */
+    private function getTables(DataBaseInfo $dataBase)
+    {
+        $connection = $this->connectionByDataBaseFactory->createConnection($dataBase);
+        $tableNames = $this->remoteTableNamesService->getNames($connection);
+
+        return array_map(function ($tableName) use ($connection, $dataBase)
+        {
+            try {
+                $table = $this->remoteTableInfoService->getTableInfo($connection, $tableName);
+            } catch (DBALException $e) {
+                $table =  new TableInfo();
+                $table->setIsActive(false);
+            }
+
+            $table->setName($tableName)
+                ->setLabel($tableName)
+                ->setDatabase($dataBase);
+            return $table;
+        }, $tableNames);
+    }
     /**
      * @param Table[] $tables
      * @param DataBaseInfo $dataBase

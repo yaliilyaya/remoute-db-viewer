@@ -145,7 +145,7 @@ class DataBaseInfoController extends AbstractController
         $dataBase = $this->dataBaseRepository->find($id);
         $syncDataBaseTableService->sync($dataBase);
 
-//        die(__FILE__);
+        die(__FILE__);
         return $this->redirectToRoute("settings.dataBase.list");
     }
 }
