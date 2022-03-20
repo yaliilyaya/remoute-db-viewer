@@ -5,8 +5,8 @@ namespace App\Controller\Editor;
 
 use App\Form\Type\RemoteTableColumnType;
 use App\Form\Type\RemoteTableType;
-use App\Repository\RemoteTableColumnRepository;
-use App\Repository\RemoteTableRepository;
+use App\Repository\ColumnInfoRepository;
+use App\Repository\TableInfoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class RemoteColumnController  extends AbstractController
 {
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $remoteTableRepository;
     /**
-     * @var RemoteTableColumnRepository
+     * @var ColumnInfoRepository
      */
     private $remoteTableColumnRepository;
 
     public function __construct(
-        RemoteTableRepository $remoteTableRepository,
-        RemoteTableColumnRepository $remoteTableColumnRepository
+        TableInfoRepository         $remoteTableRepository,
+        ColumnInfoRepository $remoteTableColumnRepository
     ) {
 
         $this->remoteTableRepository = $remoteTableRepository;

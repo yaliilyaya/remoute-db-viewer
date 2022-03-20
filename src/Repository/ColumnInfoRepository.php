@@ -15,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ColumnInfo findOneBy(array $criteria, array $orderBy = null)
  * @method ColumnInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RemoteTableColumnRepository extends ServiceEntityRepository
+class ColumnInfoRepository extends ServiceEntityRepository
 {
     /**
      * @var EntityManagerInterface
@@ -29,20 +29,20 @@ class RemoteTableColumnRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param ColumnInfo $Table
+     * @param ColumnInfo $table
      */
-    public function save($Table)
+    public function save(ColumnInfo $table)
     {
-        $this->entityManager->persist($Table);
+        $this->entityManager->persist($table);
         $this->entityManager->flush();
     }
 
     /**
-     * @param ColumnInfo $Table
+     * @param ColumnInfo $table
      */
-    public function remove(ColumnInfo $Table): void
+    public function remove(ColumnInfo $table): void
     {
-        $this->entityManager->remove($Table);
+        $this->entityManager->remove($table);
         $this->entityManager->flush();
     }
 

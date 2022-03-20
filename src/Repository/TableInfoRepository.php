@@ -16,14 +16,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method TableInfo findOneBy(array $criteria, array $orderBy = null)
  * @method TableInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RemoteTableRepository extends ServiceEntityRepository
+class TableInfoRepository extends ServiceEntityRepository
 {
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
     /**
-     * @var DataBaseRepository
+     * @var DataBaseInfoRepository
      */
     private $baseRepository;
     /**
@@ -32,9 +32,9 @@ class RemoteTableRepository extends ServiceEntityRepository
     private $delayedConnectionBuilder;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ManagerRegistry $registry,
-        DataBaseRepository $dataBaseRepository,
+        EntityManagerInterface   $entityManager,
+        ManagerRegistry          $registry,
+        DataBaseInfoRepository   $dataBaseRepository,
         DelayedConnectionBuilder $delayedConnectionBuilder
     ) {
         parent::__construct($registry, TableInfo::class);
@@ -44,11 +44,11 @@ class RemoteTableRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param TableInfo $Table
+     * @param TableInfo $table
      */
-    public function save($Table): void
+    public function save(TableInfo $table): void
     {
-        $this->entityManager->persist($Table);
+        $this->entityManager->persist($table);
         $this->entityManager->flush();
     }
 

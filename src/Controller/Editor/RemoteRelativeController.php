@@ -6,8 +6,8 @@ namespace App\Controller\Editor;
 use App\Entity\RelativeInfo;
 use App\Form\Type\RemoteRelativeType;
 use App\Repository\RemoteRelativeRepository;
-use App\Repository\RemoteTableColumnRepository;
-use App\Repository\RemoteTableRepository;
+use App\Repository\ColumnInfoRepository;
+use App\Repository\TableInfoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,24 +24,24 @@ class RemoteRelativeController extends AbstractController
      */
     private $remoteRelativeRepository;
     /**
-     * @var RemoteTableColumnRepository
+     * @var ColumnInfoRepository
      */
     private $remoteTableColumnRepository;
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $remoteTableRepository;
 
     /**
      * RemoteRelativeController constructor.
      * @param RemoteRelativeRepository $remoteRelativeRepository
-     * @param RemoteTableColumnRepository $remoteTableColumnRepository
-     * @param RemoteTableRepository $remoteTableRepository
+     * @param ColumnInfoRepository $remoteTableColumnRepository
+     * @param TableInfoRepository $remoteTableRepository
      */
     public function __construct(
         RemoteRelativeRepository $remoteRelativeRepository,
-        RemoteTableColumnRepository $remoteTableColumnRepository,
-        RemoteTableRepository $remoteTableRepository
+        ColumnInfoRepository     $remoteTableColumnRepository,
+        TableInfoRepository      $remoteTableRepository
     ) {
         $this->remoteRelativeRepository = $remoteRelativeRepository;
         $this->remoteTableColumnRepository = $remoteTableColumnRepository;

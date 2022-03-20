@@ -6,7 +6,7 @@ namespace App\Controller\Editor;
 
 use App\Entity\DataBaseInfo;
 use App\Form\Type\DataBaseType;
-use App\Repository\DataBaseRepository;
+use App\Repository\DataBaseInfoRepository;
 use App\Service\SyncRemoteDataBaseTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EditorDataBaseController extends AbstractController
 {
     /**
-     * @var DataBaseRepository
+     * @var DataBaseInfoRepository
      */
     private $dataBaseRepository;
     /**
@@ -29,7 +29,7 @@ class EditorDataBaseController extends AbstractController
     private $syncRemoteDataBaseTableService;
 
     public function __construct(
-        DataBaseRepository $baseRepository,
+        DataBaseInfoRepository         $baseRepository,
         SyncRemoteDataBaseTableService $syncRemoteDataBaseTableService
     ) {
         $this->dataBaseRepository = $baseRepository;

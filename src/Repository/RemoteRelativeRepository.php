@@ -23,14 +23,14 @@ class RemoteRelativeRepository extends ServiceEntityRepository
      */
     private $entityManager;
     /**
-     * @var RemoteTableColumnRepository
+     * @var ColumnInfoRepository
      */
     private $remoteTableColumnRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ManagerRegistry $registry,
-        RemoteTableColumnRepository $remoteTableColumnRepository
+        ColumnInfoRepository $remoteTableColumnRepository
     ) {
         parent::__construct($registry, RelativeInfo::class);
         $this->entityManager = $entityManager;
@@ -40,7 +40,7 @@ class RemoteRelativeRepository extends ServiceEntityRepository
     /**
      * @param RelativeInfo $dataBase
      */
-    public function save($dataBase)
+    public function save(RelativeInfo $dataBase)
     {
         $this->entityManager->persist($dataBase);
         $this->entityManager->flush();

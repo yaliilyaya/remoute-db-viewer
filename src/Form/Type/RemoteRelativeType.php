@@ -4,7 +4,7 @@
 namespace App\Form\Type;
 
 use App\Entity\ColumnInfo;
-use App\Repository\RemoteTableColumnRepository;
+use App\Repository\ColumnInfoRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,7 +26,7 @@ class RemoteRelativeType extends AbstractType
             ->add('columnFrom', EntityType::class, [
                 'class' => ColumnInfo::class,
                 'choice_label' => [$this, 'extractColumnLabel'],
-                'query_builder' => static function (RemoteTableColumnRepository $er) {
+                'query_builder' => static function (ColumnInfoRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.id', 'ASC');
                 },
@@ -34,7 +34,7 @@ class RemoteRelativeType extends AbstractType
             ->add('columnTo', EntityType::class, [
                 'class' => ColumnInfo::class,
                 'choice_label' => [$this, 'extractColumnLabel'],
-                'query_builder' => static function (RemoteTableColumnRepository $er) {
+                'query_builder' => static function (ColumnInfoRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.id', 'ASC');
                 },

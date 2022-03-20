@@ -3,7 +3,7 @@
 
 namespace App\Factory;
 
-use App\Repository\DataBaseRepository;
+use App\Repository\DataBaseInfoRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
@@ -12,11 +12,11 @@ use Exception;
 class ConnectionFactory implements ConnectionFactoryInterface
 {
     /**
-     * @var DataBaseRepository
+     * @var DataBaseInfoRepository
      */
     private $baseRepository;
 
-    public function __construct(DataBaseRepository $baseRepository)
+    public function __construct(DataBaseInfoRepository $baseRepository)
     {
         $this->baseRepository = $baseRepository;
     }

@@ -5,8 +5,8 @@ namespace App\Controller\Editor;
 use App\Entity\DataBaseInfo;
 use App\Factory\ConnectionByDataBaseFactory;
 use App\Form\Type\RemoteTableType;
-use App\Repository\DataBaseRepository;
-use App\Repository\RemoteTableRepository;
+use App\Repository\DataBaseInfoRepository;
+use App\Repository\TableInfoRepository;
 use App\Service\SyncRemoteTableService;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RemoteTableController  extends AbstractController
 {
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $tableRepository;
     /**
@@ -29,22 +29,22 @@ class RemoteTableController  extends AbstractController
      */
     private $connectionByDataBaseFactory;
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $remoteTableRepository;
 
     /**
      * EditorTableDataBaseController constructor.
-     * @param RemoteTableRepository $tableRepository
-     * @param RemoteTableRepository $remoteTableRepository
+     * @param TableInfoRepository $tableRepository
+     * @param TableInfoRepository $remoteTableRepository
      * @param ConnectionByDataBaseFactory $connectionByDataBaseFactory
      * @param SyncRemoteTableService $syncRemoteTableService
      */
     public function __construct(
-        RemoteTableRepository $tableRepository,
-        RemoteTableRepository $remoteTableRepository,
+        TableInfoRepository         $tableRepository,
+        TableInfoRepository         $remoteTableRepository,
         ConnectionByDataBaseFactory $connectionByDataBaseFactory,
-        SyncRemoteTableService $syncRemoteTableService
+        SyncRemoteTableService      $syncRemoteTableService
     ) {
         $this->tableRepository = $tableRepository;
         $this->syncRemoteTableService = $syncRemoteTableService;

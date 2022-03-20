@@ -29,11 +29,11 @@ class ColumnDecoratorRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param ColumnDecorator $Table
+     * @param ColumnDecorator $table
      */
-    public function save($Table)
+    public function save(ColumnDecorator $table)
     {
-        $this->entityManager->persist($Table);
+        $this->entityManager->persist($table);
         $this->entityManager->flush();
     }
 

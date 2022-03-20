@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-use App\Repository\RemoteTableRepository;
+use App\Repository\TableInfoRepository;
 use App\Service\DetailRowTableService;
 use App\Service\TableView\ViewColumnsRowDetailService;
 use Doctrine\DBAL\DBALException;
@@ -22,14 +22,14 @@ class DetailController extends AbstractController
      */
     private $viewColumnsRowDetailService;
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $remoteTableRepository;
 
     public function __construct(
         DetailRowTableService $detailRowTableService,
         ViewColumnsRowDetailService $viewColumnsRowDetailService,
-        RemoteTableRepository $remoteTableRepository
+        TableInfoRepository $remoteTableRepository
     ) {
         $this->detailRowTableService = $detailRowTableService;
         $this->viewColumnsRowDetailService = $viewColumnsRowDetailService;

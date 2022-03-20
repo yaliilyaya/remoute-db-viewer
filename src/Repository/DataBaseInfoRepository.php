@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method DataBaseInfo findOneBy(array $criteria, array $orderBy = null)
  * @method DataBaseInfo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DataBaseRepository extends ServiceEntityRepository
+class DataBaseInfoRepository extends ServiceEntityRepository
 {
     /**
      * @var EntityManagerInterface
@@ -30,7 +30,7 @@ class DataBaseRepository extends ServiceEntityRepository
     /**
      * @param DataBaseInfo $dataBase
      */
-    public function save($dataBase)
+    public function save(DataBaseInfo $dataBase)
     {
         $this->entityManager->persist($dataBase);
         $this->entityManager->flush();
@@ -46,7 +46,7 @@ class DataBaseRepository extends ServiceEntityRepository
      * @param string $alias
      * @return DataBaseInfo|null
      */
-    public function findByAlias(string $alias)
+    public function findByAlias(string $alias): ?DataBaseInfo
     {
         return $this->findOneBy(['alias' => $alias]);
     }

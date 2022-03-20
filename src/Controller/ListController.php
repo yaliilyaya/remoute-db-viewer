@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\RemoteTableRepository;
+use App\Repository\TableInfoRepository;
 use App\Service\DataListTableService;
 use App\Service\TableView\ViewColumnsTableListService;
 use Doctrine\DBAL\DBALException;
@@ -25,14 +25,14 @@ class ListController extends AbstractController
      */
     private $viewColumnsTableListService;
     /**
-     * @var RemoteTableRepository
+     * @var TableInfoRepository
      */
     private $remoteTableRepository;
 
     public function __construct(
         DataListTableService $dataListTableService,
         ViewColumnsTableListService $viewColumnsTableListService,
-        RemoteTableRepository $remoteTableRepository
+        TableInfoRepository $remoteTableRepository
     ) {
         $this->dataListTableService = $dataListTableService;
         $this->viewColumnsTableListService = $viewColumnsTableListService;
