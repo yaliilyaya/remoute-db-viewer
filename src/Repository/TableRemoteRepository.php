@@ -46,12 +46,16 @@ class TableRemoteRepository
 
     /**
      * @param $tableName
-     * @return Table
+     * @return Table|null
      */
-    public function getTableInfo($tableName): Table
+    public function getTableInfo($tableName): ?Table
     {
         $schemaManager = $this->connection->getSchemaManager();
-        return $schemaManager->listTableDetails($tableName);
+        try {
+            return $schemaManager->listTableDetails($tableName);
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 
     /**

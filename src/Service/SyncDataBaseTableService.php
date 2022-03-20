@@ -47,7 +47,8 @@ class SyncDataBaseTableService
     {
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
         $tables = $tableRemoteRepository->findAll($dataBase);
-        $this->tableInfoRepository->saveAll($tables);
+        dump($tables);
+//        $this->tableInfoRepository->saveAll($tables);
     }
 
 //    /**

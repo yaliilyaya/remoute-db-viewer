@@ -5,6 +5,7 @@ namespace App\Controller\Editor;
 
 
 use App\Entity\DataBaseInfo;
+use App\Exception\ConnectionException;
 use App\Form\Type\DataBaseType;
 use App\Repository\DataBaseInfoRepository;
 use App\Service\SyncDataBaseTableService;
@@ -135,10 +136,11 @@ class DataBaseInfoController extends AbstractController
     }
 
     /**
-     * @Route("/settings/dataBase/table/sync/{dbName}", name="settings.dataBase.syncTables")
+     * @Route("/settings/dataBase/table/sync/{id}", name="settings.dataBase.syncTables")
      * @param SyncDataBaseTableService $syncDataBaseTableService
      * @param $id
      * @return Response
+     * @throws ConnectionException
      */
     public function syncTable(
         SyncDataBaseTableService $syncDataBaseTableService,
