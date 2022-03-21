@@ -2,6 +2,7 @@
 
 namespace RemoteDataBase\Service;
 
+use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\DataBaseInfo;
 use App\Entity\TableInfo;
 use App\Repository\TableInfoRepository;
@@ -24,6 +25,10 @@ class SyncDataBaseTableService
      * @var TableInfoRepository
      */
     private $tableInfoRepository;
+    /**
+     * @var ColumnCollectionByTableBuilder
+     */
+    private $columnCollectionByTableBuilder;
 
     /**
      * @param TableInfoRepository $tableInfoRepository
@@ -31,10 +36,12 @@ class SyncDataBaseTableService
      */
     public function __construct(
         TableInfoRepository $tableInfoRepository,
-        TableRemoteRepositoryBuilder $tableRemoteRepositoryBuilder
+        TableRemoteRepositoryBuilder $tableRemoteRepositoryBuilder,
+        ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
     ) {
         $this->tableRemoteRepositoryBuilder = $tableRemoteRepositoryBuilder;
         $this->tableInfoRepository = $tableInfoRepository;
+        $this->columnCollectionByTableBuilder = $columnCollectionByTableBuilder;
     }
 
     /**
@@ -46,6 +53,7 @@ class SyncDataBaseTableService
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
         $tables = $tableRemoteRepository->findAll();
         $tableInfoList = $this->createTableInfoList($tables, $dataBase);
+        $this->syncTableColumns($tableInfoList);
         dump($tableInfoList);
         die(__FILE__);
         $this->tableInfoRepository->saveAll($tableInfoList);
@@ -102,5 +110,17 @@ class SyncDataBaseTableService
             ->setDataBase($dataBase);
 
         return $tableInfo;
+    }
+
+    private function syncTableColumns(array $tables)
+    {
+        /** @var Table $table */
+        $table = current($tables);
+        /** @var TableInfo $tableInfo */
+        $tableInfo = null;
+        $columns = $table->getColumns();
+        $columnInfoList = $this->columnCollectionByTableBuilder->create($columns);
+        $columnInfoList->setTable($tableInfo);
+        $tableInfo->setColumns($columnInfoList);
     }
 }

@@ -3,19 +3,21 @@
 
 namespace App\Controller;
 
-use App\Factory\ConnectionFactory;
 use App\Service\DetailRowTableService;
-use App\Service\RemoteTableInfoService;
 use App\Service\TableView\ViewColumnsRowPopupService;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @uses Route
+ */
 class PopupController extends AbstractController
 {
     /**
-     * @var RemoteTableInfoService
+     * @deprecated
+     * @var \App\Service\RemoteTableInfoService
      */
     private $dynamicTableInfoService;
     /**
@@ -27,20 +29,17 @@ class PopupController extends AbstractController
      */
     private $viewColumnsRowPopupService;
     /**
-     * @var ConnectionFactory
+     * @deprecated
+     * @var \App\Factory\ConnectionFactory
      */
     private $connectionFactory;
 
     public function __construct(
-        RemoteTableInfoService $dynamicTableInfoService,
         DetailRowTableService $detailRowTableService,
-        ViewColumnsRowPopupService $viewColumnsRowPopupService,
-        ConnectionFactory $connectionFactory
+        ViewColumnsRowPopupService $viewColumnsRowPopupService
     ) {
-        $this->dynamicTableInfoService = $dynamicTableInfoService;
         $this->detailRowTableService = $detailRowTableService;
         $this->viewColumnsRowPopupService = $viewColumnsRowPopupService;
-        $this->connectionFactory = $connectionFactory;
     }
 
     /**

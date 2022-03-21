@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Builder;
 
-
 use App\Collection\ColumnInfoCollection;
+use App\Entity\ColumnInfo;
 use App\Entity\TableInfo;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Column;
@@ -12,34 +11,32 @@ use Doctrine\DBAL\Schema\Column;
 class ColumnCollectionByTableBuilder
 {
     /**
-     * @param TableInfo $table
+     * @param Column[] $columns
      * @return ColumnInfoCollection
-     * @throws DBALException
      */
-    public function create(TableInfo $table)
+    public function create(array $columns)
     {
-        $columnInfoList = $table->getTableInfo()->getColumns();
-        $columns = array_map(static function (Column $columnInfo) use ($table)
+        $columns = array_map(static function (Column $column)
         {
-            $column = new Column();
-            return $column->setName($columnInfo->getName())
-                ->setLabel($columnInfo->getName())
-                ->setDescription($columnInfo->getComment() ?: "")
-                ->setType($columnInfo->getType())
+            $columnInfo = new ColumnInfo();
+            return $columnInfo->setName($column->getName())
+                ->setLabel($column->getName())
+                ->setDescription($column->getComment() ?: "")
+                ->setType($column->getType())
                 ->setIsViewDetail(true);
 
-        }, array_values($columnInfoList));
+        }, array_values($columns));
 
         $columnViewList = array_slice($columns, 0, 10);
-        array_walk($columnViewList, static function (Column $column)
+        array_walk($columnViewList, static function (ColumnInfo $columnInfo)
         {
-            $column->setIsViewList(true);
+            $columnInfo->setIsViewList(true);
         });
 
         $columnPopup = array_slice($columns, 0, 20);
-        array_walk($columnPopup, static function (Column $column)
+        array_walk($columnPopup, static function (ColumnInfo $columnInfo)
         {
-            $column->setIsViewPopup(true);
+            $columnInfo->setIsViewPopup(true);
         });
 
         return new ColumnInfoCollection($columns);
