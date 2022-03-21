@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Builder;
+namespace RemoteDataBase\Builder;
 
 use App\Entity\DataBaseInfo;
 use App\Exception\ConnectionException;
 use App\Factory\ConnectionBuilder;
-use App\Repository\TableRemoteRepository;
+use RemoteDataBase\Repository\TableRemoteRepository;
 
 class TableRemoteRepositoryBuilder
 {

@@ -8,10 +8,10 @@ use App\Entity\DataBaseInfo;
 use App\Exception\ConnectionException;
 use App\Form\Type\DataBaseType;
 use App\Repository\DataBaseInfoRepository;
-use App\Service\SyncDataBaseTableService;
+use RemoteDataBase\Service\SyncDataBaseTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -147,7 +147,6 @@ class DataBaseInfoController extends AbstractController
         $dataBase = $this->dataBaseRepository->find($id);
         $syncDataBaseTableService->sync($dataBase);
 
-        die(__FILE__);
         return $this->redirectToRoute("settings.dataBase.list");
     }
 }

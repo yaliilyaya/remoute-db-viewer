@@ -1,12 +1,8 @@
 <?php
 
 
-namespace App\Repository;
+namespace RemoteDataBase\Repository;
 
-use App\Builder\DelayedConnectionBuilder;
-use App\Entity\DataBaseInfo;
-use App\Entity\TableInfo;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table;
 

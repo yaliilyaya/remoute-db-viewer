@@ -1,13 +1,9 @@
 <?php
 
 
-namespace App\Repository;
+namespace RemoteDataBase\Repository;
 
-use App\Entity\ColumnInfo;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class TableRepository

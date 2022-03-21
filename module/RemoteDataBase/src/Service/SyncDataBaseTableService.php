@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Service;
+namespace RemoteDataBase\Service;
 
-use App\Builder\TableRemoteRepositoryBuilder;
 use App\Entity\DataBaseInfo;
 use App\Entity\TableInfo;
 use App\Exception\ConnectionException;
-use App\Factory\ConnectionBuilder;
-use App\Factory\ConnectionFactory;
 use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table;
-use Doctrine\ORM\EntityManagerInterface;
+use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
 
 /**
  * Class SyncRemoteTableService
@@ -49,6 +46,8 @@ class SyncDataBaseTableService
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
         $tables = $tableRemoteRepository->findAll();
         $tableInfoList = $this->createTableInfoList($tables, $dataBase);
+        dump($tableInfoList);
+        die(__FILE__);
         $this->tableInfoRepository->saveAll($tableInfoList);
     }
 

@@ -4,7 +4,7 @@ namespace RemoteDataBase\Builder;
 use App\Entity\DataBaseInfo;
 use App\Exception\ConnectionException;
 use App\Factory\ConnectionBuilder;
-use App\Repository\ColumnRemoteRepository;
+use RemoteDataBase\Repository\ColumnRemoteRepository;
 
 class ColumnRemoteRepositoryBuilder
 {
