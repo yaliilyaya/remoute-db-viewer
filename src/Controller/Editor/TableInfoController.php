@@ -105,19 +105,4 @@ class TableInfoController  extends AbstractController
             'edit' => true
         ]);
     }
-
-    /**
-     * @Route("/settings/columns/config/{tableId}", name="settings.columns.config")
-     * @param $tableId
-     * @return Response
-     */
-    public function configColumns(
-        $tableId
-    ): Response {
-        $tableInfo = $this->remoteTableRepository->find($tableId);
-
-        return $this->render('config/columns.html.twig', [
-            'columns' => $tableInfo->getColumns()
-        ]);
-    }
 }

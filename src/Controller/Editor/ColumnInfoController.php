@@ -35,7 +35,7 @@ class ColumnInfoController extends AbstractController
     }
 
     /**
-     * @Route("/settings/column/config/{columnId}", name="settings.column.config")
+     * @Route("/settings/column/config/{columnId}", name="settings.column.edit")
      * @param Request $request
      * @param $columnId
      * @return Response
@@ -77,7 +77,7 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
     }
 
     /**
@@ -93,7 +93,7 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
     }
 
     /**
@@ -109,7 +109,22 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
+    }
+
+    /**
+     * @Route("/settings/columns/config/{tableId}", name="settings.columns.config")
+     * @param $tableId
+     * @return Response
+     */
+    public function configColumns(
+        $tableId
+    ): Response {
+        $tableInfo = $this->remoteTableRepository->find($tableId);
+
+        return $this->render('config/columns.html.twig', [
+            'columns' => $tableInfo->getColumns()
+        ]);
     }
 
 }

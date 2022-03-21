@@ -19,8 +19,15 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        return $this->render('mainPage.html.twig', [
+        return $this->render('mainPage.html.twig', []);
+    }
 
-        ]);
+    /**
+     * @Route("/icons")
+     * @return Response
+     */
+    public function icons()
+    {
+        return $this->render('main/icons.html.twig', []);
     }
 }

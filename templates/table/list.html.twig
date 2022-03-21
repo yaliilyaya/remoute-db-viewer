@@ -5,6 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">Название</h3>
             <div class="card-tools">
+                <a href="{{ path("settings.columns.config", {tableId: table.id}) }}" class="btn btn-flat" title="table config"><i class="fa fa-columns"></i></a>
             </div>
         </div>
 
@@ -39,7 +40,7 @@
                             {% for row in rows %}
                                 <tr role="row" class="odd">
                                     {% for column in columns %}
-                                        <th>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </th>
+                                        <td>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </td>
                                     {% endfor %}
                                 </tr>
                             {% endfor %}
