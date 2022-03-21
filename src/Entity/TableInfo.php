@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Collection\ColumnInfoCollection;
-use App\Model\DelayedConnection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,22 +28,17 @@ class TableInfo
     private $connection;
 
     /**
-     * @var DelayedConnection
-     */
-    private $delayedConnection;
-
-    /**
      * @var Table
      */
     private $tableInfo;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=150)
      * @var string|null
      */
     private $label;
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=150)
      * @var string|null
      */
     private $name;

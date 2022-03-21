@@ -81,6 +81,7 @@ class SyncDataBaseTableService
      */
     private function createTableInfo(Table $table, DataBaseInfo $dataBase): TableInfo
     {
+        dump($table->getName());
         $tableInfo = new TableInfo();
         $tableInfo->setName($table->getName())
             ->setLabel($table->getName())
