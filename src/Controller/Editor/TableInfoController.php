@@ -50,7 +50,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/settings/table/list", name="tableList")
+     * @Route("/settings/table/list", name="settings.table.list")
      * @return Response
      */
     public function list(): Response
@@ -64,7 +64,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/settings/table/sync/{tableId}", name="syncTable")
+     * @Route("/settings/table/sync/{tableId}", name="settings.table.sync")
      * @param $tableId
      * @return Response
      * @throws ConnectionException
@@ -74,11 +74,11 @@ class TableInfoController  extends AbstractController
         $table = $this->tableRepository->find($tableId);
         $this->syncRemoteTableService->sync($table);
 
-        return $this->redirectToRoute("tableList");
+        return $this->redirectToRoute("settings.table.list");
     }
 
     /**
-     * @Route("/settings/table/edit/{tableId}", name="configTable")
+     * @Route("/settings/table/edit/{tableId}", name="settings.table.edit")
      * @param Request $request
      * @param $tableId
      * @return Response
@@ -96,7 +96,7 @@ class TableInfoController  extends AbstractController
             $dataBase = $form->getData();
             $this->remoteTableRepository->save($dataBase);
 
-            return $this->redirectToRoute("tableList");
+            return $this->redirectToRoute("settings.table.list");
         }
 
         return $this->render('config/table.html.twig', [
@@ -107,7 +107,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/settings/columns/config/{tableId}", name="configColumns")
+     * @Route("/settings/columns/config/{tableId}", name="settings.columns.config")
      * @param $tableId
      * @return Response
      */

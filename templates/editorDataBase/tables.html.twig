@@ -30,9 +30,9 @@
                         <td>{{ table.isActive }}</td>
                         <td>
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
-                                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="fa fa-table"></i></a>
-                                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="fa fa-columns"></i></a>
+                                <a class="btn btn-default" href="{{ path('settings.table.sync', {'tableId': table.id}) }}">Sync Table</a>
+                                <a class="btn btn-primary " href="{{ path('settings.table.edit', {'tableId': table.id}) }}"><i class="fa fa-table"></i></a>
+                                <a class="btn btn-primary " href="{{ path('settings.columns.config', {'tableId': table.id}) }}"><i class="fa fa-columns"></i></a>
                             </div>
                         </td>
                     </tr>
