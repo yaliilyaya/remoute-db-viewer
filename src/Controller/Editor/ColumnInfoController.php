@@ -77,7 +77,7 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.columns.config', ['tableId' => $column->getTable()->getId()]);
     }
 
     /**
@@ -93,7 +93,7 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.columns.config', ['tableId' => $column->getTable()->getId()]);
     }
 
     /**
@@ -109,7 +109,7 @@ class ColumnInfoController extends AbstractController
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirectToRoute('settings.column.edit', ['columnId' => $column->getTable()->getId()]);
+        return $this->redirectToRoute('settings.columns.config', ['tableId' => $column->getTable()->getId()]);
     }
 
     /**

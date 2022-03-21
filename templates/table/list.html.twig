@@ -32,7 +32,7 @@
                             <thead>
                             <tr role="row">
                                 {% for column in columns %}
-                                    <th title="{{ column.description }}">{{ column.label }}</th>
+                                    <th title="{{ column.type }} {{ column.description }}">{{ column.label }}</th>
                                 {% endfor %}
                             </tr>
                             </thead>
@@ -40,7 +40,8 @@
                             {% for row in rows %}
                                 <tr role="row" class="odd">
                                     {% for column in columns %}
-                                        <td>{{ applyColumnDecorator(row.data[column.name], column) | raw }} </td>
+                                        {% set value = row.data[column.name] | default %}
+                                        <td>{{ applyColumnDecorator(value, column) | raw }} </td>
                                     {% endfor %}
                                 </tr>
                             {% endfor %}

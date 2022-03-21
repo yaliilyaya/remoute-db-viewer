@@ -40,7 +40,7 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{db}/{tableName}", name="list")
+     * @Route("/info/{db}/{tableName}", name="list")
      * @param $db
      * @param $tableName
      * @return Response
@@ -71,7 +71,7 @@ class ListController extends AbstractController
     }
 
     /**
-     * @Route("/list/{tableId}", name="listById")
+     * @Route("/info/{tableId}", name="listById")
      * @param $tableId
      * @return Response
      */

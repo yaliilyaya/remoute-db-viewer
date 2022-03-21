@@ -8,9 +8,20 @@ use App\Entity\ColumnInfo;
 use App\Entity\TableInfo;
 use App\Model\RowValue;
 use Doctrine\DBAL\DBALException;
+use RemoteDataBase\Builder\RowRemoteRepositoryBuilder;
 
 class DetailRowTableService
 {
+    /**
+     * @var RowRemoteRepositoryBuilder
+     */
+    private $rowRemoteRepositoryBuilder;
+
+    public function __construct(RowRemoteRepositoryBuilder $rowRemoteRepositoryBuilder)
+    {
+        $this->rowRemoteRepositoryBuilder = $rowRemoteRepositoryBuilder;
+    }
+
 
     /**
      * @param TableInfo $table
@@ -19,31 +30,18 @@ class DetailRowTableService
      */
     public function getRow(TableInfo $table, $id): ?RowValue
     {
-        try {
-            $queryBuilder = $table->getConnection()->createQueryBuilder();
-        } catch (DBALException $e) {
-            return null;
-        }
-        //TODO:: filter field
-        $queryBuilder->select($table->getFieldSet(ColumnInfo::TYPE_DETAIL))
-            ->from($table->getDataBase()->getDb() .'.'.$table->getName())
-            ->where('id = :id');
+        $rowRemoteRepository = $this->rowRemoteRepositoryBuilder->create($table);
 
-        $query = $queryBuilder->getSQL();
+        $rows = $rowRemoteRepository->findBy([
+            'position_id' => $id
+        ]);
 
-
-        try {
-            $dataRow = $table->getConnection()->fetchAssoc($query, ['id' => $id]);
-        } catch (DBALException $e) {
-            return null;
-        }
-
-        if (!$dataRow) {
+        if (!$rows) {
             return null;
         }
 
         $row = new RowValue();
-        $row->setData($dataRow);
+        $row->setData(current($rows));
         return $row;
     }
 }

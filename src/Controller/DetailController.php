@@ -37,7 +37,7 @@ class DetailController extends AbstractController
     }
 
     /**
-     * @Route("/detail/{db}/{tableName}/{id}", name="detail")
+     * @Route("/info/{db}/{tableName}/{id}", name="detail")
      * @param $db
      * @param $tableName
      * @param $id
@@ -63,6 +63,7 @@ class DetailController extends AbstractController
 
         return $this->render('table/detail.html.twig', [
             'row' => $row,
+            'table' => $table,
             'columns' => $columns
         ]);
     }

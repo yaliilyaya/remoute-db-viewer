@@ -5,33 +5,45 @@
         <div class="card-header">
             <h3 class="card-title">Название</h3>
             <div class="card-tools">
+                <a href="{{ path("settings.columns.config", {tableId: table.id}) }}" class="btn btn-flat" title="table config">
+                    <i class="fa fa-columns"></i>
+
+                </a>
             </div>
         </div>
 
         <div class="card-body">
-            <div class="tab-content" id="custom-content-below-tabContent">
-                <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="">
-                    <table class="table table-bordered table-striped js-options-table js-options-table">
-                        <thead>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="tab-content" id="custom-content-below-tabContent">
+                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="">
+                        <table class="table table-bordered table-striped js-options-table js-options-table">
+                            <thead>
                             <tr role="row">
                                 <th>Name</th>
                                 <th>Value</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        {% for column in columns %}
-                            <tr>
-                                <td title="{{ column.description }}">{{ column.label }}</td>
-                                <td>{{ row.data[column.name] }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for column in columns %}
+                                <tr>
+                                    <td title="{{ column.description }}">
+                                        {{ column.label }}
+                                        <i class="fa fa-info-circle" title="{{ column.type }} {{ column.description }}"></i>
+                                    </td>
+                                    <td>{{ row.data[column.name] | default }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
+                    </div>
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby=""></div>
+                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby=""></div>
                 </div>
-                <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby=""></div>
-                <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby=""></div>
             </div>
+        </div>
+
         </div>
     </div>
 {% endblock %}
