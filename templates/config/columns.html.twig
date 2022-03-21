@@ -25,25 +25,25 @@
                         <td>{{ column.label }}</td>
                         <td>
                             <a class="btn {{ column.isViewList ? 'btn-success' : 'btn-default' }}"
-                               href="{{ path('columnEnabledViewList', {'columnId': column.id, 'enabled': column.isViewList ? 'false' : 'true'}) }}">
+                               href="{{ path('settings.column.enabledViewList', {'columnId': column.id, 'enabled': column.isViewList ? 'false' : 'true'}) }}">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </a>
                         </td>
                         <td>
                             <a class="btn {{ column.isViewDetail ? 'btn-success' : 'btn-default' }}"
-                               href="{{ path('columnEnabledViewDetail', {'columnId': column.id, 'enabled': column.isViewDetail ? 'false' : 'true'}) }}">
+                               href="{{ path('settings.column.enabledViewDetail', {'columnId': column.id, 'enabled': column.isViewDetail ? 'false' : 'true'}) }}">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </a>
                         </td>
                         <td>
                             <a class="btn {{ column.isViewPopup ?  'btn-success' : 'btn-default'}}"
-                               href="{{ path('columnEnabledViewPopup', {'columnId': column.id, 'enabled': column.isViewPopup ? 'false' : 'true'}) }}">
+                               href="{{ path('settings.column.enabledViewPopup', {'columnId': column.id, 'enabled': column.isViewPopup ? 'false' : 'true'}) }}">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </a>
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="...">
-                                <a class="btn btn-primary " href="{{ path('configColumn', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a class="btn btn-primary " href="{{ path('settings.column.config', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
                                 <a class="btn btn-primary " href="{{ path('relativeCreate', {'columnId': column.id}) }}"><i class="glyphicon glyphicon-link"></i></a>
                             </div>
                         </td>

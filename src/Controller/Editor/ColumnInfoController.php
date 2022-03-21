@@ -35,7 +35,7 @@ class ColumnInfoController extends AbstractController
     }
 
     /**
-     * @Route("/config/column/{columnId}", name="configColumn")
+     * @Route("/settings/column/config/{columnId}", name="settings.column.config")
      * @param Request $request
      * @param $columnId
      * @return Response
@@ -65,51 +65,51 @@ class ColumnInfoController extends AbstractController
     }
 
     /**
-     * @Route("/config/column/enabledViewList/{columnId}/{enabled}", name="columnEnabledViewList")
+     * @Route("/settings/column/enabledViewList/{columnId}/{enabled}", name="settings.column.enabledViewList")
      * @param int $columnId
      * @param string $enabled
      * @return RedirectResponse
      */
-    public function enabledViewList($columnId, $enabled)
+    public function enabledViewList($columnId, $enabled): RedirectResponse
     {
         $column = $this->remoteTableColumnRepository->find($columnId);
         $column->setIsViewList($enabled === 'true');
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirect('/config/columns/' . $column->getTable()->getId());
+        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
     }
 
     /**
-     * @Route("/config/column/enabledViewDetail/{columnId}/{enabled}", name="columnEnabledViewDetail")
+     * @Route("/settings/column/enabledViewDetail/{columnId}/{enabled}", name="settings.column.enabledViewDetail")
      * @param int $columnId
      * @param string $enabled
      * @return RedirectResponse
      */
-    public function enabledViewDetail(int $columnId, string $enabled)
+    public function enabledViewDetail(int $columnId, string $enabled): RedirectResponse
     {
         $column = $this->remoteTableColumnRepository->find($columnId);
         $column->setIsViewDetail($enabled === 'true');
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirect('/config/columns/' . $column->getTable()->getId());
+        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
     }
 
     /**
-     * @Route("/config/column/enabledViewPopup/{columnId}/{enabled}", name="columnEnabledViewPopup")
+     * @Route("/settings/column/enabledViewPopup/{columnId}/{enabled}", name="settings.column.enabledViewPopup")
      * @param int $columnId
      * @param string $enabled
      * @return RedirectResponse
      */
-    public function enabledViewPopup($columnId, $enabled)
+    public function enabledViewPopup($columnId, $enabled): RedirectResponse
     {
         $column = $this->remoteTableColumnRepository->find($columnId);
         $column->setIsViewPopup($enabled === 'true');
 
         $this->remoteTableColumnRepository->save($column);
 
-        return $this->redirect('/config/columns/' . $column->getTable()->getId());
+        return $this->redirectToRoute('settings.column.config', ['columnId' => $column->getTable()->getId()]);
     }
 
 }
