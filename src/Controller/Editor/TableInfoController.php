@@ -6,6 +6,8 @@ use App\Entity\DataBaseInfo;
 use App\Form\Type\RemoteTableType;
 use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
+use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
+use RemoteDataBase\Exception\ConnectionException;
 use RemoteDataBase\Factory\ConnectionBuilder;
 use RemoteDataBase\Service\SyncRemoteTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +29,6 @@ class TableInfoController  extends AbstractController
      */
     private $syncRemoteTableService;
     /**
-     * @var ConnectionBuilder
-     */
-    private $connectionByDataBaseFactory;
-    /**
      * @var TableInfoRepository
      */
     private $remoteTableRepository;
@@ -39,18 +37,15 @@ class TableInfoController  extends AbstractController
      * EditorTableDataBaseController constructor.
      * @param TableInfoRepository $tableRepository
      * @param TableInfoRepository $remoteTableRepository
-     * @param ConnectionBuilder $connectionByDataBaseFactory
      * @param SyncRemoteTableService $syncRemoteTableService
      */
     public function __construct(
         TableInfoRepository    $tableRepository,
         TableInfoRepository    $remoteTableRepository,
-        ConnectionBuilder      $connectionByDataBaseFactory,
         SyncRemoteTableService $syncRemoteTableService
     ) {
         $this->tableRepository = $tableRepository;
         $this->syncRemoteTableService = $syncRemoteTableService;
-        $this->connectionByDataBaseFactory = $connectionByDataBaseFactory;
         $this->remoteTableRepository = $remoteTableRepository;
     }
 
@@ -58,7 +53,7 @@ class TableInfoController  extends AbstractController
      * @Route("/settings/table/list", name="tableList")
      * @return Response
      */
-    public function list()
+    public function list(): Response
     {
         /** @var DataBaseInfo[] $dataBase */
         $tables = $this->tableRepository->findAll();
@@ -72,9 +67,9 @@ class TableInfoController  extends AbstractController
      * @Route("/settings/table/sync/{tableId}", name="syncTable")
      * @param $tableId
      * @return Response
-     * @throws DBALException
+     * @throws ConnectionException
      */
-    public function syncTable($tableId)
+    public function syncTable($tableId): Response
     {
         $table = $this->tableRepository->find($tableId);
         $this->syncRemoteTableService->sync($table);
@@ -83,22 +78,21 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/settings/table/config/{tableId}", name="configTable")
+     * @Route("/settings/table/edit/{tableId}", name="configTable")
      * @param Request $request
      * @param $tableId
      * @return Response
      */
-    public function configTable(
+    public function editTable(
         Request $request,
         $tableId
-    ) {
+    ): Response {
         $table = $this->remoteTableRepository->find($tableId);
 
         $form = $this->createForm(RemoteTableType::class, $table, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $dataBase = $form->getData();
             $this->remoteTableRepository->save($dataBase);
 
@@ -116,18 +110,14 @@ class TableInfoController  extends AbstractController
      * @Route("/settings/columns/config/{tableId}", name="configColumns")
      * @param $tableId
      * @return Response
-     * @throws DBALException
      */
-    public function configColumns($tableId)
-    {
-        $table = $this->remoteTableRepository->find($tableId);
-
-        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDataBase());
-        $table->setConnection($connection);
+    public function configColumns(
+        $tableId
+    ): Response {
+        $tableInfo = $this->remoteTableRepository->find($tableId);
 
         return $this->render('config/columns.html.twig', [
-            'columns' => $table->getColumns()
+            'columns' => $tableInfo->getColumns()
         ]);
     }
-
 }

@@ -73,7 +73,7 @@ class TableInfo
      */
     public function getColumns(): ColumnInfoCollection
     {
-        return new ColumnInfoCollection($this->columns ?: []);
+        return new ColumnInfoCollection($this->columns ? iterator_to_array($this->columns): []);
     }
 
     /**
