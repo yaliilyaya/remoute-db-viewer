@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ColumnInfoController  extends AbstractController
+class ColumnInfoController extends AbstractController
 {
     /**
      * @var TableInfoRepository
@@ -25,9 +25,10 @@ class ColumnInfoController  extends AbstractController
     private $remoteTableColumnRepository;
 
     public function __construct(
-        TableInfoRepository         $remoteTableRepository,
+        TableInfoRepository  $remoteTableRepository,
         ColumnInfoRepository $remoteTableColumnRepository
-    ) {
+    )
+    {
 
         $this->remoteTableRepository = $remoteTableRepository;
         $this->remoteTableColumnRepository = $remoteTableColumnRepository;
@@ -39,8 +40,10 @@ class ColumnInfoController  extends AbstractController
      * @param $columnId
      * @return Response
      */
-    public function configColumn(Request $request, $columnId)
-    {
+    public function configColumn(
+        Request $request,
+        $columnId
+    ): Response {
         $column = $this->remoteTableColumnRepository->find($columnId);
 
         $form = $this->createForm(RemoteTableColumnType::class, $column, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
