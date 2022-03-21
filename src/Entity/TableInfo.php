@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Collection\ColumnInfoCollection;
 use App\Model\DelayedConnection;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -16,6 +15,9 @@ use Doctrine\ORM\PersistentCollection;
  * Class Table
  * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\RemoteTableRepository")
+ * @uses ORM
+ * @uses ManyToOne
+ * @uses OneToMany
  */
 class TableInfo
 {
@@ -60,7 +62,7 @@ class TableInfo
      * @var DataBaseInfo
      * @ManyToOne(targetEntity="App\Entity\DataBaseInfo", inversedBy="tables")
      */
-    private $database;
+    private $dataBase;
     /**
      * @OneToMany(targetEntity="App\Entity\ColumnInfo", mappedBy="table", cascade={"persist"})
      * @var PersistentCollection
@@ -193,18 +195,18 @@ class TableInfo
     /**
      * @return DataBaseInfo
      */
-    public function getDatabase(): DataBaseInfo
+    public function getDataBase(): DataBaseInfo
     {
-        return $this->database;
+        return $this->dataBase;
     }
 
     /**
-     * @param DataBaseInfo $database
+     * @param DataBaseInfo $dataBase
      * @return TableInfo
      */
-    public function setDatabase(DataBaseInfo $database): TableInfo
+    public function setDataBase(DataBaseInfo $dataBase): TableInfo
     {
-        $this->database = $database;
+        $this->dataBase = $dataBase;
         return $this;
     }
 

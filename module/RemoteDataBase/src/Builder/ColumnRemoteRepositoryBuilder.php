@@ -2,8 +2,8 @@
 namespace RemoteDataBase\Builder;
 
 use App\Entity\DataBaseInfo;
-use App\Exception\ConnectionException;
-use App\Factory\ConnectionBuilder;
+use RemoteDataBase\Exception\ConnectionException;
+use RemoteDataBase\Factory\ConnectionBuilder;
 use RemoteDataBase\Repository\ColumnRemoteRepository;
 
 class ColumnRemoteRepositoryBuilder

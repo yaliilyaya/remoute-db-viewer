@@ -23,7 +23,7 @@ class DetailDecorator extends  ColumnDecorator
     public function execute($value, $column)
     {
         $tableName = $column->getTable()->getName();
-        $dbName = $column->getTable()->getDatabase()->getAlias();
+        $dbName = $column->getTable()->getDataBase()->getAlias();
         return "<a href='/detail/{$dbName}/{$tableName}/{$value}'>#{$value}</a>";
     }
 }

@@ -1,13 +1,14 @@
 <?php
-
 namespace RemoteDataBase\Builder;
 
 use App\Entity\DataBaseInfo;
+use Doctrine\DBAL\Connection;
 use RemoteDataBase\Exception\ConnectionException;
 use RemoteDataBase\Factory\ConnectionBuilder;
-use RemoteDataBase\Repository\TableRemoteRepository;
+use RemoteDataBase\Repository\ColumnRemoteRepository;
+use RemoteDataBase\Repository\DataBaseRemoteRepository;
 
-class TableRemoteRepositoryBuilder
+class DataBaseRemoteRepositoryBuilder
 {
     /**
      * @var ConnectionBuilder
@@ -22,15 +23,16 @@ class TableRemoteRepositoryBuilder
 
     /**
      * @param DataBaseInfo $dataBase
-     * @return TableRemoteRepository
+     * @return DataBaseRemoteRepository
      * @throws ConnectionException
      */
-    public function create(DataBaseInfo $dataBase): TableRemoteRepository
+    public function create(DataBaseInfo $dataBase): DataBaseRemoteRepository
     {
         $connection = $this->connectionBuilder->createConnection($dataBase);
 
-        return new TableRemoteRepository(
+        return new DataBaseRemoteRepository(
             $connection
         );
     }
+
 }

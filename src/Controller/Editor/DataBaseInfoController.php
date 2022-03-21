@@ -5,9 +5,9 @@ namespace App\Controller\Editor;
 
 
 use App\Entity\DataBaseInfo;
-use App\Exception\ConnectionException;
 use App\Form\Type\DataBaseType;
 use App\Repository\DataBaseInfoRepository;
+use RemoteDataBase\Exception\ConnectionException;
 use RemoteDataBase\Service\SyncDataBaseTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

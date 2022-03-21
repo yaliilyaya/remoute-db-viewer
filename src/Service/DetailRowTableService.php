@@ -26,7 +26,7 @@ class DetailRowTableService
         }
         //TODO:: filter field
         $queryBuilder->select($table->getFieldSet(ColumnInfo::TYPE_DETAIL))
-            ->from($table->getDatabase()->getDb() .'.'.$table->getName())
+            ->from($table->getDataBase()->getDb() .'.'.$table->getName())
             ->where('id = :id');
 
         $query = $queryBuilder->getSQL();

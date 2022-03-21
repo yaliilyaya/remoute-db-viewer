@@ -3,17 +3,19 @@
 namespace App\Controller\Editor;
 
 use App\Entity\DataBaseInfo;
-use App\Factory\ConnectionBuilder;
 use App\Form\Type\RemoteTableType;
-use App\Repository\DataBaseInfoRepository;
 use App\Repository\TableInfoRepository;
 use App\Service\SyncRemoteTableService;
 use Doctrine\DBAL\DBALException;
+use RemoteDataBase\Factory\ConnectionBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @uses Route
+ */
 class TableInfoController  extends AbstractController
 {
     /**
@@ -75,7 +77,7 @@ class TableInfoController  extends AbstractController
     public function syncTable($tableId)
     {
         $table = $this->tableRepository->find($tableId);
-        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDatabase());
+        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDataBase());
 
         $this->syncRemoteTableService->sync($connection, $table);
 
@@ -120,7 +122,7 @@ class TableInfoController  extends AbstractController
     {
         $table = $this->remoteTableRepository->find($tableId);
 
-        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDatabase());
+        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDataBase());
         $table->setConnection($connection);
 
         return $this->render('config/columns.html.twig', [

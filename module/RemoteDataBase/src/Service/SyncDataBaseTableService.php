@@ -4,11 +4,11 @@ namespace RemoteDataBase\Service;
 
 use App\Entity\DataBaseInfo;
 use App\Entity\TableInfo;
-use App\Exception\ConnectionException;
 use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table;
 use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
+use RemoteDataBase\Exception\ConnectionException;
 
 /**
  * Class SyncRemoteTableService
@@ -72,7 +72,7 @@ class SyncDataBaseTableService
 
             $table->setName($tableName)
                 ->setLabel($tableName)
-                ->setDatabase($dataBase);
+                ->setDataBase($dataBase);
             return $table;
         }, $tableNames);
     }
@@ -99,7 +99,7 @@ class SyncDataBaseTableService
         $tableInfo = new TableInfo();
         $tableInfo->setName($table->getName())
             ->setLabel($table->getName())
-            ->setDatabase($dataBase);
+            ->setDataBase($dataBase);
 
         return $tableInfo;
     }

@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Exception;
-
-use Doctrine\DBAL\Exception;
+namespace RemoteDataBase\Exception;
 
 class ConnectionException extends \Exception
 {

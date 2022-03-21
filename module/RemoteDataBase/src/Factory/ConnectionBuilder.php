@@ -1,15 +1,13 @@
 <?php
 
 
-namespace App\Factory;
+namespace RemoteDataBase\Factory;
 
 use App\Entity\DataBaseInfo;
-use App\Exception\ConnectionException;
-use App\Repository\DataBaseInfoRepository;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception;
+use RemoteDataBase\Exception\ConnectionException;
 
 class ConnectionBuilder
 {
