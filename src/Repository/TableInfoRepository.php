@@ -70,15 +70,10 @@ class TableInfoRepository extends ServiceEntityRepository
     {
         $db = $this->baseRepository->findOneBy(['alias' => $dbAlias]);
 
-        $table = $this->findOneBy([
+        return $this->findOneBy([
             'name' => $tableName,
-            'database' => $db
+            'dataBase' => $db
         ]);
-
-        $delayedConnection = $this->delayedConnectionBuilder->create($db, $table);
-        $table->setDelayedConnection($delayedConnection);
-
-        return $table;
     }
 
 }

@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\Entity\ColumnInfo;
+use App\Entity\TableInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +44,17 @@ class ColumnInfoRepository extends ServiceEntityRepository
     public function remove(ColumnInfo $table): void
     {
         $this->entityManager->remove($table);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param TableInfo $tableInfo
+     * @return void
+     */
+    public function removeByTable(TableInfo $tableInfo): void
+    {
+        $columns = iterator_to_array($tableInfo->getColumns());
+        array_walk($columns, [$this->entityManager, 'remove']);
         $this->entityManager->flush();
     }
 

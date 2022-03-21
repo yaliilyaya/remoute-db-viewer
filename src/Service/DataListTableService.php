@@ -10,32 +10,32 @@ use App\Entity\TableInfo;
 use App\Model\RowValue;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use RemoteDataBase\Builder\RowRemoteRepositoryBuilder;
+use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
 
 class DataListTableService
 {
+    /**
+     * @var RowRemoteRepositoryBuilder
+     */
+    private $rowRemoteRepositoryBuilder;
+
+    public function __construct(RowRemoteRepositoryBuilder $rowRemoteRepositoryBuilder)
+    {
+        $this->rowRemoteRepositoryBuilder = $rowRemoteRepositoryBuilder;
+    }
+
     /**
      * @param TableInfo $table
      * @param array $filter
      * @return RowsIterator
      * @throws DBALException
      */
-    public function getRows(TableInfo $table, $filter = [])
+    public function getRows(TableInfo $tableInfo, $filter = [])
     {
-        $queryBuilder = $table->getConnection()->createQueryBuilder()            ;
-        $queryBuilder->select($table->getFieldSet(ColumnInfo::TYPE_LIST))
-            ->from($table->getName())
-            ->setMaxResults($table->getListRowCount());
+        $rowRemoteRepository = $this->rowRemoteRepositoryBuilder->create($tableInfo);
 
-        if ($filter)
-        {
-            $filter = is_array($filter) ? $filter : [$filter];
-            $queryBuilder->where(array_shift($filter));
-            foreach ($filter as $key => $param) {
-                $queryBuilder->setParameter($key, $param, is_array($param) ? Connection::PARAM_STR_ARRAY  : null);
-            }
-        }
-
-        $dataRows = $queryBuilder->execute()->fetchAll();
+        $dataRows = $rowRemoteRepository->findBy($filter, $tableInfo->getListRowCount());
         $rows = array_map([$this, 'createRow'], $dataRows);
 
         return new RowsIterator($rows);

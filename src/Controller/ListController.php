@@ -57,7 +57,7 @@ class ListController extends AbstractController
         $filter = $_GET['filter'] ?? null;
         $filter = is_string($filter) ? json_decode($filter, true) : $filter;
 
-        $rows = $this->dataListTableService->getRows($table, $filter);
+        $rows = $this->dataListTableService->getRows($table, $filter ?: []);
         $columns = $this->viewColumnsTableListService->getColumns($table);
 
         $table = $columns->count() ? $columns->current()->getTable() : null;//TODO нужно доделать

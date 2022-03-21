@@ -4,6 +4,7 @@ namespace RemoteDataBase\Service;
 
 use App\Builder\ColumnCollectionByTableBuilder;
 use App\Entity\TableInfo;
+use App\Repository\ColumnInfoRepository;
 use App\Repository\TableInfoRepository;
 use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
 use RemoteDataBase\Exception\ConnectionException;
@@ -26,6 +27,10 @@ class SyncRemoteTableService
      * @var TableInfoRepository
      */
     private $tableInfoRepository;
+    /**
+     * @var ColumnInfoRepository
+     */
+    private $columnInfoRepository;
 
     /**
      * @param ColumnCollectionByTableBuilder $columnCollectionByTableBuilder
@@ -35,11 +40,13 @@ class SyncRemoteTableService
     public function __construct(
         ColumnCollectionByTableBuilder $columnCollectionByTableBuilder,
         TableRemoteRepositoryBuilder $tableRemoteRepositoryBuilder,
-        TableInfoRepository $tableInfoRepository
+        TableInfoRepository $tableInfoRepository,
+        ColumnInfoRepository $columnInfoRepository
     ) {
         $this->columnCollectionByTableBuilder = $columnCollectionByTableBuilder;
         $this->tableRemoteRepositoryBuilder = $tableRemoteRepositoryBuilder;
         $this->tableInfoRepository = $tableInfoRepository;
+        $this->columnInfoRepository = $columnInfoRepository;
     }
 
     /**
@@ -49,6 +56,8 @@ class SyncRemoteTableService
      */
     public function sync(TableInfo $tableInfo): void
     {
+        $this->columnInfoRepository->removeByTable($tableInfo);
+
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($tableInfo->getDataBase());
         $table = $tableRemoteRepository->getTableInfo($tableInfo->getName());
         $columns = $this->columnCollectionByTableBuilder->create($table->getColumns());
