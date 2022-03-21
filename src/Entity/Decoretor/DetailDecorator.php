@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ NNXD\DiscriminatorEntry(value="detail")
  */
-class DetailDecorator extends  ColumnDecorator
+class DetailDecorator extends ColumnDecorator
 {
     /**
      * @param $value
@@ -24,6 +24,6 @@ class DetailDecorator extends  ColumnDecorator
     {
         $tableName = $column->getTable()->getName();
         $dbName = $column->getTable()->getDataBase()->getAlias();
-        return "<a href='/detail/{$dbName}/{$tableName}/{$value}'>#{$value}</a>";
+        return "<a href='/info/{$dbName}/{$tableName}/{$value}'>#{$value}</a>";
     }
 }

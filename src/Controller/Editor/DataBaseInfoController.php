@@ -5,7 +5,7 @@ namespace App\Controller\Editor;
 
 
 use App\Entity\DataBaseInfo;
-use App\Form\Type\DataBaseType;
+use App\Form\Type\DataBaseInfoType;
 use App\Repository\DataBaseInfoRepository;
 use RemoteDataBase\Exception\ConnectionException;
 use RemoteDataBase\Service\SyncDataBaseTableService;
@@ -76,7 +76,7 @@ class DataBaseInfoController extends AbstractController
         $dataBase = new DataBaseInfo();
         $dataBase->setPort(3306);
 
-        $form = $this->createForm(DataBaseType::class, $dataBase);
+        $form = $this->createForm(DataBaseInfoType::class, $dataBase);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -102,7 +102,7 @@ class DataBaseInfoController extends AbstractController
     {
         $dataBase = $this->dataBaseRepository->find($id);
 
-        $form = $this->createForm(DataBaseType::class, $dataBase, ['method' => DataBaseType::METHOD_EDIT_TYPE]);
+        $form = $this->createForm(DataBaseInfoType::class, $dataBase, ['method' => DataBaseInfoType::METHOD_EDIT_TYPE]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

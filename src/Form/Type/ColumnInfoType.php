@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-class RemoteTableColumnType extends AbstractType
+class ColumnInfoType extends AbstractType
 {
     public const METHOD_EDIT_TYPE = 'edit';
 

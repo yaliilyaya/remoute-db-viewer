@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-class DataBaseType extends AbstractType
+class DataBaseInfoType extends AbstractType
 {
     public const METHOD_EDIT_TYPE = 'edit';
 

@@ -3,7 +3,7 @@
 namespace App\Controller\Editor;
 
 use App\Entity\DataBaseInfo;
-use App\Form\Type\RemoteTableType;
+use App\Form\Type\TableInfoType;
 use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
 use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
@@ -89,7 +89,7 @@ class TableInfoController  extends AbstractController
     ): Response {
         $table = $this->remoteTableRepository->find($tableId);
 
-        $form = $this->createForm(RemoteTableType::class, $table, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
+        $form = $this->createForm(TableInfoType::class, $table, ['method' => TableInfoType::METHOD_EDIT_TYPE]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

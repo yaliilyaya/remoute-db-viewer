@@ -3,8 +3,8 @@
 
 namespace App\Controller\Editor;
 
-use App\Form\Type\RemoteTableColumnType;
-use App\Form\Type\RemoteTableType;
+use App\Form\Type\ColumnInfoType;
+use App\Form\Type\TableInfoType;
 use App\Repository\ColumnInfoRepository;
 use App\Repository\TableInfoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,18 +35,18 @@ class ColumnInfoController extends AbstractController
     }
 
     /**
-     * @Route("/settings/column/config/{columnId}", name="settings.column.edit")
+     * @Route("/settings/column/edit/{columnId}", name="settings.column.edit")
      * @param Request $request
      * @param $columnId
      * @return Response
      */
-    public function configColumn(
+    public function edit(
         Request $request,
         $columnId
     ): Response {
         $column = $this->remoteTableColumnRepository->find($columnId);
 
-        $form = $this->createForm(RemoteTableColumnType::class, $column, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
+        $form = $this->createForm(ColumnInfoType::class, $column, ['method' => TableInfoType::METHOD_EDIT_TYPE]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

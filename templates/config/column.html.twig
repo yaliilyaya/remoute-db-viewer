@@ -1,17 +1,35 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_content %}
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Название</h3>
-            <div class="card-tools">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Свойства</h3>
+                    <div class="card-tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ form(form) }}
+                </div>
             </div>
         </div>
-
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-6">
-                    {{ form(form) }}
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Декораторы</h3>
+                    <div class="card-tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% for decorator in column.decorators %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                            {{ decorator.discriminator }}
+                            {{ decorator.parameter }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

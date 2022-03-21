@@ -4,7 +4,7 @@
 namespace App\Controller\Editor;
 
 use App\Entity\RelativeInfo;
-use App\Form\Type\RemoteRelativeType;
+use App\Form\Type\RelativeInfoType;
 use App\Repository\RemoteRelativeRepository;
 use App\Repository\ColumnInfoRepository;
 use App\Repository\TableInfoRepository;
@@ -61,7 +61,7 @@ class RelativeInfoController extends AbstractController
         $remoteRelative = new RelativeInfo();
         $remoteRelative->setColumnFrom($column);
 
-        $form = $this->createForm(RemoteRelativeType::class, $remoteRelative);
+        $form = $this->createForm(RelativeInfoType::class, $remoteRelative);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
