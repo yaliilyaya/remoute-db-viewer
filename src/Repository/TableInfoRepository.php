@@ -26,21 +26,15 @@ class TableInfoRepository extends ServiceEntityRepository
      * @var DataBaseInfoRepository
      */
     private $baseRepository;
-    /**
-     * @var DelayedConnectionBuilder
-     */
-    private $delayedConnectionBuilder;
 
     public function __construct(
         EntityManagerInterface   $entityManager,
         ManagerRegistry          $registry,
-        DataBaseInfoRepository   $dataBaseRepository,
-        DelayedConnectionBuilder $delayedConnectionBuilder
+        DataBaseInfoRepository   $dataBaseRepository
     ) {
         parent::__construct($registry, TableInfo::class);
         $this->entityManager = $entityManager;
         $this->baseRepository = $dataBaseRepository;
-        $this->delayedConnectionBuilder = $delayedConnectionBuilder;
     }
 
     /**

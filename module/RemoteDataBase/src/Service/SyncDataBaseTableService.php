@@ -9,6 +9,7 @@ use App\Repository\TableInfoRepository;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Table;
 use RemoteDataBase\Builder\TableRemoteRepositoryBuilder;
+use RemoteDataBase\Collection\TableRemoteCollection;
 use RemoteDataBase\Exception\ConnectionException;
 
 /**
@@ -53,24 +54,24 @@ class SyncDataBaseTableService
     {
         $tableRemoteRepository = $this->tableRemoteRepositoryBuilder->create($dataBase);
         $tables = $tableRemoteRepository->findAll();
-        $tableInfoList = $this->createTableInfoList($tables, $dataBase);
-        $this->syncTableColumns($tableInfoList);
-        dump($tableInfoList);
-        die(__FILE__);
+        $tableRemoteCollection = new TableRemoteCollection($tables);
+        $tableInfoList = $this->createTableInfoList($tableRemoteCollection, $dataBase);
+        $this->syncTableColumns($tableInfoList, $tableRemoteCollection);
+
         $this->tableInfoRepository->saveAll($tableInfoList);
     }
 
     /**
-     * @param Table[] $tables
+     * @param TableRemoteCollection $tableRemoteCollection
      * @param DataBaseInfo $dataBase
      * @return TableInfo[]
      */
-    private function createTableInfoList(array $tables, DataBaseInfo $dataBase): array
+    private function createTableInfoList(TableRemoteCollection $tableRemoteCollection, DataBaseInfo $dataBase): array
     {
         return array_map(function (Table $table) use ($dataBase)
         {
             return $this->createTableInfo($table, $dataBase);
-        }, $tables);
+        }, iterator_to_array($tableRemoteCollection));
     }
 
     /**
@@ -88,15 +89,22 @@ class SyncDataBaseTableService
         return $tableInfo;
     }
 
-    private function syncTableColumns(array $tables)
+    /**
+     * @param TableInfo[] $tableInfoList
+     * @param TableRemoteCollection $tableRemoteCollection
+     * @return void
+     */
+    private function syncTableColumns(array $tableInfoList, TableRemoteCollection $tableRemoteCollection)
     {
-        /** @var Table $table */
-        $table = current($tables);
-        /** @var TableInfo $tableInfo */
-        $tableInfo = null;
-        $columns = $table->getColumns();
-        $columnInfoList = $this->columnCollectionByTableBuilder->create($columns);
-        $columnInfoList->setTable($tableInfo);
-        $tableInfo->setColumns($columnInfoList);
+        array_walk(
+            $tableInfoList,
+            function (TableInfo $tableInfo) use ($tableRemoteCollection) {
+                $table = $tableRemoteCollection->findByTableName($tableInfo->getName());
+                $columns = $table->getColumns();
+                $columnInfoList = $this->columnCollectionByTableBuilder->create($columns);
+                $columnInfoList->setTable($tableInfo);
+                $tableInfo->setColumns($columnInfoList);
+            }
+        );
     }
 }
