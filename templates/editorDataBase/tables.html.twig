@@ -14,11 +14,10 @@
             <table class="table table-bordered table-hover dataTable">
                 <thead>
                 <tr role="row">
-                    <th>Label</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>IsActive</th>
-                    <th>Tools</th>
+                    <th width="230">Tools</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,14 +26,13 @@
                         <td>
                             <a href="{{ path('listById',{'tableId': table.id }) }}">{{ table.name }}</a>
                         </td>
-                        <td>{{ table.label }}</td>
                         <td>{{ table.description }}</td>
                         <td>{{ table.isActive }}</td>
                         <td>
                             <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                 <a class="btn btn-default" href="{{ path('syncTable', {'tableId': table.id}) }}">Sync Table</a>
-                                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-cog"></i></a>
-                                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="glyphicon glyphicon-th-list"></i></a>
+                                <a class="btn btn-primary " href="{{ path('configTable', {'tableId': table.id}) }}"><i class="fa fa-table"></i></a>
+                                <a class="btn btn-primary " href="{{ path('configColumns', {'tableId': table.id}) }}"><i class="fa fa-columns"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -42,7 +40,6 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Label</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>IsActive</th>

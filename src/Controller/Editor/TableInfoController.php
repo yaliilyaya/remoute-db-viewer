@@ -5,9 +5,9 @@ namespace App\Controller\Editor;
 use App\Entity\DataBaseInfo;
 use App\Form\Type\RemoteTableType;
 use App\Repository\TableInfoRepository;
-use App\Service\SyncRemoteTableService;
 use Doctrine\DBAL\DBALException;
 use RemoteDataBase\Factory\ConnectionBuilder;
+use RemoteDataBase\Service\SyncRemoteTableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +55,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/table/list", name="tableList")
+     * @Route("/settings/table/list", name="tableList")
      * @return Response
      */
     public function list()
@@ -69,7 +69,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/table/sync/{tableId}", name="syncTable")
+     * @Route("/settings/table/sync/{tableId}", name="syncTable")
      * @param $tableId
      * @return Response
      * @throws DBALException
@@ -77,21 +77,21 @@ class TableInfoController  extends AbstractController
     public function syncTable($tableId)
     {
         $table = $this->tableRepository->find($tableId);
-        $connection = $this->connectionByDataBaseFactory->createConnection($table->getDataBase());
+        $this->syncRemoteTableService->sync($table);
 
-        $this->syncRemoteTableService->sync($connection, $table);
-
-        return $this->redirect("/table/list");
+        return $this->redirectToRoute("tableList");
     }
 
     /**
-     * @Route("/config/table/{tableId}", name="configTable")
+     * @Route("/settings/table/config/{tableId}", name="configTable")
      * @param Request $request
      * @param $tableId
      * @return Response
      */
-    public function configTable(Request $request, $tableId)
-    {
+    public function configTable(
+        Request $request,
+        $tableId
+    ) {
         $table = $this->remoteTableRepository->find($tableId);
 
         $form = $this->createForm(RemoteTableType::class, $table, ['method' => RemoteTableType::METHOD_EDIT_TYPE]);
@@ -102,7 +102,7 @@ class TableInfoController  extends AbstractController
             $dataBase = $form->getData();
             $this->remoteTableRepository->save($dataBase);
 
-            //return $this->redirect("/dataBase/list");
+            return $this->redirectToRoute("tableList");
         }
 
         return $this->render('config/table.html.twig', [
@@ -113,7 +113,7 @@ class TableInfoController  extends AbstractController
     }
 
     /**
-     * @Route("/config/columns/{tableId}", name="configColumns")
+     * @Route("/settings/columns/config/{tableId}", name="configColumns")
      * @param $tableId
      * @return Response
      * @throws DBALException
