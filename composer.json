@@ -4,7 +4,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "7.2",
+        "php": "7.2.34",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -92,9 +92,7 @@
             "@init-app"
         ],
         "init-app": [
-            "@auto-scripts",
-            "mkdir -p data && chmod 777 data",
-            "bin/console --no-interaction doctrine:migrations:migrate"
+            "@auto-scripts"
         ],
         "app": "php bin/console"
     },
